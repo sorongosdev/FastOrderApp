@@ -9,7 +9,13 @@ import {
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
-export default function Login(): React.JSX.Element {
+interface LoginProps {
+  navigation: {
+    navigate: (screen: string) => void;
+  };
+}
+
+export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -25,7 +31,7 @@ export default function Login(): React.JSX.Element {
   const handleLogin = () => {
     console.log('아이디:', id);
     console.log('비밀번호:', password);
-    this.props.navigation.navigate('Main');
+    navigation.navigate('Main');
   };
 
   return (

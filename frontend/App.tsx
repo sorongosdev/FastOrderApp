@@ -11,8 +11,22 @@ export default function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Store" component={Store} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          // Appbar을 기본적으로 보여주고 있어서 일단 앱바 제거함
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Store"
+          component={Store}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
