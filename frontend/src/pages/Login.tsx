@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native";
-import { CheckBox } from 'react-native-elements';
+import 'react-native-gesture-handler';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {CheckBox} from 'react-native-elements';
 
-export default function Login(): React.JSX.Element {
+interface LoginProps {
+  navigation: {
+    navigate: (screen: string) => void;
+  };
+}
+
+export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -10,7 +23,7 @@ export default function Login(): React.JSX.Element {
   function InputIdHandler(Id: string) {
     setId(Id);
   }
-  
+
   function InputPWHandler(Password: string) {
     setPassword(Password);
   }
@@ -18,30 +31,31 @@ export default function Login(): React.JSX.Element {
   const handleLogin = () => {
     console.log('아이디:', id);
     console.log('비밀번호:', password);
+    navigation.navigate('Main');
   };
 
   return (
     <View style={styles.wrap}>
-      <TextInput 
-        style={styles.input} 
-        placeholder='아이디' 
-        placeholderTextColor='#AAA' 
+      <TextInput
+        style={styles.input}
+        placeholder="아이디"
+        placeholderTextColor="#AAA"
         onChangeText={InputIdHandler}
       />
-      <TextInput 
-        style={styles.input} 
-        placeholder='비밀번호' 
-        placeholderTextColor='#AAA' 
-        onChangeText={InputPWHandler} 
+      <TextInput
+        style={styles.input}
+        placeholder="비밀번호"
+        placeholderTextColor="#AAA"
+        onChangeText={InputPWHandler}
         secureTextEntry={!isPasswordVisible}
       />
-      <CheckBox 
-        title='비밀번호 보기' 
-        checked={isPasswordVisible} 
+      <CheckBox
+        title="비밀번호 보기"
+        checked={isPasswordVisible}
         onPress={() => setIsPasswordVisible(!isPasswordVisible)}
         containerStyle={styles.checkboxContainer} // 체크박스 컨테이너 스타일
         textStyle={styles.checkboxText} // 텍스트 스타일
-        checkedColor='black'
+        checkedColor="black"
         // checkedIcon=""
         // uncheckedIcon=""
       />
@@ -81,15 +95,15 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   checkboxContainer: {
-    backgroundColor: 'transparent', 
-    borderWidth: 0, 
-    marginRight : 200
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    marginRight: 200,
   },
   checkboxText: {
-    marginLeft: 8, 
+    marginLeft: 8,
     color: '#AAA',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: 400
-  }
+    fontWeight: 400,
+  },
 });
