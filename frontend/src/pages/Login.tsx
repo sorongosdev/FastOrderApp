@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
+import {Checkbox, Provider as PaperProvider} from 'react-native-paper';
 
 interface LoginProps {
   navigation: {
@@ -16,7 +16,7 @@ interface LoginProps {
   };
 }
 
-export default function Login({ navigation }: LoginProps): React.JSX.Element {
+export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -76,11 +76,17 @@ export default function Login({ navigation }: LoginProps): React.JSX.Element {
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
       <View style={styles.bottomTextLine}>
-        <Text style={styles.bottomText} onPress={handleSearchId}>아이디 찾기</Text>
+        <Text style={styles.bottomText} onPress={handleSearchId}>
+          아이디 찾기
+        </Text>
         <Text style={styles.bottomText}>|</Text>
-        <Text style={styles.bottomText} onPress={handleSearchPW}>비밀번호 찾기</Text>
+        <Text style={styles.bottomText} onPress={handleSearchPW}>
+          비밀번호 찾기
+        </Text>
         <Text style={styles.bottomText}>|</Text>
-        <Text style={styles.bottomTextSign} onPress={handleSignup}>회원가입</Text>
+        <Text style={styles.bottomTextSign} onPress={handleSignup}>
+          회원가입
+        </Text>
       </View>
     </View>
   );
@@ -117,15 +123,15 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent : 'flex-start',
-    width : 320,
+    justifyContent: 'flex-start',
+    width: 320,
     marginTop: 14,
   },
   checkboxText: {
     color: '#AAA',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: '400',
   },
   bottomTextLine: {
     flexDirection: 'row',
@@ -139,14 +145,14 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: '400',
   },
   bottomTextSign: {
     color: '#7F7F7F',
     textAlign: 'right',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: '400',
     marginTop: 1.4,
   },
 });
