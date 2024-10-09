@@ -9,7 +9,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   };
 
   return (
-    <View>
+    <View style={styles.wrap}>
       {/* Main Page 텍스트 클릭 시 Store Information으로 이동 */}
       <Text style={styles.text} onPress={navigateToStore}>
         Main Page
@@ -19,6 +19,11 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  wrap : {
+    flex : 1,
+    justifyContent : 'center',
+    alignItems : 'center'
+  },
   text: {
     fontSize: 30,
   },
