@@ -30,13 +30,13 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
 
   const LikesScreen = () => (
     <View style={styles.container}>
-      <Text>찜 목록</Text>
+      <Text>찜</Text>
     </View>
   );
 
   const MyScreen = () => (
     <View style={styles.container}>
-      <Text>내 정보</Text>
+      <Text>마이페이지</Text>
     </View>
   );
 
