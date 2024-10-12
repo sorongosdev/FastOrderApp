@@ -1,3 +1,4 @@
+import React from 'react';
 import 'react-native-gesture-handler';
 import Login from './src/pages/Login';
 import Main from './src/pages/Main';
@@ -6,7 +7,6 @@ import SignUp from './src/pages/SignUp';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
-
 
 const Stack = createStackNavigator();
 
