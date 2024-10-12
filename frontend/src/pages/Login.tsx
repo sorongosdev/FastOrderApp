@@ -69,6 +69,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
           onPress={() => {
             setChecked(!checked);
           }}
+          color ={checked ? 'orange' : ''}
         />
         <Text style={styles.checkboxText}>로그인 정보 저장</Text>
       </View>

@@ -16,6 +16,9 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   function handleMoveMap() {
     navigation.navigate('Main');
   }
+  function handleMenuInfo() {
+    navigation.navigate('MenuInfo');
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.wrap}>
@@ -46,7 +49,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
 
       {menu.map((item, index) => (
         <View key={index} style={styles.menu}>
-          <Text style={styles.menuName}>{item.name}</Text>
+          <Text style={styles.menuName} onPress={handleMenuInfo}>{item.name}</Text>
           <Text style={styles.menuPrice}>{item.price}</Text>
         </View>
       ))}
