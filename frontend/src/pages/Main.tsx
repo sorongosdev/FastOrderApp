@@ -12,7 +12,6 @@ import HomeIcon from '@assets/icon_home.svg';
 import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
-import {IconButton} from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 
