@@ -4,6 +4,8 @@ import Login from './src/pages/Login';
 import Main from './src/pages/Main';
 import Store from './src/pages/Store';
 import SignUp from './src/pages/SignUp';
+import MenuInfo from './src/pages/MenuInfo';
+import Shopping from './src/pages/Shopping';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -34,6 +36,16 @@ export default function App(): React.JSX.Element {
           <Stack.Screen
             name="Store"
             component={Store}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MenuInfo"
+            component={MenuInfo}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Shopping"
+            component={Shopping}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
