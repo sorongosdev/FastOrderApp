@@ -2,6 +2,10 @@
 #
 .DS_Store
 
+# Pod
+#
+/ios/Podfile.lock
+
 # Xcode
 #
 build/
@@ -21,6 +25,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 **/.xcode.env.local
+/ios/frontend.xcodeproj/project.pbxproj
 
 # Android/IntelliJ
 #
