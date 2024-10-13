@@ -2,9 +2,9 @@ import React from "react";
 import {
     View,
     Text,
-    StyleSheet
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
+import styles from "../styles/SignUp";
 
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     function handleLoginPage() {
@@ -16,11 +16,3 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     </View>)
 }
 
-const styles = StyleSheet.create( {
-    wrap : {
-        flex : 1,
-        color : 'black',
-        justifyContent : 'center',
-        alignItems : 'center'
-    }
-})
