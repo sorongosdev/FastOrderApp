@@ -1,25 +1,36 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    wrap: {
+    container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
     },
+    img : {
+      height: width * 0.4,
+      width: width * 0.4, 
+      borderWidth : 1,
+      borderColor : '#D9D9D9',
+      backgroundColor : '#D9D9D9',
+      marginBottom : '7%'
+    },  
     input: {
-      height: 56,
-      width: 326,
+      height: '7%',
+      width: '84%',
       borderColor: '#B5B5B5',
       borderWidth: 1,
       marginTop: 9,
       paddingLeft: 21,
+      borderRadius : 50
     },
-    button: {
-      height: 56,
-      width: 326,
+    buttonBox: {
+      height: '7%',
+      width: '84%',
       backgroundColor: '#D9D9D9',
-      borderRadius: 5,
+      borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -28,12 +39,42 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'normal',
     },
-    checkboxContainer: {
+    checkWrap: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       width: 320,
       marginTop: 14,
+      marginBottom : 14,
+      marginRight : '52%'
+    },
+    CheckBox : {
+      height: width * 0.05,
+      width: width * 0.05, 
+      borderWidth: 1,
+      borderColor: '#D9D9D9',
+      borderRadius: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin : '2%',
+    },
+    customCheckBox: {
+      height : '100%',
+      width : '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+    },
+    checkMark: {
+      position: 'absolute',
+      left: 4, 
+      top: 3,
+      borderLeftWidth: 3,
+      borderBottomWidth: 3,
+      borderColor: 'orange',
+      transform: [{ rotate: '315deg' }], 
+      height: '50%', 
+      width: '60%'
     },
     checkboxText: {
       color: '#AAA',
@@ -41,7 +82,7 @@ const styles = StyleSheet.create({
       fontStyle: 'normal',
       fontWeight: '400',
     },
-    bottomTextLine: {
+    bottomTextWrap: {
       flexDirection: 'row',
       width: 326,
       justifyContent: 'center',
