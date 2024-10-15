@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import { ScrollView } from "react-native-gesture-handler";
 import styles from "../styles/Shopping";
+import BottomButton from "../components/BottomButton";
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const [count, setCount] = useState(0);
@@ -22,6 +23,10 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     }
     function handlePlus() {
         setCount(count + 1);
+    }
+
+    function handlePayPage() {
+        navigation.navigate('Pay');
     }
 
     return (
@@ -59,11 +64,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                     </View>
                 ))}
             </ScrollView>
-            <View style={styles.shoppingOrderWrap}>
-                <TouchableOpacity style={styles.orderButton}>
-                    <Text style={styles.storeMapText}>28,000원 주문하기</Text>
-                </TouchableOpacity>
-            </View>
+            <BottomButton name="28,000원 주문하기" onPress={handlePayPage}/>
         </View>
     )
 }
