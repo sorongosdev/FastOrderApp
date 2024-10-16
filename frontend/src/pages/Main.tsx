@@ -8,19 +8,19 @@ import {
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {BottomSheet} from 'react-native-elements';
+import styles from '../styles/Main';
+/** Icons */
 import HomeIcon from '@assets/icon_home.svg';
 import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
-import {BottomSheet} from 'react-native-elements';
+
+import MainListItem from '../components/MainListItem';
 
 const Tab = createBottomTabNavigator();
 
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
-  const navigateToStore = () => {
-    navigation.navigate('Store');
-  };
-
   const [selectedButtons, setSelectedButtons] = React.useState([
     false,
     false,
@@ -62,11 +62,15 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </View>
       </View>
-      <View style={styles.bottomSheet}>
-        <Text style={styles.text} onPress={navigateToStore}>
-          Go to Store Information
-        </Text>
-        <Text>bottom sheet</Text>
+      <View style={styles.bottomSheetContainer}>
+        <View style={styles.bottomGrabBox}>
+          <View style={styles.bottomGrab}></View>
+        </View>
+        {/* ListItem */}
+        {/* 자식 컴포넌트에서 네비게이터 사용하려면 navigation prop을 전달해줘야함 */}
+        <MainListItem navigation={navigation} />
+        <MainListItem navigation={navigation} />
+        <MainListItem navigation={navigation} />
       </View>
     </View>
   );
@@ -131,62 +135,3 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  wrap: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 30,
-    marginTop: 30,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    height: 42,
-    backgroundColor: '#E0E0E0',
-  },
-  searchBarContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 12,
-    paddingTop: 5.7,
-    paddingHorizontal: 25,
-    paddingBottom: 15,
-    width: '100%',
-    backgroundColor: '#fff',
-  },
-  buttonGroup: {
-    display: 'flex',
-    gap: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  chip: {
-    paddingVertical: 3,
-    paddingHorizontal: 9,
-    borderRadius: 44,
-  },
-  chipContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 2,
-    alignItems: 'center',
-  },
-  iconBox: {
-    width: 16,
-    height: 16,
-    backgroundColor: '#9A9A9A',
-  },
-  bottomSheet: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#BCBCBC',
-    borderRadius: 24,
-  },
-});
