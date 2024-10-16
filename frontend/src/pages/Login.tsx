@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
+  Alert,  
+  Platform
 } from 'react-native';
 import {Checkbox, Provider as PaperProvider} from 'react-native-paper';
 import styles from '../styles/Login';
@@ -49,7 +50,10 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   }
 
   return (
-    <View style={styles.wrap}>
+    <View style={styles.container}>
+
+      <View style={styles.img}></View>
+
       <TextInput
         style={styles.input}
         placeholder="아이디"
@@ -63,20 +67,24 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
         onChangeText={InputPWHandler}
         secureTextEntry={!isPasswordVisible}
       />
-      <View style={styles.checkboxContainer}>
-        <Checkbox
-          status={checked ? 'checked' : 'unchecked'}
-          onPress={() => {
-            setChecked(!checked);
-          }}
-          color ={checked ? 'orange' : ''}
-        />
-        <Text style={styles.checkboxText}>로그인 정보 저장</Text>
+
+      <View style={styles.checkWrap}>
+        <TouchableOpacity
+          style={styles.CheckBox}
+          onPress={() => setChecked(!checked)}
+          >
+          {checked && (
+            <View style={styles.customCheckBox}>
+              <View style={styles.checkMark} />
+            </View>
+          )}
+        </TouchableOpacity>
+        <Text style={styles.checkboxText}>로그인 상태 유지</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.buttonBox} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
-      <View style={styles.bottomTextLine}>
+      <View style={styles.bottomTextWrap}>
         <Text style={styles.bottomText} onPress={handleSearchId}>
           아이디 찾기
         </Text>
