@@ -1,25 +1,25 @@
 import { StyleSheet } from 'react-native';
 
+
 const styles = StyleSheet.create({
+    container : {
+      flexGrow : 1,
+    },
     wrap: {
-      flexGrow: 1,
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      marginTop: '0%',
-      paddingBottom : '49%'
+      paddingBottom : '34%'
     },
     storeImg: {
       height: 157,
       width: '100%',
       backgroundColor: '#D9D9D9',
     },
-    storeInfo: {
+    infoBox: {
       height: '21%',
       width: '100%',
       marginTop: 23,
       marginLeft: 26.5,
     },
-    InfoText: {
+    infoText: {
       flexDirection: 'row',
     },
     storeName: {
@@ -61,14 +61,6 @@ const styles = StyleSheet.create({
       fontStyle: 'normal',
       fontWeight: '500',
       marginTop: 7,
-    },
-    storeMap: {
-      width: 141,
-      height: 33,
-      borderRadius: 50,
-      backgroundColor: '#D9D9D9',
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     storeMapText: {
       color: '#464646',
