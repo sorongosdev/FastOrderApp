@@ -12,6 +12,7 @@ import HomeIcon from '@assets/icon_home.svg';
 import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
+import {BottomSheet} from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,10 +62,11 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </View>
       </View>
-      <View>
+      <View style={styles.bottomSheet}>
         <Text style={styles.text} onPress={navigateToStore}>
           Go to Store Information
         </Text>
+        <Text>bottom sheet</Text>
       </View>
     </View>
   );
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30,
-    marginTop: 100,
+    marginTop: 30,
   },
   container: {
     flex: 1,
@@ -180,5 +182,11 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
     backgroundColor: '#9A9A9A',
+  },
+  bottomSheet: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#BCBCBC',
+    borderRadius: 24,
   },
 });
