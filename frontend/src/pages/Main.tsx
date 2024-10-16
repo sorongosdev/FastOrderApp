@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BottomSheet} from 'react-native-elements';
 import styles from '../styles/Main';
 /** Icons */
 import HomeIcon from '@assets/icon_home.svg';
@@ -16,7 +15,7 @@ import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
 
-import MainListItem from '../components/MainListItem';
+import BottomSheet from '../components/BottomSheet';
 
 const Tab = createBottomTabNavigator();
 
@@ -62,16 +61,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </View>
       </View>
-      <View style={styles.bottomSheetContainer}>
-        <View style={styles.bottomGrabBox}>
-          <View style={styles.bottomGrab}></View>
-        </View>
-        {/* ListItem */}
-        {/* 자식 컴포넌트에서 네비게이터 사용하려면 navigation prop을 전달해줘야함 */}
-        <MainListItem navigation={navigation} />
-        <MainListItem navigation={navigation} />
-        <MainListItem navigation={navigation} />
-      </View>
+      <BottomSheet navigation={navigation} />
     </View>
   );
 

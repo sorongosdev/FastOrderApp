@@ -51,27 +51,6 @@ const styles = StyleSheet.create({
     height: 16,
     backgroundColor: '#9A9A9A',
   },
-  bottomSheetContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#BCBCBC',
-    borderRadius: 24,
-    display: 'flex',
-    flexDirection: 'column',
-    paddingVertical: 21,
-    paddingHorizontal: 23,
-  },
-  bottomGrabBox: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  bottomGrab: {
-    height: 5,
-    width: 40,
-    backgroundColor: '#fff',
-    borderRadius: 3,
-    marginBottom: 5,
-  },
 });
 
 export default styles;
