@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 5,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   chip: {
     paddingVertical: 3,
