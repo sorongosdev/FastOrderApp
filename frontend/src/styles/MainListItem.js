@@ -1,12 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  bottomSheetTitle: {
-    color: '#434343',
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 18,
-  },
   bottomSheetDateWrapper: {
     display: 'flex',
     flexDirection: 'row',

@@ -19,7 +19,6 @@ export default function MainListItem({
   };
   return (
     <View>
-      <Text style={styles.bottomSheetTitle}>ㅇㅇ님의 최근 주문내역이에요!</Text>
       <View style={styles.bottomSheetDateWrapper}>
         <Text>8.15(월)</Text>
         <Text> • 픽업완료</Text>

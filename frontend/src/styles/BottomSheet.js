@@ -16,19 +16,26 @@ const styles = StyleSheet.create({
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
-    paddingVertical: 21,
     paddingHorizontal: 23,
   },
   handleBox: {
     display: 'flex',
     alignItems: 'center',
+    // borderWidth: 1,
+    paddingTop: 21,
+    paddingBottom: 23,
   },
   handle: {
     height: 5,
     width: 40,
     backgroundColor: '#fff',
     borderRadius: 3,
-    marginBottom: 5,
+  },
+  bottomSheetTitle: {
+    color: '#434343',
+    fontSize: 18,
+    fontWeight: '600',
+    // borderWidth: 1,
   },
 });
 export default styles;
