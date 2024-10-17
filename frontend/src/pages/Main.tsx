@@ -85,7 +85,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   );
 
   return (
-    <SafeAreaView style={{flex: 1, borderWidth: 1}}>
+    <SafeAreaView style={{flex: 1}}>
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarIcon: () => {
@@ -98,11 +98,11 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
             } else if (route.name === 'Likes') {
               IconComponent = LikeIcon;
             } else {
-              IconComponent = MyIcon; // MyIcon으로 변경
+              IconComponent = MyIcon;
             }
 
             return (
-              <View style={{borderWidth: 1}}>
+              <View>
                 <IconComponent width={24} height={24} />
               </View>
             );
@@ -111,7 +111,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           tabBarLabelStyle: {
             padding: 0,
             margin: 0,
-            borderWidth: 1,
+            // borderWidth: 1,
           },
           tabBarStyle: {
             height: 74,
@@ -119,7 +119,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           },
           tabBarItemStyle: {
             padding: 0,
-            borderWidth: 1,
+            // borderWidth: 1,
             // height:74
           },
         })}>
