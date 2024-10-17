@@ -5,22 +5,40 @@ const styles = StyleSheet.create({
     container : {
       flexGrow : 1,
     },
-    wrap: {
-      paddingBottom : '34%'
+    wrapper : {
     },
-    storeImg: {
-      height: 157,
-      width: '100%',
-      backgroundColor: '#D9D9D9',
+    wrap: {
+      width : '100%',
+      paddingBottom : '118%'
     },
     infoBox: {
-      height: '21%',
+      height: '27%',
       width: '100%',
       marginTop: 23,
       marginLeft: 26.5,
+      marginBottom : '10%'
     },
     infoText: {
       flexDirection: 'row',
+      width : '100%'
+    },
+    infoWaitTime : {
+      marginLeft : '5%',
+      marginTop : '3%',
+      marginBottom : '1.5%'
+    },
+    minTime : {
+      color: "#464646",
+      fontSize: 16,
+      fontWeight: "500",
+      fontStyle: "normal",
+    },
+    maxTime : {
+      color: "#464646",
+      fontSize: 16,
+      fontWeight: "500",
+      fontStyle: "normal",
+      marginLeft : '21%'
     },
     storeName: {
       color: '#484747',
@@ -28,7 +46,7 @@ const styles = StyleSheet.create({
       fontStyle: 'normal',
       fontWeight: '600',
     },
-    storeUniqueMenu: {
+    storeMainMenu: {
       color: '#7C7C7C',
       fontSize: 16,
       fontStyle: 'normal',
@@ -36,31 +54,48 @@ const styles = StyleSheet.create({
       marginLeft: 9,
       marginTop : '0.5%'
     },
+    likeImg : {
+        marginLeft : '43%',
+        marginTop : '-1%'
+    },
+    locationImg : {
+      marginTop : '4.7%'
+    },
     storeAddress: {
       color: '#464646',
-      fontSize: 14,
+      fontSize: 16,
       fontStyle: 'normal',
       marginTop: 17,
+      marginLeft : '1.5%'
+    },
+    clockImg : {
+      marginTop : '3.3%',
+      marginLeft : '0.3%'
     },
     storeOpen: {
       marginTop: 10,
       color: '#464646',
-      fontSize: 14,
+      fontSize: 16,
       fontStyle: 'normal',
+      marginLeft : '1.5%'
     },
     storeFastOrder: {
       color: '#7C7C7C',
-      fontSize: 12,
+      fontSize: 14,
       fontStyle: 'normal',
       fontWeight: '500',
       marginTop: '2.6%',
     },
+    phoneImg : {
+      marginTop : '2.8%'
+    },  
     storePhoneNumber: {
       color: '#464646',
-      fontSize: 14,
+      fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '500',
       marginTop: 7,
+      marginLeft : '1.5%'
     },
     storeMapText: {
       color: '#464646',
@@ -80,26 +115,44 @@ const styles = StyleSheet.create({
     },
     menu: {
       width: '100%',
-      height: '12%',
+      height: '18%',
       borderWidth: 1,
       borderTopWidth: 0,
       borderColor: '#DFDFDF',
+      flexDirection : 'row',
+      alignItems : 'center',
+      justifyContent : 'space-between'
+    },
+    menuImg : {
+      borderWidth: 1,
+      width: '15%',
+      height: '55%',
+      borderColor: '#DFDFDF',
+      marginLeft : '3%',
+      marginRight : '6%',
+      borderRadius : 5,
+      backgroundColor : '#D9D9D9'
+    },
+    menuBox : {
+      justifyContent : 'center',
     },
     menuName: {
       color : '#484747',
       fontSize : 18,
       fontStyle : 'normal',
       fontWeight : '600',
-      paddingLeft: '6%',
-      paddingTop: '6%',
+      marginLeft : '20%',
+      textAlign : 'left'
+
     },
     menuPrice: {
       color : '#484747',
       fontSize : 16,
       fontStyle : 'normal',
       fontWeight : '500',
-      paddingLeft: '6%',
-      marginTop: '5%',
+      marginLeft : '20%',
+      marginTop: '12%',
+      textAlign : 'left'
     },
   });
   

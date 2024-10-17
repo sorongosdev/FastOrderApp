@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps'; // 인터페이스 import
-import back_arrow from '../assets/icon_back_arrow.svg'
+import Like from '../assets/icon_like.svg';
+import Location from '../assets/icon_location.svg';
+import Clock from '../assets/icon_clock.svg';
+import Phone from '../assets/icon_phone.svg';
+
+import StoreImg from '../components/StoreImg';
+
 import styles from '../styles/Store';
-import { Image } from 'react-native-svg';
 
 export default function Store({ navigation }: NavigationProp): React.JSX.Element {
   const [isFastOrderOn, setIsFastOrderOn] = useState(true);
@@ -24,33 +29,60 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.wrap}>
-        <View style={styles.storeImg}>
-        </View>
+        <StoreImg navigation={navigation} />
+
         <View style={styles.infoBox}>
+
           <View style={styles.infoText}>
             <Text style={styles.storeName}>찌개찌개</Text>
-            <Text style={styles.storeUniqueMenu}>찌개, 전골</Text>
+            <Text style={styles.storeMainMenu}>찌개, 전골</Text>
+            <View style={styles.likeImg}>
+              <Like />
+            </View>
           </View>
+
           <View style={styles.infoText}>
+            <View style={styles.locationImg}>
+             <Location />
+            </View>
             <Text style={styles.storeAddress}>경기 안산시 상록구 한양대학로 60</Text>
           </View>
+
           <View style={styles.infoText}>
+            <View style={styles.clockImg}>
+             <Clock />
+            </View>
             <Text style={styles.storeOpen}>영업중</Text>
             <Text style={styles.storeFastOrder}>{isFastOrderOn ? ' • 패스트 오더 가능' : ' • 패스트 오더 불가능'}</Text>
           </View>
+          <View style={styles.infoWaitTime}>
+            <Text style={styles.minTime}>12시 기준   1인분-2인분 15분</Text>
+            <View>
+              <Text style={styles.maxTime}>2인분-3인분 30분</Text>
+            </View>
+          </View>
           <View style={styles.infoText}>
+            <View style={styles.phoneImg}>
+             <Phone />
+            </View>
             <Text style={styles.storePhoneNumber}>010-7686-8560</Text>
           </View>
+
         </View>
 
         <View style={styles.padding}></View>
 
-        {menu.map((item, index) => (
-          <View key={index} style={styles.menu}>
-            <Text style={styles.menuName} onPress={handleMenuInfo}>{item.name}</Text>
-            <Text style={styles.menuPrice}>{item.price}</Text>
-          </View>
-        ))}
+        <View style={styles.wrapper}>
+          {menu.map((item, index) => (
+            <View key={index} style={styles.menu}>
+              <View style={styles.menuBox}>
+                <Text style={styles.menuName} onPress={handleMenuInfo}>{item.name}</Text>
+                <Text style={styles.menuPrice}>{item.price}</Text>
+              </View>
+              <View style={styles.menuImg}></View>
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
