@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   handleBox: {
     display: 'flex',
     alignItems: 'center',
-    // borderWidth: 1,
+    borderWidth: 1,
     paddingTop: 21,
     paddingBottom: 23,
   },
