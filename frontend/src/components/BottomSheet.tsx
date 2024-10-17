@@ -16,8 +16,8 @@ import styles from '../styles/BottomSheet';
 
 const {height} = Dimensions.get('window');
 const SHEET_HEIGHT = 312;
-const MIN_Y = height + SHEET_HEIGHT + 200; // 최하단
-const MID_Y = height + SHEET_HEIGHT; // 중간 상태
+const MIN_Y = height + SHEET_HEIGHT + 100; // 최하단
+const MID_Y = height + SHEET_HEIGHT - 100; // 중간 상태
 const MAX_Y = height; // 최상단
 
 export default function BottomSheet({

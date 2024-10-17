@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -84,44 +85,65 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   );
 
   return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: () => {
-          let IconComponent;
+    <SafeAreaView style={{flex: 1, borderWidth: 1}}>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: () => {
+            let IconComponent;
 
-          if (route.name === 'Main') {
-            IconComponent = HomeIcon;
-          } else if (route.name === 'OrderList') {
-            IconComponent = ListIcon;
-          } else if (route.name === 'Likes') {
-            IconComponent = LikeIcon;
-          } else {
-            IconComponent = MyIcon; // MyIcon으로 변경
-          }
+            if (route.name === 'Main') {
+              IconComponent = HomeIcon;
+            } else if (route.name === 'OrderList') {
+              IconComponent = ListIcon;
+            } else if (route.name === 'Likes') {
+              IconComponent = LikeIcon;
+            } else {
+              IconComponent = MyIcon; // MyIcon으로 변경
+            }
 
-          return <IconComponent width={24} height={24} />;
-        },
-      })}>
-      <Tab.Screen
-        name="Main"
-        component={MainScreen}
-        options={{tabBarLabel: '홈'}}
-      />
-      <Tab.Screen
-        name="OrderList"
-        component={OrderListScreen}
-        options={{tabBarLabel: '주문 목록'}}
-      />
-      <Tab.Screen
-        name="Likes"
-        component={LikesScreen}
-        options={{tabBarLabel: '찜 목록'}}
-      />
-      <Tab.Screen
-        name="My"
-        component={MyScreen}
-        options={{tabBarLabel: '내 정보'}}
-      />
-    </Tab.Navigator>
+            return (
+              <View style={{borderWidth: 1}}>
+                <IconComponent width={24} height={24} />
+              </View>
+            );
+          },
+
+          tabBarLabelStyle: {
+            padding: 0,
+            margin: 0,
+            borderWidth: 1,
+          },
+          tabBarStyle: {
+            height: 74,
+            paddingBottom: 0,
+          },
+          tabBarItemStyle: {
+            padding: 0,
+            borderWidth: 1,
+            // height:74
+          },
+        })}>
+        <Tab.Screen
+          name="Main"
+          component={MainScreen}
+          options={{tabBarLabel: '홈'}}
+        />
+        <Tab.Screen
+          name="OrderList"
+          component={OrderListScreen}
+          options={{tabBarLabel: '주문 목록'}}
+        />
+        <Tab.Screen
+          name="Likes"
+          component={LikesScreen}
+          options={{tabBarLabel: '찜 목록'}}
+        />
+        <Tab.Screen
+          name="My"
+          component={MyScreen}
+          options={{tabBarLabel: '내 정보'}}
+        />
+      </Tab.Navigator>
+    </SafeAreaView>
   );
 }
