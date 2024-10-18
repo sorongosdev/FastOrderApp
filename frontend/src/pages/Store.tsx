@@ -29,8 +29,9 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.wrap}>
-        <StoreImg navigation={navigation} />
-
+        <View style={styles.imgBox}>
+          <StoreImg navigation={navigation} />
+        </View>
         <View style={styles.infoBox}>
 
           <View style={styles.infoText}>

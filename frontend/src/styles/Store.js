@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
       width : '100%',
       paddingBottom : '118%'
     },
+    imgBox : {
+      height : '24%'
+    },
     infoBox: {
       height: '27%',
       width: '100%',
