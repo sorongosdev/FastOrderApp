@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -85,7 +86,9 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   );
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      {/* 상태바 색상 설정 */}
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarIcon: () => {
@@ -122,6 +125,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
             // borderWidth: 1,
             // height:74
           },
+          headerShown: false,
         })}>
         <Tab.Screen
           name="Main"
