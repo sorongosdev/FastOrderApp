@@ -1,4 +1,8 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
+
+const SEARCHBAR_HEIGHT = 94;
+const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -7,7 +11,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   sheet: {
-    height: 800,
+    height: height - SEARCHBAR_HEIGHT,
+    paddingBottom: 74,
     backgroundColor: '#BCBCBC',
     borderRadius: 24,
     position: 'absolute',

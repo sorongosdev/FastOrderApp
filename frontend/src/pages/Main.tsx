@@ -88,7 +88,6 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      {/* 상태바 색상 설정 */}
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarIcon: () => {
@@ -121,7 +120,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
             paddingBottom: 0,
           },
           tabBarItemStyle: {
-            padding: 0,
+            padding: 15,
             // borderWidth: 1,
             // height:74
           },
@@ -145,7 +144,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
         <Tab.Screen
           name="My"
           component={MyScreen}
-          options={{tabBarLabel: '내 정보'}}
+          options={{tabBarLabel: '마이페이지'}}
         />
       </Tab.Navigator>
     </SafeAreaView>

@@ -15,10 +15,20 @@ import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
 
 const {height} = Dimensions.get('window');
-const SHEET_HEIGHT = 312;
-const MIN_Y = height + SHEET_HEIGHT + 100; // 최하단
-const MID_Y = height + SHEET_HEIGHT - 100; // 중간 상태
-const MAX_Y = height; // 최상단
+const SEARCHBAR_HEIGHT = 94;
+const SHEET_HEIGHT = height - SEARCHBAR_HEIGHT;
+const LIST_ITEM_HEIGHT = 238;
+const NAVIGATIONBAR_HEIGHT = 74;
+const HANDLE_HEIGHT = 44;
+const MAX_Y = SHEET_HEIGHT; // 최상단
+// const MID_Y = MAX_Y + SHEET_HEIGHT - LIST_ITEM_HEIGHT; // 중간 상태 // 300
+const MID_Y =
+  SHEET_HEIGHT +
+  SHEET_HEIGHT -
+  SEARCHBAR_HEIGHT -
+  LIST_ITEM_HEIGHT -
+  NAVIGATIONBAR_HEIGHT;
+const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT; // 최하단
 
 export default function BottomSheet({
   navigation,
@@ -33,7 +43,7 @@ export default function BottomSheet({
 
   const handleGesture = (event: PanGestureHandlerGestureEvent) => {
     if (event.nativeEvent.translationY < 0) {
-      console.log(event.nativeEvent.velocityY);
+      console.log(height);
       // 위로 슬라이드
       if (translateY.value === MIN_Y) {
         // 바텀시트 최하단일 때
@@ -49,7 +59,8 @@ export default function BottomSheet({
         translateY.value = withTiming(MAX_Y, {duration: 300}); // 바텀시트 최상단으로
       }
     } else {
-      console.log(event.nativeEvent.velocityY);
+      // console.log(event.nativeEvent.velocityY);
+      console.log(height);
 
       // 아래로 슬라이드
       if (translateY.value === MAX_Y) {
