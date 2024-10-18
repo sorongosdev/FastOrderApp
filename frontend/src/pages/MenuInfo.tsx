@@ -10,7 +10,6 @@ import Like from '../assets/icon_like.svg';
 export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Element {
     const [count, setCount] = useState(0);
     
-
     function handleOrder() {
         console.log(count);
         navigation.navigate('Shopping');
@@ -24,11 +23,18 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     function handlePlus() {
         setCount(count + 1);
     }
+
+    function handleBack() {
+        navigation.navigate('Store')
+    }
+    function handleMoveShopping() {
+        navigation.navigate('Shopping')
+    }
     return (
     <SafeAreaView style={styles.container}>
         <View style = {styles.wrap}>
             <View style={styles.imgBox}>
-                <StoreImg navigation={navigation}/>
+                <StoreImg onBack={handleBack} onShopping={handleMoveShopping} />
             </View>
             <View style={styles.storeBox}>
                     <View style={styles.InfoBox}>

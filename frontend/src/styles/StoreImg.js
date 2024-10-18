@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         height : '100%',
         width : '100%',
         marginLeft : '81%',
-        marginTop : '-36%'
+        marginTop : '-35%'
       },
     
 });
