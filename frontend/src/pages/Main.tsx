@@ -16,6 +16,7 @@ import HomeIcon from '@assets/icon_home.svg';
 import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
+import CartIcon from '@assets/icon_cart.svg';
 
 import BottomSheet from '../components/BottomSheet';
 
@@ -41,7 +42,10 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   const MainScreen = () => (
     <View style={styles.wrap}>
       <View style={styles.searchBarContainer}>
-        <TextInput style={styles.input} placeholder="검색" />
+        <View style={styles.searchBarWrapper}>
+          <TextInput style={styles.input} placeholder="검색" />
+          <CartIcon />
+        </View>
         <View style={styles.buttonGroup}>
           {foodTypes.map((type, index) => (
             <TouchableOpacity

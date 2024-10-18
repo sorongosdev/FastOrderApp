@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   input: {
     height: 42,
     backgroundColor: '#E0E0E0',
+    flex: 1,
   },
   searchBarContainer: {
     display: 'flex',
@@ -28,6 +29,13 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     width: '100%',
     backgroundColor: '#fff',
+  },
+  searchBarWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 6,
   },
   buttonGroup: {
     display: 'flex',
