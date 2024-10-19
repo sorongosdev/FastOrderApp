@@ -1,4 +1,25 @@
 {
   "name": "frontend",
-  "displayName": "frontend"
+  "displayName": "frontend",
+  "plugins": [
+    [
+      "@mj-studio/react-native-naver-map",
+      {
+        "client_id": "sc75mhrq7y",
+        "android": {
+          "ACCESS_FINE_LOCATION": true,
+          "ACCESS_COARSE_LOCATION": true,
+          "ACCESS_BACKGROUND_LOCATION": true
+        },
+        "ios": {
+          "NSLocationAlwaysAndWhenInUseUsageDescription": "{{ your location usage description }}",
+          "NSLocationWhenInUseUsageDescription": "{{ your location usage description }}",
+          "NSLocationTemporaryUsageDescriptionDictionary": {
+            "purposeKey": "{{ your purpose key }}",
+            "usageDescription": "{{ your location usage description }}"
+          }
+        }
+      }
+    ]
+  ]
 }

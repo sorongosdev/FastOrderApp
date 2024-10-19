@@ -15,7 +15,7 @@ import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
 
 const {height} = Dimensions.get('window');
-const SEARCHBAR_HEIGHT = 94;
+const SEARCHBAR_HEIGHT = 94.7;
 const SHEET_HEIGHT = height - SEARCHBAR_HEIGHT;
 const LIST_ITEM_HEIGHT = 238;
 const NAVIGATIONBAR_HEIGHT = 74;
@@ -43,7 +43,6 @@ export default function BottomSheet({
 
   const handleGesture = (event: PanGestureHandlerGestureEvent) => {
     if (event.nativeEvent.translationY < 0) {
-      console.log(height);
       // 위로 슬라이드
       if (translateY.value === MIN_Y) {
         // 바텀시트 최하단일 때
@@ -60,8 +59,6 @@ export default function BottomSheet({
       }
     } else {
       // console.log(event.nativeEvent.velocityY);
-      console.log(height);
-
       // 아래로 슬라이드
       if (translateY.value === MAX_Y) {
         // 바텀시트 최상단일 때
