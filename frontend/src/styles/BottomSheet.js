@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 
-const SEARCHBAR_HEIGHT = 94;
+const SEARCHBAR_HEIGHT = 94.7;
 const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     width: '100%',
+    // zIndex: 10,
+    position: 'absolute',
+    top: SEARCHBAR_HEIGHT,
   },
   sheet: {
     height: height - SEARCHBAR_HEIGHT,

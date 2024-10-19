@@ -19,6 +19,7 @@ import MyIcon from '@assets/icon_my.svg';
 import CartIcon from '@assets/icon_cart.svg';
 
 import BottomSheet from '../components/BottomSheet';
+import NaverMap from '../components/NaverMap';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   };
 
   const MainScreen = () => (
-    <View style={styles.wrap}>
+    <View style={styles.mainContainer}>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchBarWrapper}>
           <TextInput style={styles.input} placeholder="검색" />
@@ -67,6 +68,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </View>
       </View>
+      <NaverMap clientId="sc75mhrq7y"></NaverMap>
       <BottomSheet navigation={navigation} />
     </View>
   );
