@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         textAlign: 'center',
-        marginLeft : '38%'
+        marginLeft : '37%'
     },
     storeName: {
         marginTop: 23,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     padding: {
         width: '100%',
         height: 10,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
     },
     menuBox: {
         borderWidth: 1,
