@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  wrap: {
+  mainContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    position: 'relative',
   },
   text: {
     fontSize: 30,
@@ -15,19 +16,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    height: 42,
-    backgroundColor: '#E0E0E0',
-  },
+
   searchBarContainer: {
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
     paddingTop: 5.7,
     paddingHorizontal: 25,
-    paddingBottom: 15,
+    paddingBottom: 12.1,
     width: '100%',
     backgroundColor: '#fff',
+    // borderWidth: 1,
+  },
+  searchBarWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 6,
+  },
+  input: {
+    height: 42,
+    backgroundColor: '#E0E0E0',
+    flex: 1,
   },
   buttonGroup: {
     display: 'flex',
