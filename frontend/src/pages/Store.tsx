@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import {View, Text, ScrollView, SafeAreaView} from 'react-native';
+import {
+  View, 
+  Text, 
+  ScrollView, 
+  SafeAreaView, 
+  TouchableOpacity,
+} from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps'; // 인터페이스 import
 import Like from '../assets/icon_like.svg';
 import Location from '../assets/icon_location.svg';
@@ -82,17 +88,16 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
 
         <View style={styles.wrapper}>
           {menu.map((item, index) => (
-            <View key={index} style={styles.menu}>
+            <TouchableOpacity key={index} style={styles.menu} onPress={handleMenuInfo}>
               <View style={styles.menuBox}>
-                <Text style={styles.menuName} onPress={handleMenuInfo}>{item.name}</Text>
+                <Text style={styles.menuName}>{item.name}</Text>
                 <Text style={styles.menuPrice}>{item.price}</Text>
               </View>
               <View style={styles.menuImg}></View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-

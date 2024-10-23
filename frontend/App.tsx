@@ -7,6 +7,7 @@ import SignUp from './src/pages/SignUp';
 import MenuInfo from './src/pages/MenuInfo';
 import Shopping from './src/pages/Shopping';
 import Pay from './src/pages/Pay';
+import Reception from './src/pages/Reception';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -52,6 +53,11 @@ export default function App(): React.JSX.Element {
           <Stack.Screen
             name="Pay"
             component={Pay}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Reception"
+            component={Reception}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
