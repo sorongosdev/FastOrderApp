@@ -1,27 +1,15 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: '#FFF',
     },
-    wrapper : {
-        width : '80%',
-        height : '8.5%',
-        flexDirection : 'row',
-        justifyContent : 'flex-start',
-        alignItems : 'center'
-    },
     wrap: {
         width: '100%',
         alignItems: 'center',
-    },
-    mainText: {
-        color: '#484747',
-        fontSize: 18,
-        fontWeight: '600',
-        textAlign: 'center',
-        marginLeft : '37%'
     },
     padding: {
         width: '100%',
@@ -49,10 +37,11 @@ const styles = StyleSheet.create({
         position : 'relative'
     },
     mealType : {
-        marginLeft : '5%'
+        marginLeft : '6%',
     },
     temporal : {
         flexDirection : 'row',
+        alignItems : 'center'
     },
     nextArrow : {
         position : 'absolute',
@@ -161,6 +150,49 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
     },
+    checkWrap: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 320,
+        marginTop: 14,
+        marginBottom : 14,
+        marginRight : '59%'
+      },
+      checkBox : {
+        height: width * 0.05,
+        width: width * 0.05, 
+        borderWidth: 1,
+        borderColor: '#B5B5B5',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin : '2%',
+      },
+      customCheckBox: {
+        height : '100%',
+        width : '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+      },
+      checkMark: {
+        position: 'absolute',
+        left: 4, 
+        top: 3,
+        borderLeftWidth: 3,
+        borderBottomWidth: 3,
+        borderColor: 'orange',
+        transform: [{ rotate: '315deg' }], 
+        height: '50%', 
+        width: '60%'
+      },
+      checkboxText: {
+        color: '#656565',
+        fontSize: 14,
+        fontStyle: 'normal',
+        fontWeight: '400',
+      },
 });
 
 export default styles;

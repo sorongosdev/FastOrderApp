@@ -4,23 +4,31 @@ import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/Shopping";
 import BackArrow from '../assets/icon_back_arrow.svg';
 import BottomButton from "../components/BottomButton";
+import TopTitle from "../components/TopTitle";
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
-    const [count, setCount] = useState(0);
-    const orderMenu = [
-        { name: '제육볶음', price: '7,000원', img: ''},
-        { name: '김치찌개', price: '6,500원', img: ''},
-        { name: '된장찌개', price: '6,000원', img: ''}
-    ];
+    const [orderMenu, setOrderMenu] = useState([
+        { name: '제육볶음', price: '7,000원', img: '', count: 0 },
+        { name: '김치찌개', price: '6,500원', img: '', count: 0 },
+        { name: '된장찌개', price: '6,000원', img: '', count: 0 }
+    ]);
 
-    function handleMinus() {
-        if (count > 0) {
-            setCount(count - 1);
-        }
+    function handleMinus(index : number) {
+        setOrderMenu(prevMenu => {
+            const newMenu = [...prevMenu];
+            if (newMenu[index].count > 0) {
+                newMenu[index].count--;
+            }
+            return newMenu;
+        });
     }
     
-    function handlePlus() {
-        setCount(count + 1);
+    function handlePlus(index : number) {
+        setOrderMenu(prevMenu => {
+            const newMenu = [...prevMenu];
+            newMenu[index].count++;
+            return newMenu;
+        });
     }
 
     function handlePayPage() {
@@ -35,12 +43,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.wrap}>
-                    <View style = {styles.wrapper}>
-                        <TouchableOpacity onPress={handleBack}>
-                            <BackArrow />
-                        </TouchableOpacity>
-                        <Text style={styles.mainText}>장바구니</Text>
-                    </View>
+                    <TopTitle name="장바구니" onPress={handleBack} />
                     <View style={styles.padding}></View>
                     <Text style={styles.storeName}>찌개찌개 한양대 에리카 점</Text>
                     <View style={styles.menuBox}>
@@ -56,9 +59,13 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                     <Text style={styles.menuName}>{item.name}</Text>
                                     <Text style={styles.menuPrice}>{item.price}</Text>
                                     <View style={styles.count}>
-                                        <Text style={styles.countText} onPress={handleMinus}>-</Text>
-                                        <Text style={styles.countText}>{count}</Text>
-                                        <Text style={styles.countText} onPress={handlePlus}>+</Text>
+                                        <TouchableOpacity onPress={() => handleMinus(index)}>
+                                            <Text style={styles.countText}>-</Text>
+                                        </TouchableOpacity>
+                                        <Text style={styles.countText}>{item.count}</Text>
+                                        <TouchableOpacity onPress={() => handlePlus(index)}>
+                                            <Text style={styles.countText}>+</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={styles.menuImg}></View>

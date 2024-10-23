@@ -7,14 +7,6 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         backgroundColor : '#FFF'
     },
-    titleText : {
-        color : '#484747',
-        fontSize : 18,
-        fontStyle : 'normal',
-        fontWeight : '600',
-        marginBottom : '5%',
-        marginTop : '5%'
-    },
     padding: {
         width: '100%',
         height: 10,
@@ -23,13 +15,13 @@ const styles = StyleSheet.create({
     signWrap : {
         width : '100%',
         height : '100%',
-        marginTop : '10%',
-        marginLeft : '12.5%'
+        alignItems : 'center'
     },
-    wrapper : {
+    authBox : {
         flexDirection : 'row'
     },  
     lableText : {
+        width : '88%',
         color : '#484747',
         fontSize : 14,
         fontWeight : '400',

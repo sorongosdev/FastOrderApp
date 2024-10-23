@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView} from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { View, Text, SafeAreaView} from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
@@ -61,4 +60,3 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     </SafeAreaView>
     )
 }   
-

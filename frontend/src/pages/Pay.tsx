@@ -10,16 +10,17 @@ import {
     TextInput,
 } from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps';
-import BackArrow from '../assets/icon_back_arrow.svg';
 import NextArrow from '../assets/icon_next_arrow.svg';
 import Eclips from '../assets/icon_eclips.svg';
 import Cancel from '../assets/icon_cancel.svg';
 import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
+import TopTitle from "../components/TopTitle";
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [requestText, setRequestText] = useState('');
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [requestText, setRequestText] = useState<string>('');
+    const [checked, setChecked] = useState<boolean>(false);
 
 
     function handleBack() {
@@ -31,6 +32,9 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
     function handleAlertCoupon() {
         Alert.alert('현재 가지고 있는 쿠폰이 없습니다.');
+    }
+    function handleMoveReception() {
+        navigation.navigate('Reception');
     }
 
     function handleSubmitRequest() {
@@ -46,13 +50,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     <SafeAreaView style={styles.container}>
         <ScrollView>
             <View style={styles.wrap}>
-                <View style = {styles.wrapper}>
-                        <TouchableOpacity onPress={handleBack}>
-                            <BackArrow/>
-                        </TouchableOpacity>
-                    <Text style={styles.mainText}>주문하기</Text>
-                </View>
-            
+                <TopTitle name="주문하기" onPress={handleBack} />
 
                 <View style={styles.padding}></View>
 
@@ -116,7 +114,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                 </View>
             </View>
         </ScrollView>
-        <BottomButton name="결제하기" onPress={handleBack} />
+        <BottomButton name="결제하기" onPress={handleMoveReception} />
 
         {/* 팝업 모달 */}
             <Modal
@@ -141,6 +139,18 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                             value={requestText}
                             onChangeText={setRequestText}
                         />
+                        <View style={styles.checkWrap}>
+                            <TouchableOpacity
+                            style={styles.checkBox}
+                            onPress={() => setChecked(!checked)}>
+                            {checked && (
+                                <View style={styles.customCheckBox}>
+                                <View style={styles.checkMark} />
+                                </View>
+                            )}
+                            </TouchableOpacity>
+                            <Text style={styles.checkboxText}>다음에도 사용</Text>
+                        </View>
                     </View>
                 </View>
                 <BottomButton name='완료' onPress={handleSubmitRequest} />

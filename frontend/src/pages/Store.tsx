@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import {View, Text, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View, 
+  Text, 
+  ScrollView, 
+  SafeAreaView, 
+  TouchableOpacity,
+} from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps'; // 인터페이스 import
 import Like from '../assets/icon_like.svg';
 import Location from '../assets/icon_location.svg';
@@ -95,4 +101,3 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     </SafeAreaView>
   );
 }
-
