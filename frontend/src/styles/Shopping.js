@@ -7,23 +7,9 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         backgroundColor: '#FFF',
     },
-    wrapper : {
-        width : '80%',
-        height : '10%',
-        flexDirection : 'row',
-        justifyContent : 'flex-start',
-        alignItems : 'center'
-    },
     wrap: {
         width: '100%',
         alignItems: 'center',
-    },
-    mainText: {
-        color: '#484747',
-        fontSize: 18,
-        fontWeight: '600',
-        textAlign: 'center',
-        marginLeft : '38%'
     },
     storeName: {
         marginTop: 23,
@@ -36,7 +22,7 @@ const styles = StyleSheet.create({
     padding: {
         width: '100%',
         height: 10,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
     },
     menuBox: {
         borderWidth: 1,

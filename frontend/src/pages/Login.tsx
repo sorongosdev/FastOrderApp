@@ -6,9 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  Platform,
 } from 'react-native';
-import {Checkbox, Provider as PaperProvider} from 'react-native-paper';
 import styles from '../styles/Login';
 
 interface LoginProps {
@@ -69,7 +67,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
 
       <View style={styles.checkWrap}>
         <TouchableOpacity
-          style={styles.CheckBox}
+          style={styles.checkBox}
           onPress={() => setChecked(!checked)}>
           {checked && (
             <View style={styles.customCheckBox}>

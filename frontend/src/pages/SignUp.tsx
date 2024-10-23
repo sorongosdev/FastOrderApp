@@ -11,6 +11,7 @@ import {
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from "../styles/SignUp";
 import BottomButton from "../components/BottomButton";
+import TopTitle from "../components/TopTitle";
 
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>('');
@@ -21,6 +22,10 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
 
     const [comparePW, setComparePW] = useState<boolean>(false);
 
+
+    function handleBack() {
+        navigation.navigate('Login');
+    }
     function handleIdInput(id : string) {
         setID(id);
     }
@@ -74,13 +79,12 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
 
 
     return (<SafeAreaView style={styles.container}>
-        
-            <Text style={styles.titleText}>회원가입</Text>
+        <View style={styles.signWrap}>
+            <TopTitle name="회원가입" onPress={handleBack}/>
             <View style={styles.padding}></View>
-        <ScrollView style={styles.signWrap}>
         
             <Text style={styles.lableText}>아이디</Text>
-            <View style={styles.wrapper}>
+            <View style={styles.authBox}>
                 <TextInput style={styles.inputButton} placeholder="아이디" placeholderTextColor="#929292" onChangeText={handleIdInput}></TextInput>
                 <TouchableOpacity style={styles.buttonBox}>
                     <Text style={styles.buttonText} onPress={handleDuplicate}>중복확인</Text>
@@ -92,13 +96,13 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#929292" onChangeText={handleSecondPW}></TextInput>
 
             <Text style={styles.lableText}>휴대폰 인증</Text>
-            <View style={styles.wrapper}>
+            <View style={styles.authBox}>
                 <TextInput style={styles.inputButton} placeholder="휴대폰 번호" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
                 <TouchableOpacity style={styles.buttonBox} onPress={handleAuthentication}>
                     <Text style={styles.buttonText} onPress={handleGetAuthentication}>인증번호 받기</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
              <BottomButton name="로그인하기" onPress={handleLoginPage}/>
         </TouchableOpacity>

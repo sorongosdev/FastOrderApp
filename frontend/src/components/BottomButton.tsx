@@ -1,7 +1,6 @@
 import styles from "../styles/BottomButton"
 
 import {
-    View,
     Text,
     TouchableOpacity
 } from 'react-native';
