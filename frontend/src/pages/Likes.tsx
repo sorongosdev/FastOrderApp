@@ -10,10 +10,10 @@ import {
 /** Style */
 import styles from '../styles/Likes';
 
-export default function My(): React.JSX.Element {
+export default function Likes(): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <Text>마이페이지</Text>
+      <Text>찜 목록</Text>
     </View>
   );
 }

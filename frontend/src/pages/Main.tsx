@@ -2,7 +2,6 @@ import React from 'react';
 import {
   TouchableOpacity,
   Text,
-  StyleSheet,
   View,
   TextInput,
   SafeAreaView,
@@ -10,6 +9,7 @@ import {
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+/** Style */
 import styles from '../styles/Main';
 /** Icons */
 import HomeIcon from '@assets/icon_home.svg';
@@ -17,9 +17,13 @@ import ListIcon from '@assets/icon_order_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
 import CartIcon from '@assets/icon_cart.svg';
-
+/** Components */
 import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
+/** Pages */
+import Order from '../pages/Order';
+import Likes from '../pages/Likes';
+import My from '../pages/My';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,24 +77,6 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
     </View>
   );
 
-  const OrderListScreen = () => (
-    <View style={styles.container}>
-      <Text>주문 목록</Text>
-    </View>
-  );
-
-  const LikesScreen = () => (
-    <View style={styles.container}>
-      <Text>찜</Text>
-    </View>
-  );
-
-  const MyScreen = () => (
-    <View style={styles.container}>
-      <Text>마이페이지</Text>
-    </View>
-  );
-
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -138,18 +124,18 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           options={{tabBarLabel: '홈'}}
         />
         <Tab.Screen
-          name="OrderList"
-          component={OrderListScreen}
+          name="Order"
+          component={Order}
           options={{tabBarLabel: '주문 목록'}}
         />
         <Tab.Screen
           name="Likes"
-          component={LikesScreen}
+          component={Likes}
           options={{tabBarLabel: '찜 목록'}}
         />
         <Tab.Screen
           name="My"
-          component={MyScreen}
+          component={My}
           options={{tabBarLabel: '마이페이지'}}
         />
       </Tab.Navigator>
