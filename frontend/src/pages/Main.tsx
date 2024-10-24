@@ -112,8 +112,6 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           },
           tabBarItemStyle: {
             padding: 15,
-            // borderWidth: 1,
-            // height:74
           },
           headerShown: false,
         })}>
