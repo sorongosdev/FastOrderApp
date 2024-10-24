@@ -13,7 +13,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import styles from '../styles/Main';
 /** Icons */
 import HomeIcon from '@assets/icon_home.svg';
-import ListIcon from '@assets/icon_order_list.svg';
+import ListIcon from '@assets/icon_list.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
 import CartIcon from '@assets/icon_cart.svg';
@@ -44,7 +44,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
     console.log('Pressed', index);
   };
 
-  const MainScreen = () => (
+  const Main = () => (
     <View style={styles.mainContainer}>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchBarWrapper}>
@@ -105,7 +105,6 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           tabBarLabelStyle: {
             padding: 0,
             margin: 0,
-            // borderWidth: 1,
           },
           tabBarStyle: {
             height: 74,
@@ -120,18 +119,20 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
         })}>
         <Tab.Screen
           name="Main"
-          component={MainScreen}
+          component={Main}
           options={{tabBarLabel: '홈'}}
         />
         <Tab.Screen
-          name="Order"
+          name="OrderList"
           component={Order}
-          options={{tabBarLabel: '주문 목록'}}
+          options={{
+            tabBarLabel: '주문내역',
+          }}
         />
         <Tab.Screen
           name="Likes"
           component={Likes}
-          options={{tabBarLabel: '찜 목록'}}
+          options={{tabBarLabel: '찜'}}
         />
         <Tab.Screen
           name="My"
