@@ -31,9 +31,7 @@ export default function My(): React.JSX.Element {
             <Text style={styles.buttonText}>포인트로 충전하기</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.couponContainer}>
-          <Text>쿠폰</Text>
-        </View>
+        <View style={styles.couponContainer}></View>
       </View>
     </View>
   );
