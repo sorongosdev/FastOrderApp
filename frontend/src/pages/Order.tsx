@@ -9,7 +9,7 @@ import AppbarDefault from '../components/AppbarDefault';
 export default function Order(): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <AppbarDefault />
+      <AppbarDefault title="주문내역" />
       <View style={styles.divder}></View>
       <View style={styles.orderListContainer}>
         <OrderListItem />
