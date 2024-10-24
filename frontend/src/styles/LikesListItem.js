@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     height: '100%',
+    // borderWidth: 1,
   },
   divider: {
     width: '100%',
@@ -29,11 +30,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
     marginLeft: 12,
+    // borderWidth: 1,
   },
   menuName: {
     color: '#484747',
     fontSize: 18,
     fontWeight: '600',
+    lineHeight: 19,
   },
   price: {
     color: '#484747',
