@@ -13,7 +13,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import styles from '../styles/Main';
 /** Icons */
 import HomeIcon from '@assets/icon_home.svg';
-import ListIcon from '@assets/icon_list.svg';
+import ListIcon from '@assets/icon_list_active.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
 import CartIcon from '@assets/icon_cart.svg';
