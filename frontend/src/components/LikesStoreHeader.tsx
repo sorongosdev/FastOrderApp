@@ -1,7 +1,6 @@
 import styles from '../styles/LikesStoreHeader';
 
 import {View, Text} from 'react-native';
-/**Icons */
 
 export default function LikesStoreHeader(): React.JSX.Element {
   return (

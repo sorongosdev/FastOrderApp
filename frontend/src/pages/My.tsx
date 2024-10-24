@@ -5,8 +5,13 @@ import DetailIcon from '@assets/icon_my_details.svg';
 /** Style */
 import styles from '../styles/My';
 import AppbarDefault from '../components/AppbarDefault';
+import {NavigationProp} from '../navigation/NavigationProps';
 
-export default function My(): React.JSX.Element {
+export default function My({navigation}: NavigationProp): React.JSX.Element {
+  const handlePress = () => {
+    navigation.navigate('MyDetail'); // MyDetail로 이동
+  };
+
   return (
     <View style={styles.container}>
       <AppbarDefault title="마이페이지" />
@@ -17,7 +22,7 @@ export default function My(): React.JSX.Element {
           <View style={styles.profileWrapper}>
             <Text style={styles.name}>김돌돌</Text>
             <View style={styles.iconBox}>
-              <DetailIcon />
+              <DetailIcon onPress={handlePress} />
             </View>
           </View>
         </View>
