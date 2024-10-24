@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginBottom: 17,
     fontWeight: '600',
   },
-  rightContainer: {
+  leftContainer: {
     position: 'absolute',
     right: 35,
     top: 14.7,

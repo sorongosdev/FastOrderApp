@@ -3,24 +3,30 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    borderWidth: 1,
     backgroundColor: 'white',
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 25,
+    paddingVertical: 16.7,
+  },
+  leftContainer: {
+    display: 'flex',
     justifyContent: 'center',
+    width: 12,
   },
   title: {
     fontSize: 18,
     color: '#484747',
-    marginTop: 11.7,
-    marginBottom: 17,
     fontWeight: '600',
+    display: 'flex',
+    justifyContent: 'center',
   },
   rightContainer: {
-    position: 'absolute',
-    right: 35,
-    top: 14.7,
+    width: 12,
+    height: 24,
   },
 });
 

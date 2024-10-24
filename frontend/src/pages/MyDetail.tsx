@@ -12,7 +12,7 @@ import DetailIcon from '@assets/icon_my_details.svg';
 import styles from '../styles/MyDetail';
 
 type MyDetailProps = {
-  navigation: StackNavigationProp<any>; // StackNavigationProp으로 변경
+  navigation: StackNavigationProp<any>;
   route: RouteProp<any, any>;
 };
 
@@ -22,7 +22,7 @@ export default function MyDetail({
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <AppbarLeft title={'내 정보 수정'} />
+      <AppbarLeft title={'내 정보 수정'} navigation={navigation} />
       <View style={[styles.divider]}></View>
       <View style={styles.contentContainer}>
         <View style={styles.profileImgBox}>
