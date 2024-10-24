@@ -31,7 +31,32 @@ export default function My(): React.JSX.Element {
             <Text style={styles.buttonText}>포인트로 충전하기</Text>
           </TouchableOpacity>
         </View>
+        {/* 빈 공간 */}
         <View style={styles.couponContainer}></View>
+        {/* 문의 및 알림 */}
+        <View style={styles.helpContainer}>
+          <View style={styles.helpTitle}>
+            <Text style={styles.helpTitleText}>문의 및 알림</Text>
+          </View>
+          <View style={styles.helpMenuContainer}>
+            <View style={styles.helpMenuWrapper}>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>고객센터</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>공지사항</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.helpMenuWrapper}>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>자주 묻는 질문</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>약관 및 정책</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );

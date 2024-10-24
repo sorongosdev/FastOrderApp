@@ -87,6 +87,31 @@ const styles = StyleSheet.create({
     width: COUPON_WIDTH,
     height: COUPON_HEIGHT,
   },
+  helpContainer: {
+    paddingHorizontal: 31,
+  },
+  helpTitle: {
+    paddingVertical: 20,
+  },
+  helpTitleText: {
+    fontSize: 13,
+    fontWeight: '400',
+    color: '#484747',
+  },
+  helpMenuContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  helpMenuWrapper: {
+    display: 'flex',
+    flex: 1,
+    gap: 12,
+  },
+  helpMenuText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#484747',
+  },
 });
 
 export default styles;
