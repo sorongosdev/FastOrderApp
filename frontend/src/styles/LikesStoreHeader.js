@@ -1,28 +1,26 @@
 import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   divider: {
     width: '100%',
     backgroundColor: '#F5F5F5',
   },
-  contentContainer: {
-    flex: 1,
-  },
-  editWrapper: {
-    width: '100%',
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingBottom: 8,
+  container: {},
+  wrapper: {
     display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
     backgroundColor: 'white',
+    paddingLeft: 25,
+    paddingVertical: 15,
   },
-  editButton: {
-    width: 30,
+  storeName: {
+    color: '#484747',
+    fontSize: 18,
+    fontWeight: '600',
   },
-  editText: {
-    color: '#3D3D3D',
+  storeCategory: {
+    color: '#828282',
     fontSize: 14,
     fontWeight: '500',
   },
