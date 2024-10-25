@@ -2,18 +2,22 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     wrapper : {
-        width : '80%',
+        width : '100%',
         height : 51,
         flexDirection : 'row',
-        justifyContent : 'flex-start',
-        alignItems : 'center'
+        justifyContent : 'center',
+        alignItems : 'center',
+        position : 'relative'
     },
     mainText: {
         color: '#484747',
         fontSize: 18,
         fontWeight: '600',
         textAlign: 'center',
-        marginLeft : '37%'
+    },
+    backArrowIcon : {
+        position : 'absolute',
+        left : '10%'
     },
 })
 

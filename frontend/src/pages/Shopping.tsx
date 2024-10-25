@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/Shopping";
-import BackArrow from '../assets/icon_back_arrow.svg';
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
