@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import Login from './src/pages/Login';
 import Main from './src/pages/Main';
+import MyDetail from './src/pages/MyDetail';
 import Store from './src/pages/Store';
 import SignUp from './src/pages/SignUp';
 import MenuInfo from './src/pages/MenuInfo';
@@ -33,6 +34,11 @@ export default function App(): React.JSX.Element {
           <Stack.Screen
             name="Main"
             component={Main}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyDetail"
+            component={MyDetail}
             options={{headerShown: false}}
           />
           <Stack.Screen
