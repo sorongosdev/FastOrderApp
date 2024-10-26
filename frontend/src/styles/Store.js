@@ -1,26 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container : {
       flexGrow : 1,
       backgroundColor : '#FFF'
     },
-    wrapper : {
-    },
     wrap: {
       width : '100%',
-      paddingBottom : '118%'
     },
-    imgBox : {
-      height : '24%'
-    },
+
     infoBox: {
-      height: '27%',
       width: '100%',
       marginTop: 23,
       marginLeft: 26.5,
-      marginBottom : '10%'
+      marginBottom : '10%',
     },
     infoText: {
       flexDirection: 'row',
@@ -115,11 +110,13 @@ const styles = StyleSheet.create({
     padding: {
       width: '100%',
       height: 10,
-      backgroundColor: '#D9D9D9',
+      backgroundColor: 'rgba(218, 218, 218, 0.25)'
+    },
+    menuWrap : {
     },
     menu: {
       width: '100%',
-      height: '18%',
+      height: width * 0.3,
       borderWidth: 1,
       borderTopWidth: 0,
       borderColor: '#DFDFDF',
@@ -129,8 +126,8 @@ const styles = StyleSheet.create({
     },
     menuImg : {
       borderWidth: 1,
-      width: '15%',
-      height: '55%',
+      width: width * 0.15,
+      height: width * 0.15,
       borderColor: '#DFDFDF',
       marginLeft : '3%',
       marginRight : '6%',

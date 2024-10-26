@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
         width : '100%',
         height : '100%', 
       },
-      imgBox : {
-        height : '18%'
-      },
       storeBox: {
         height: '15%',
         width: '100%',
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
       padding: {
         width: '100%',
         height: 10,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
       },
       count: {
         borderWidth: 1,
