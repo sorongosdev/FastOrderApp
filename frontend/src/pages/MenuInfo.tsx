@@ -32,9 +32,7 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     return (
     <SafeAreaView style={styles.container}>
         <View style = {styles.wrap}>
-            <View style={styles.imgBox}>
-                <StoreImg onBack={handleBack} onShopping={handleMoveShopping} />
-            </View>
+            <StoreImg onBack={handleBack} onShopping={handleMoveShopping} />
             <View style={styles.storeBox}>
                     <View style={styles.InfoBox}>
                         <Text style={styles.menuName}>제육볶음</Text>

@@ -45,7 +45,15 @@ const styles = StyleSheet.create({
     },
     nextArrow : {
         position : 'absolute',
-        right : '5%'
+        right : '5%',
+        flexDirection : 'row',
+        gap : '10%',
+    },
+    changePeopleCount : {
+        color : '#848484',
+        fontSize : 14,
+        fontWeight : '400',
+        fontStyle : 'normal',
     },
     payInfo : {
         width : 325,
@@ -98,6 +106,8 @@ const styles = StyleSheet.create({
         fontWeight : '400',
         fontStyle : 'normal'
     },
+
+    // 모달
     modalBackground: {
         flex: 1,
         justifyContent: 'flex-end', 
@@ -193,6 +203,73 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
       },
+
+    //   모달 구분용
+    peopleModalBackground: {
+        flex: 1,
+        alignItems :'center',
+        justifyContent : 'center',
+        backgroundColor: 'rgba(217, 217, 217, 0.8)',
+    },
+    peopleModalView: {
+        height : width * 0.4,
+        width : width * 0.5,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    peopleModalTopBox : {
+        width : '100%',
+        height : '65%',
+        alignItems : 'center', 
+        justifyContent : 'center'
+    },
+    peopleModalText: {
+        fontStyle : 'normal',
+        fontSize: 16,
+        fontWeight: '600',
+        color : '#484747'
+    },
+    peopleCountButtonText : {
+        fontStyle : 'normal',
+        fontSize: 16,
+        fontWeight: '500',
+        color : '#484747'
+    },
+    count: {
+        marginTop : '10%',
+        borderWidth: 1,
+        borderColor: '#D9D9D9',
+        borderRadius: 5,
+        width: 73,
+        height: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 12,
+    },
+    countText: {
+        color: '#484747',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    peopleCountButton : {
+        width : '100%',
+        height : '35%',
+        backgroundColor : '#D9D9D9',
+        alignItems : 'center',
+        justifyContent : 'center',
+        borderBottomLeftRadius : 12,
+        borderBottomRightRadius : 12
+    },
 });
 
 export default styles;

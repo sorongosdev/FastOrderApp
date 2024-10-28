@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     signWrap : {
         width : '100%',
         height : '100%',
-        alignItems : 'center'
+        alignItems : 'center',
     },
     authBox : {
         flexDirection : 'row'
@@ -47,6 +47,17 @@ const styles = StyleSheet.create({
         height : 43,
         marginTop : '2%',
         paddingLeft : '3%'
+    },
+    inputName : {
+        borderWidth : 1,
+        borderColor : '#D9D9D9',
+        backgroundColor : 'rgba(217,217,217,0.00)',
+        borderRadius : 5,
+        width : '64%',
+        height : 43,
+        marginTop : '2%',
+        paddingLeft : '3%',
+        marginRight : '24%'
     },
     buttonBox : {
         height : 'auto',
