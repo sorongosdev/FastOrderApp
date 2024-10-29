@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontStyle : 'normal',
         fontWeight : '600',
-        marginTop : '4%'
+        marginTop : '5%'
     },
     inputText : {
         color : '#484747',

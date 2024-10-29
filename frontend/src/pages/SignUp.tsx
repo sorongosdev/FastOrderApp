@@ -5,7 +5,6 @@ import {
     SafeAreaView,
     TextInput,
     TouchableOpacity,
-    ScrollView,
     Alert
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
@@ -19,8 +18,8 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [secondPW, setSecondPW] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
-    const [authenticationNumber, setAuthenticationNumber] = useState<string>('123');
-
+    const [authenticationNumber, setAuthenticationNumber] = useState<string>('0');
+    const [checkedAuthentication, setCheckedAuthentication] = useState<boolean>(false);
     const [comparePW, setComparePW] = useState<boolean>(false);
 
 
@@ -58,24 +57,43 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     function handlePhone(phone : string) {
         setPhone(phone);
     }
+    function handleAuthentication(authenticationNumber: string) {
+        setAuthenticationNumber(authenticationNumber);
+    }
 
-    function handleAuthentication() {
+
+    function handleGetAuthentication() {
         console.log(phone);
+        Alert.alert('인증번호를 받았습니다.');
+        setAuthenticationNumber('1');
+    }
+    function handleSetAuthentication() {
+        if(authenticationNumber === '123') {
+            Alert.alert('인증 성공');
+            setCheckedAuthentication(true);
+        } else {
+            Alert.alert('인증에 실패하셨습니다.');
+            setCheckedAuthentication(false);
+        }
     }
 
     function handleDuplicate() {
         Alert.alert('중복확인')    
     }
 
-    function handleGetAuthentication() {
-        Alert.alert('인증번호 받기')
-    }
 
     function handleLoginPage() {
-        if(comparePW && authenticationNumber == '123') {
+        if(comparePW && checkedAuthentication) {
             console.log(id);
             console.log(pw);
             console.log(phone);
+            console.log(name);
+            setID('');
+            setPW('');
+            setPhone('');
+            setName('');
+            setAuthenticationNumber('0');
+            setCheckedAuthentication(false);
             navigation.navigate('Login')
         }
     }
@@ -89,8 +107,8 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             <Text style={styles.lableText}>아이디</Text>
             <View style={styles.authBox}>
                 <TextInput style={styles.inputButton} placeholder="아이디" placeholderTextColor="#929292" onChangeText={handleIdInput}></TextInput>
-                <TouchableOpacity style={styles.buttonBox}>
-                    <Text style={styles.buttonText} onPress={handleDuplicate}>중복확인</Text>
+                <TouchableOpacity style={styles.buttonBox} onPress={handleDuplicate}>
+                    <Text style={styles.buttonText}>중복확인</Text>
                 </TouchableOpacity>
             </View>
 
@@ -103,10 +121,19 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             <Text style={styles.lableText}>휴대폰 인증</Text>
             <View style={styles.authBox}>
                 <TextInput style={styles.inputButton} placeholder="휴대폰 번호" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
-                <TouchableOpacity style={styles.buttonBox} onPress={handleAuthentication}>
-                    <Text style={styles.buttonText} onPress={handleGetAuthentication}>인증번호 받기</Text>
+                <TouchableOpacity style={styles.buttonBox} onPress={handleGetAuthentication}>
+                    <Text style={styles.buttonText}>인증번호 받기</Text>
                 </TouchableOpacity>
             </View>
+            {
+            authenticationNumber === '0' ? null :
+                <View style={styles.authBox}>
+                    <TextInput style={styles.inputButton} placeholder="인증 번호" placeholderTextColor="#929292" onChangeText={handleAuthentication}></TextInput>
+                    <TouchableOpacity style={styles.buttonBox} onPress={handleSetAuthentication}>
+                        <Text style={styles.buttonText}>인증번호 확인</Text>
+                    </TouchableOpacity>
+                </View>
+            }
         </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
              <BottomButton name="로그인하기" onPress={handleLoginPage}/>

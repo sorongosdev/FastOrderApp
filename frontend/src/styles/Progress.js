@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   step: {
     alignItems: 'center',
     flex: 1,
+    marginTop : '5%'
   },
   active: {
   },
@@ -37,13 +38,14 @@ const styles = StyleSheet.create({
     borderColor: 'transparent'
   },
   label: {
-    marginTop: 5,
     fontSize: 12,
     color: '#555',
+    position : 'absolute',
+    top : -18,
   },
   line: {
     position: 'absolute',
-    top: 10,
+    top: 30,
     left: 50,
     right: 50,
     height: 2,
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   },
   lineColor : {
     position: 'absolute',
-    top: 10,
+    top: 30,
     left: 50,
     right: 50,
     height: 2,
