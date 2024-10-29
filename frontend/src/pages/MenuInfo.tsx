@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView} from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity} from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
@@ -49,9 +49,13 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
             <View style={styles.padding}></View>
 
             <View style={styles.count}>
-                <Text style={styles.countText} onPress={handleMinus}>-</Text>
+                <TouchableOpacity onPress={handleMinus}>
+                    <Text style={styles.countText}>-</Text>
+                </TouchableOpacity>
                 <Text style={styles.countText}>{count}</Text>
-                <Text style={styles.countText} onPress={handlePlus}>+</Text>
+                <TouchableOpacity onPress={handlePlus}>
+                    <Text style={styles.countText}>+</Text>
+                </TouchableOpacity>
             </View>
         </View>
         <BottomButton name="주문하기" onPress={handleOrder} />

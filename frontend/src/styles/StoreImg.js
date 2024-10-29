@@ -5,18 +5,20 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 140,
         backgroundColor: '#D9D9D9',
+        position : 'relative'
     },
     backArrowImg : {
-        height : '100%',
-        width : '100%',
-        marginTop : '2%',
-        marginLeft : '1%'
+        height : '20%',
+        width : '20%',
+        position : 'absolute',
+        top : 10
       },  
       cartImg : {
-        height : '100%',
-        width : '100%',
-        marginLeft : '81%',
-        marginTop : '-35%'
+        height : '20%',
+        width : '20%',
+        position : 'absolute',
+        right : 10,
+        top : 10
       },
     
 });
