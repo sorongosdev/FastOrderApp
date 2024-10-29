@@ -10,21 +10,23 @@ import {
 } from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps';
 import NextArrow from '../assets/icon_next_arrow.svg';
+import CheckedEclips from '../assets/icon_checked_eclips.svg';
 import Eclips from '../assets/icon_eclips.svg';
-import Cancel from '../assets/icon_cancel.svg';
 import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
-    const [selectedChecked, setSelectedChecked] = useState<boolean>(false);
-    const [checked, setChecked] = useState<boolean>(false);
+    const [selectedChecked, setSelectedChecked] = useState<boolean>(false); //확정 다음에도 사용
+    const [checked, setChecked] = useState<boolean>(false); //다음에도 사용
     const [couponCount ,setCouponCount] = useState<number>(0);
     const [count, setCount] = useState<number>(0); //식사 인원 카운트 수
     const [selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
+    const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
+    const [pickupChecked, setPickupChecked] = useState<boolean>(false); //매장 식사 체크
+
     
 
 
@@ -33,10 +35,18 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     }
     function handlePeoplePopUP() {
         setPeopleModalVisible(true);
+        setStoreChecked(true);
+        setPickupChecked(false);
+    }
+    function handlePickup() {
+        setPickupChecked(true);
+        setStoreChecked(false);
     }
     function handlePeopleCountInitial() {
         setCount(0);
         setSelectedCount(0);
+        setStoreChecked(false);
+        setPickupChecked(false);
     }
 
     function handleMoveReception() {
@@ -96,7 +106,10 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                     {selectedCount > 0 && (
                     <View style={styles.inputBox}>
                         <TouchableOpacity style={styles.temporal} onPress={handlePeoplePopUP}>
-                            <Eclips />
+                            {
+                            storeChecked ? 
+                            <CheckedEclips /> : <Eclips />
+                            }
                             <Text style={styles.mealType}>매장식사 • {selectedCount}명</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.nextArrow} onPress={handlePeopleCountInitial}>
@@ -108,11 +121,17 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                     {selectedCount == 0 && (
                         <View style={styles.inputBox}>
                             <TouchableOpacity style={styles.temporal} onPress={handlePeoplePopUP}>
-                                <Eclips />
+                                {
+                                storeChecked ? 
+                                <CheckedEclips /> : <Eclips />
+                                }
                                 <Text style={styles.mealType}>매장식사</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.temporal}>
-                                <Eclips />
+                            <TouchableOpacity style={styles.temporal} onPress={handlePickup}>
+                                {
+                                pickupChecked ? 
+                                <CheckedEclips /> : <Eclips />
+                                }
                                 <Text style={styles.mealType}>픽업</Text>
                             </TouchableOpacity> 
                         </View>
