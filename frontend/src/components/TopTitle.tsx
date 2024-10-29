@@ -15,7 +15,7 @@ interface TopTitleProps {
 export default function TopTitle({name,onPress}:TopTitleProps):React.JSX.Element {
     return(
     <View style = {styles.wrapper}>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity style = {styles.backArrowIcon} onPress={onPress}>
             <BackArrow/>
         </TouchableOpacity>
         <Text style={styles.mainText}>{name}</Text>

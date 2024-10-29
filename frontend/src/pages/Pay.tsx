@@ -5,7 +5,6 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Alert,
     Modal,
     TextInput,
 } from 'react-native';
@@ -19,8 +18,13 @@ import TopTitle from "../components/TopTitle";
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
     const [checked, setChecked] = useState<boolean>(false);
+    const [couponCount ,setCouponCount] = useState<number>(0);
+    const [count, setCount] = useState<number>(0); //식사 인원 카운트 수
+    const[selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
+    
 
 
     function handleBack() {
@@ -29,10 +33,14 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     function handleReqPopUp() {
         setModalVisible(true);
     }
-
-    function handleAlertCoupon() {
-        Alert.alert('현재 가지고 있는 쿠폰이 없습니다.');
+    function handlePeoplePopUP() {
+        setPeopleModalVisible(true);
     }
+    function handlePeopleCountInitial() {
+        setCount(0);
+        setSelectedCount(0);
+    }
+
     function handleMoveReception() {
         navigation.navigate('Reception');
     }
@@ -44,6 +52,18 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     function handleCancelRequest() {
         setRequestText('');
         setModalVisible(false);
+    }
+    function handlePlus() {
+        setCount(count+1);
+    }
+    function handleMinus() {
+        if(count > 0) {
+            setCount(count-1);
+        }
+    }
+    function handleCancelPeoplePopUP() {
+        setSelectedCount(count);
+        setPeopleModalVisible(false);
     }
 
     return (
@@ -62,29 +82,35 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                             <NextArrow/>
                         </TouchableOpacity>
                     </TouchableOpacity>
+                    {selectedCount > 0 && (
                     <View style={styles.inputBox}>
-                        <TouchableOpacity style={styles.temporal}>
+                        <TouchableOpacity style={styles.temporal} onPress={handlePeoplePopUP}>
                             <Eclips />
-                            <Text style={styles.mealType}>매장식사</Text>
+                            <Text style={styles.mealType}>매장식사 • {selectedCount}명</Text>
                         </TouchableOpacity>
-                        
-                        <TouchableOpacity style={styles.temporal}>
-                            <Eclips />
-                            <Text style={styles.mealType}>픽업</Text>
+                        <TouchableOpacity style={styles.nextArrow} onPress={handlePeopleCountInitial}>
+                            <Text style={styles.changePeopleCount}>변경하기</Text>
+                            <NextArrow/>
                         </TouchableOpacity>
                     </View>
+                    )}
+                    {selectedCount == 0 && (
+                        <View style={styles.inputBox}>
+                            <TouchableOpacity style={styles.temporal} onPress={handlePeoplePopUP}>
+                                <Eclips />
+                                <Text style={styles.mealType}>매장식사</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.temporal}>
+                                <Eclips />
+                                <Text style={styles.mealType}>픽업</Text>
+                            </TouchableOpacity> 
+                        </View>
+                    )}
                 </View>
-                <TouchableOpacity onPress={handleAlertCoupon}>
+                <TouchableOpacity>
                     <Text style={styles.labelText}>할인쿠폰</Text>
                     <View style={styles.inputBox}>
-                        <Text>요청 입력</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                    <Text style={styles.labelText}>현금영수증</Text>
-                    <View style={styles.inputBox}>
-                        <Text>신청 안함</Text>
+                        <Text style={couponCount == 0 ? {color : '#A1A1A1'} : {}}>{couponCount == 0 ? '사용 가능한 쿠폰이 없습니다.' :`사용 가능한 쿠폰이 ${couponCount}장 있습니다.`}</Text>
                         <TouchableOpacity style={styles.nextArrow}>
                             <NextArrow/>
                         </TouchableOpacity>
@@ -116,7 +142,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
         </ScrollView>
         <BottomButton name="결제하기" onPress={handleMoveReception} />
 
-        {/* 팝업 모달 */}
+        {/* 요청사항 모달 */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -154,6 +180,35 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                     </View>
                 </View>
                 <BottomButton name='완료' onPress={handleSubmitRequest} />
+            </Modal>
+
+        {/* 식사 인원 모달 */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={peopleModalVisible}
+                onRequestClose={() => {
+                    setPeopleModalVisible(!peopleModalVisible);
+                }}>
+                <View style={styles.peopleModalBackground}>
+                    <View style={styles.peopleModalView}>
+                        <View style={styles.peopleModalTopBox}>
+                            <Text style={styles.peopleModalText}>매장 식사 인원 수</Text>
+                        <View style={styles.count}>
+                            <TouchableOpacity onPress={handleMinus}>
+                                <Text style={styles.countText}>-</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.countText}>{count}</Text>
+                                <TouchableOpacity onPress={handlePlus}>
+                                    <Text style={styles.countText}>+</Text>
+                                </TouchableOpacity>
+                        </View>
+                        </View>
+                        <TouchableOpacity style = {styles.peopleCountButton} onPress={handleCancelPeoplePopUP}>
+                            <Text style={styles.peopleCountButtonText}>완료</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </Modal>
     </SafeAreaView>
     )

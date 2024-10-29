@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     storeImgContainer : {
         width: '100%',
-        height: '100%',
+        height: 140,
         backgroundColor: '#D9D9D9',
     },
     backArrowImg : {

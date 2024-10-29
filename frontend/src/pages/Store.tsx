@@ -25,6 +25,9 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     { name: '갈비탕', price: '8,000원', img: '' },
     { name: '비빔밥', price: '7,500원', img: '' },
     { name: '떡볶이', price: '5,500원', img: '' },
+    { name: '갈비탕', price: '8,000원', img: '' },
+    { name: '비빔밥', price: '7,500원', img: '' },
+    { name: '떡볶이', price: '5,500원', img: '' },
   ];
 
 
@@ -41,61 +44,60 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.wrap}>
-        <View style={styles.imgBox}>
+      <ScrollView>
+        <View style={styles.wrap}>
           <StoreImg onBack={handleMoveMain} onShopping={handleMoveShopping} />
-        </View>
-        <View style={styles.infoBox}>
+          <View style={styles.infoBox}>
 
-          <View style={styles.infoText}>
-            <Text style={styles.storeName}>찌개찌개</Text>
-            <Text style={styles.storeMainMenu}>찌개, 전골</Text>
-            <View style={styles.likeImg}>
-              <Like />
-            </View>
-          </View>
-
-          <View style={styles.infoText}>
-            <View style={styles.locationImg}>
-             <Location />
-            </View>
-            <Text style={styles.storeAddress}>경기 안산시 상록구 한양대학로 60</Text>
-          </View>
-
-          <View style={styles.infoText}>
-            <View style={styles.clockImg}>
-             <Clock />
-            </View>
-            <Text style={styles.storeOpen}>영업중</Text>
-            <Text style={styles.storeFastOrder}>{isFastOrderOn ? ' • 패스트 오더 가능' : ' • 패스트 오더 불가능'}</Text>
-          </View>
-          <View style={styles.infoWaitTime}>
-            <Text style={styles.minTime}>12시 기준   1인분-2인분 15분</Text>
-            <View>
-              <Text style={styles.maxTime}>2인분-3인분 30분</Text>
-            </View>
-          </View>
-          <View style={styles.infoText}>
-            <View style={styles.phoneImg}>
-             <Phone />
-            </View>
-            <Text style={styles.storePhoneNumber}>010-7686-8560</Text>
-          </View>
-
-        </View>
-
-        <View style={styles.padding}></View>
-
-        <View style={styles.wrapper}>
-          {menu.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menu} onPress={handleMenuInfo}>
-              <View style={styles.menuBox}>
-                <Text style={styles.menuName}>{item.name}</Text>
-                <Text style={styles.menuPrice}>{item.price}</Text>
+            <View style={styles.infoText}>
+              <Text style={styles.storeName}>찌개찌개</Text>
+              <Text style={styles.storeMainMenu}>찌개, 전골</Text>
+              <View style={styles.likeImg}>
+                <Like />
               </View>
-              <View style={styles.menuImg}></View>
-            </TouchableOpacity>
-          ))}
+            </View>
+
+            <View style={styles.infoText}>
+              <View style={styles.locationImg}>
+              <Location />
+              </View>
+              <Text style={styles.storeAddress}>경기 안산시 상록구 한양대학로 60</Text>
+            </View>
+
+            <View style={styles.infoText}>
+              <View style={styles.clockImg}>
+              <Clock />
+              </View>
+              <Text style={styles.storeOpen}>영업중</Text>
+              <Text style={styles.storeFastOrder}>{isFastOrderOn ? ' • 패스트 오더 가능' : ' • 패스트 오더 불가능'}</Text>
+            </View>
+            <View style={styles.infoWaitTime}>
+              <Text style={styles.minTime}>12시 기준   1인분-2인분 15분</Text>
+              <View>
+                <Text style={styles.maxTime}>2인분-3인분 30분</Text>
+              </View>
+            </View>
+            <View style={styles.infoText}>
+              <View style={styles.phoneImg}>
+              <Phone />
+              </View>
+              <Text style={styles.storePhoneNumber}>010-7686-8560</Text>
+            </View>
+          </View>
+
+          <View style={styles.padding}></View>
+
+          <View style={styles.menuWrap}>
+            {menu.map((item, index) => (
+              <TouchableOpacity key={index} style={styles.menu} onPress={handleMenuInfo}>
+                <View style={styles.menuBox}>
+                  <Text style={styles.menuName}>{item.name}</Text>
+                  <Text style={styles.menuPrice}>{item.price}</Text>
+                </View>
+                <View style={styles.menuImg}></View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -17,6 +17,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>('');
     const [pw, setPW] = useState<string>('');
     const [secondPW, setSecondPW] = useState<string>('');
+    const [name, setName] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [authenticationNumber, setAuthenticationNumber] = useState<string>('123');
 
@@ -51,7 +52,9 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             return comparePW
         }
     }
-
+    function handleName(name : string) {
+        setName(name)
+    }
     function handlePhone(phone : string) {
         setPhone(phone);
     }
@@ -95,6 +98,8 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             <TextInput style={styles.input} placeholder="비밀번호" placeholderTextColor="#929292" onChangeText={handlePwInput}></TextInput>
             <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#929292" onChangeText={handleSecondPW}></TextInput>
 
+            <Text style={styles.lableText}>이름</Text>
+            <TextInput style={styles.inputName} placeholder="성명을 입력하세요" placeholderTextColor='#929292' onChangeText={handleName}/>
             <Text style={styles.lableText}>휴대폰 인증</Text>
             <View style={styles.authBox}>
                 <TextInput style={styles.inputButton} placeholder="휴대폰 번호" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
