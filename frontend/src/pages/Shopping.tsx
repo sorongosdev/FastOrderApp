@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/Shopping";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
+    const menuImg = require('../assets/menu_title.png'); // require로 임포트
     const [orderMenu, setOrderMenu] = useState([
-        { name: '제육볶음', price: '7,000원', img: '', count: 0 },
-        { name: '김치찌개', price: '6,500원', img: '', count: 0 },
-        { name: '된장찌개', price: '6,000원', img: '', count: 0 }
+        { name: '제육볶음', price: '7,000원', img: menuImg, count: 0 },
+        { name: '김치찌개', price: '6,500원', img: menuImg, count: 0 },
+        { name: '된장찌개', price: '6,000원', img: menuImg, count: 0 }
     ]);
 
     function handleMinus(index : number) {
@@ -67,13 +68,15 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                                <View style={styles.menuImg}></View>
+                                <View style={styles.menuImg}>
+                                    <Image source={item.img} style={{height : '100%', width: '100%'}}/>
+                                </View>
                             </View>
                         ))}
                     </View>
                 </View>
             </ScrollView>
-            <BottomButton name="28,000원 주문하기" onPress={handlePayPage}/>
+            <BottomButton name="28,000원 주문하기" onPress={handlePayPage} checked={true}/>
         </SafeAreaView>
     );
 }

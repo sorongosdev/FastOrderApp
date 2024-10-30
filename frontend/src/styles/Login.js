@@ -12,11 +12,26 @@ const styles = StyleSheet.create({
     img : {
       height: width * 0.4,
       width: width * 0.4, 
-      borderWidth : 1,
-      borderColor : '#D9D9D9',
-      backgroundColor : '#D9D9D9',
-      marginBottom : '7%'
+      alignItems: 'center',
+      justifyContent : 'center',
     },  
+    titleWrap : {
+      gap : '10%',
+      marginBottom : '10%',
+      alignItems : 'center'
+    },
+    title : {
+      color: 'var(--Labels-Primary, #000)',
+      fontSize : 32,
+      fontStyle : 'normal',
+      fontWeight : '600',
+    },
+    semiTitle : {
+      color: 'var(--Labels-Primary, #000)',
+      fontSize : 15,
+      fontStyle : 'normal',
+      fontWeight : '500',
+    },
     input: {
       height: '7%',
       width: '84%',
@@ -29,15 +44,17 @@ const styles = StyleSheet.create({
     buttonBox: {
       height: '7%',
       width: '84%',
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#1B1B1B',
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
     },
     buttonText: {
-      color: '#939393',
+      color: '#FFF',
+      fontFamily: 'Pretendard',
       fontSize: 18,
-      fontWeight: 'normal',
+      fontStyle: 'normal',
+      fontWeight: '600',
     },
     checkWrap: {
       flexDirection: 'row',
@@ -46,41 +63,15 @@ const styles = StyleSheet.create({
       width: 320,
       marginTop: 14,
       marginBottom : 14,
-      marginRight : '52%'
+      marginRight : '47%'
     },
-    checkBox : {
-      height: width * 0.05,
-      width: width * 0.05, 
-      borderWidth: 1,
-      borderColor: '#D9D9D9',
-      borderRadius: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin : '2%',
-    },
-    customCheckBox: {
-      height : '100%',
-      width : '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-    },
-    checkMark: {
-      position: 'absolute',
-      left: 4, 
-      top: 3,
-      borderLeftWidth: 3,
-      borderBottomWidth: 3,
-      borderColor: 'orange',
-      transform: [{ rotate: '315deg' }], 
-      height: '50%', 
-      width: '60%'
-    },
+    
     checkboxText: {
       color: '#AAA',
       fontSize: 14,
       fontStyle: 'normal',
       fontWeight: '400',
+      marginLeft : '2%',
     },
     bottomTextWrap: {
       flexDirection: 'row',
