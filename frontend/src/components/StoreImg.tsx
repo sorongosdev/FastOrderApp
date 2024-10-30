@@ -13,10 +13,10 @@ export default function StoreImg({ onBack, onShopping}: StoreImgProps): React.JS
     return (
       <View style={styles.storeImgContainer}>
       <TouchableOpacity onPress={onBack} style={styles.backArrowImg}>
-        <BackArrow width={'12%'} height={'24%'} />
+        <BackArrow width={'100%'} height={'100%'} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onShopping} style={styles.cartImg}>
-        <Cart width={'12%'} height={'20%'}/>
+        <Cart width={'100%'} height={'100%'}/>
       </TouchableOpacity>
     </View>
     )

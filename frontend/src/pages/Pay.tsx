@@ -20,18 +20,16 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
+    const [selectedChecked, setSelectedChecked] = useState<boolean>(false);
     const [checked, setChecked] = useState<boolean>(false);
     const [couponCount ,setCouponCount] = useState<number>(0);
     const [count, setCount] = useState<number>(0); //식사 인원 카운트 수
-    const[selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
+    const [selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
     
 
 
     function handleBack() {
         navigation.navigate('Shopping');
-    }
-    function handleReqPopUp() {
-        setModalVisible(true);
     }
     function handlePeoplePopUP() {
         setPeopleModalVisible(true);
@@ -44,14 +42,14 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     function handleMoveReception() {
         navigation.navigate('Reception');
     }
-
-    function handleSubmitRequest() {
-        setRequestText(requestText);
-        setModalVisible(false);
-    }
-    function handleCancelRequest() {
-        setRequestText('');
-        setModalVisible(false);
+    function handleChecked() {
+        setChecked(!checked);
+        if(checked) {
+            setSelectedChecked(true);
+        } else {
+            setSelectedChecked(false);
+        }
+        console.log(selectedChecked);
     }
     function handlePlus() {
         setCount(count+1);
@@ -76,12 +74,25 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
                 <View>
                     <Text style={styles.labelText}>가게 요청사항</Text>
-                    <TouchableOpacity style={styles.inputBox} onPress={handleReqPopUp}>
-                        <Text>{requestText || '요청 입력'}</Text>
-                        <TouchableOpacity style={styles.nextArrow}>
-                            <NextArrow/>
-                        </TouchableOpacity>
-                    </TouchableOpacity>
+                    <TextInput 
+                        placeholder="요청 입력"
+                        placeholderTextColor="#484747"
+                        value={requestText}
+                        onChangeText={setRequestText}
+                        style={styles.inputBox}
+                    />
+                    <View style={styles.checkWrap}>
+                            <TouchableOpacity
+                                style={styles.checkBox}
+                                onPress={() => handleChecked()}>
+                                {checked && (
+                                    <View style={styles.customCheckBox}>
+                                        <View style={styles.checkMark} />
+                                    </View>
+                                )}
+                            </TouchableOpacity>
+                            <Text style={styles.checkboxText}>다음에도 사용</Text>
+                    </View>
                     {selectedCount > 0 && (
                     <View style={styles.inputBox}>
                         <TouchableOpacity style={styles.temporal} onPress={handlePeoplePopUP}>
@@ -142,46 +153,6 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
         </ScrollView>
         <BottomButton name="결제하기" onPress={handleMoveReception} />
 
-        {/* 요청사항 모달 */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}>
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalView}>
-                        <View style={styles.modalTextBox}>
-                            <Text style={styles.modalText}>가게 요청사항</Text>
-                            <TouchableOpacity onPress={handleCancelRequest}>
-                                <Cancel />
-                            </TouchableOpacity>
-                        </View>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="예) 양파 빼주세요, 안 맵게 해주세요"
-                            placeholderTextColor={'#484747'}
-                            value={requestText}
-                            onChangeText={setRequestText}
-                        />
-                        <View style={styles.checkWrap}>
-                            <TouchableOpacity
-                            style={styles.checkBox}
-                            onPress={() => setChecked(!checked)}>
-                            {checked && (
-                                <View style={styles.customCheckBox}>
-                                <View style={styles.checkMark} />
-                                </View>
-                            )}
-                            </TouchableOpacity>
-                            <Text style={styles.checkboxText}>다음에도 사용</Text>
-                        </View>
-                    </View>
-                </View>
-                <BottomButton name='완료' onPress={handleSubmitRequest} />
-            </Modal>
-
         {/* 식사 인원 모달 */}
             <Modal
                 animationType="slide"
@@ -194,15 +165,15 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                     <View style={styles.peopleModalView}>
                         <View style={styles.peopleModalTopBox}>
                             <Text style={styles.peopleModalText}>매장 식사 인원 수</Text>
-                        <View style={styles.count}>
-                            <TouchableOpacity onPress={handleMinus}>
-                                <Text style={styles.countText}>-</Text>
-                            </TouchableOpacity>
-                            <Text style={styles.countText}>{count}</Text>
+                            <View style={styles.count}>
+                                <TouchableOpacity onPress={handleMinus}>
+                                    <Text style={styles.countText}>-</Text>
+                                </TouchableOpacity>
+                                <Text style={styles.countText}>{count}</Text>
                                 <TouchableOpacity onPress={handlePlus}>
                                     <Text style={styles.countText}>+</Text>
                                 </TouchableOpacity>
-                        </View>
+                            </View>
                         </View>
                         <TouchableOpacity style = {styles.peopleCountButton} onPress={handleCancelPeoplePopUP}>
                             <Text style={styles.peopleCountButtonText}>완료</Text>

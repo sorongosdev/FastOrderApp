@@ -106,68 +106,10 @@ const styles = StyleSheet.create({
         fontWeight : '400',
         fontStyle : 'normal'
     },
-
-    // 모달
-    modalBackground: {
-        flex: 1,
-        justifyContent: 'flex-end', 
-        backgroundColor: 'rgba(217, 217, 217, 0.8)',
-    },
-    modalView: {
-        height : '33%',
-        backgroundColor: 'white',
-        borderRadius: 20,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    modalTextBox : {
-        marginTop : '8%',
-        flexDirection : 'row',
-        width : '84%',
-        justifyContent : 'space-between'
-    },
-    modalText: {
-        fontStyle : 'normal',
-        fontSize: 16,
-        fontWeight: '600',
-        color : '#484747'
-    },
-    input: {
-        marginTop : '5%',
-        height: '20%',
-        width: '84%',
-        borderColor: '#D9D9D9',
-        borderWidth: 1,
-        borderRadius : 5,
-        backgroundColor : 'rgba(217, 217, 217, 0.00)',
-        paddingLeft : '4%'
-    },
-    button: {
-        backgroundColor: '#2196F3',
-        borderRadius: 5,
-        padding: 10,
-        margin: 5,
-        width: '45%',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-    },
     checkWrap: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        width: 320,
-        marginTop: 14,
-        marginBottom : 14,
-        marginRight : '59%'
+        justifyContent : 'flex-start',
       },
       checkBox : {
         height: width * 0.05,
@@ -203,6 +145,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
       },
+    
 
     //   모달 구분용
     peopleModalBackground: {
