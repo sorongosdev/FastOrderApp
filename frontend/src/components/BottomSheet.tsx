@@ -28,7 +28,7 @@ const MID_Y =
   SEARCHBAR_HEIGHT -
   LIST_ITEM_HEIGHT -
   NAVIGATIONBAR_HEIGHT;
-const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT; // 최하단
+const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT + 10; // 최하단
 
 export default function BottomSheet({
   navigation,
