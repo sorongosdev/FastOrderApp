@@ -9,7 +9,6 @@ import CartIcon from '@assets/icon_cart.svg';
 /** Components */
 import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
-import BottomNavigation from '../components/BottomNavigation';
 
 const Tab = createBottomTabNavigator();
 
