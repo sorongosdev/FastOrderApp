@@ -57,7 +57,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </View>
       </View>
-      <NaverMap clientId="sc75mhrq7y"></NaverMap>
+      <NaverMap navigation={navigation}></NaverMap>
       <BottomSheet navigation={navigation} />
     </View>
   );
