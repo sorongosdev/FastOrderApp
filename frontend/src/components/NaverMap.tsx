@@ -15,6 +15,13 @@ interface Coord {
   longitude: number;
 }
 
+interface Region {
+  latitude: number;
+  latitudeDelta: number;
+  longitude: number;
+  longitudeDelta: number;
+}
+
 export default function NaverMap({
   navigation,
 }: NavigationProp): React.JSX.Element {
@@ -26,6 +33,13 @@ export default function NaverMap({
     navigation.navigate('Store');
   };
 
+  const initialRegion: Region = {
+    latitude: 37.29879436841754,
+    longitude: 126.83961892219863,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
+  };
+
   const {height} = Dimensions.get('window');
   const containerHeight = height - 200;
 
@@ -34,12 +48,13 @@ export default function NaverMap({
       <NaverMapView
         style={{width: '100%', height: containerHeight}}
         isShowLocationButton={true}
+        initialRegion={initialRegion}
         onTapMap={handleMapTap}>
         <NaverMapMarkerOverlay
           latitude={37.29979436841754}
           longitude={126.83861892219863}
           onTap={() => handleStore()}
-          anchor={{x: 229, y: 277}}
+          anchor={{x: 229, y: height / 2}}
           width={80}
           height={80}
           image={require('../assets/icon_marker.png')}
