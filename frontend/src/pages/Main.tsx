@@ -29,12 +29,16 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
     console.log('Pressed', index);
   };
 
+  const navigateToShopping = () => {
+    navigation.navigate('Shopping');
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchBarWrapper}>
           <TextInput style={styles.input} placeholder="검색" />
-          <CartIcon />
+          <CartIcon onPress={navigateToShopping} />
         </View>
         <View style={styles.buttonGroup}>
           {foodTypes.map((type, index) => (
