@@ -27,26 +27,26 @@ const styles = StyleSheet.create({
       marginBottom : '1.5%'
     },
     minTime : {
-      color: "#464646",
-      fontSize: 16,
+      color: "#222",
+      fontSize: 14,
       fontWeight: "500",
       fontStyle: "normal",
     },
     maxTime : {
-      color: "#464646",
-      fontSize: 16,
+      color: "#222",
+      fontSize: 14,
       fontWeight: "500",
       fontStyle: "normal",
       marginLeft : '21%'
     },
     storeName: {
-      color: '#484747',
+      color: '#222',
       fontSize: 20,
       fontStyle: 'normal',
       fontWeight: '600',
     },
     storeMainMenu: {
-      color: '#7C7C7C',
+      color: 'rgba(34, 34, 34, 0.50)',
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '500',
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
       marginTop : '4.7%'
     },
     storeAddress: {
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       marginTop: 17,
@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
     },
     storeOpen: {
       marginTop: 10,
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       marginLeft : '1.5%'
     },
     storeFastOrder: {
-      color: '#7C7C7C',
+      color: '#rgba(34, 34, 34, 0.50)',
       fontSize: 14,
       fontStyle: 'normal',
       fontWeight: '500',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
       marginTop : '2.8%'
     },  
     storePhoneNumber: {
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '500',

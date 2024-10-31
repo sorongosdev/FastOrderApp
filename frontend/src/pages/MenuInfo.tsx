@@ -3,11 +3,16 @@ import { View, Text, SafeAreaView, TouchableOpacity} from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
+import Plus from "../assets/icon_menu_plus.svg";
+import Minus from "../assets/icon_menu_minus.svg";
 import BottomButton from "../components/BottomButton";
-import Like from '../assets/icon_like.svg';
+import EmptyLike from "../assets/icon_empty_like.svg";
+import FullLike from "../assets/icon_full_like.svg";
 
 export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Element {
     const [count, setCount] = useState(0);
+    const [likeChecked, setLikeChecked] = useState<boolean>(false);
+    const TitleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
     
     function handleOrder() {
         console.log(count);
@@ -32,12 +37,20 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     return (
     <SafeAreaView style={styles.container}>
         <View style = {styles.wrap}>
-            <StoreImg onBack={handleBack} onShopping={handleMoveShopping} />
+            <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={TitleImg}/>
             <View style={styles.storeBox}>
                     <View style={styles.InfoBox}>
                         <Text style={styles.menuName}>제육볶음</Text>
                         <View>
-                            <Like />
+                        { likeChecked ?
+                            <TouchableOpacity onPress={() => setLikeChecked(false)}>
+                            <FullLike />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={() => setLikeChecked(true)}>
+                            <EmptyLike />
+                            </TouchableOpacity>
+                        }
                         </View>
                     </View>
                     <View style={styles.InfoBox}>
@@ -50,15 +63,15 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
 
             <View style={styles.count}>
                 <TouchableOpacity onPress={handleMinus}>
-                    <Text style={styles.countText}>-</Text>
+                    <Minus />
                 </TouchableOpacity>
                 <Text style={styles.countText}>{count}</Text>
                 <TouchableOpacity onPress={handlePlus}>
-                    <Text style={styles.countText}>+</Text>
+                    <Plus />    
                 </TouchableOpacity>
             </View>
         </View>
-        <BottomButton name="주문하기" onPress={handleOrder} />
+        <BottomButton name="주문하기" onPress={handleOrder} checked={true}/>
     </SafeAreaView>
     )
 }   

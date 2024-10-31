@@ -5,29 +5,33 @@ import {
   ScrollView, 
   SafeAreaView, 
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps'; // 인터페이스 import
-import Like from '../assets/icon_like.svg';
+import EmptyLike from '../assets/icon_empty_like.svg';
+import FullLike from '../assets/icon_full_like.svg';
 import Location from '../assets/icon_location.svg';
 import Clock from '../assets/icon_clock.svg';
 import Phone from '../assets/icon_phone.svg';
-
 import StoreImg from '../components/StoreImg';
 
 import styles from '../styles/Store';
 
 export default function Store({ navigation }: NavigationProp): React.JSX.Element {
-  const [isFastOrderOn, setIsFastOrderOn] = useState(true);
+  const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
+  const [likeChecked, setLikeChecked] = useState<boolean>(false);
+  const titleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
+  const menuImg = require('../assets/menu_title.png'); // require로 임포트
   const menu = [
-    { name: '제육볶음', price: '7,000원', img: '' },
-    { name: '김치찌개', price: '6,500원', img: '' },
-    { name: '된장찌개', price: '6,000원', img: '' },
-    { name: '갈비탕', price: '8,000원', img: '' },
-    { name: '비빔밥', price: '7,500원', img: '' },
-    { name: '떡볶이', price: '5,500원', img: '' },
-    { name: '갈비탕', price: '8,000원', img: '' },
-    { name: '비빔밥', price: '7,500원', img: '' },
-    { name: '떡볶이', price: '5,500원', img: '' },
+    { name: '제육볶음', price: '7,000원', img: menuImg },
+    { name: '김치찌개', price: '6,500원', img: menuImg },
+    { name: '된장찌개', price: '6,000원', img: menuImg },
+    { name: '갈비탕', price: '8,000원', img: menuImg },
+    { name: '비빔밥', price: '7,500원', img: menuImg },
+    { name: '떡볶이', price: '5,500원', img: menuImg },
+    { name: '갈비탕', price: '8,000원', img: menuImg },
+    { name: '비빔밥', price: '7,500원', img: menuImg },
+    { name: '떡볶이', price: '5,500원', img: menuImg },
   ];
 
 
@@ -46,15 +50,21 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.wrap}>
-          <StoreImg onBack={handleMoveMain} onShopping={handleMoveShopping} />
+          <StoreImg onBack={handleMoveMain} onShopping={handleMoveShopping} img={titleImg}/>
           <View style={styles.infoBox}>
 
             <View style={styles.infoText}>
               <Text style={styles.storeName}>찌개찌개</Text>
               <Text style={styles.storeMainMenu}>찌개, 전골</Text>
-              <View style={styles.likeImg}>
-                <Like />
-              </View>
+              { likeChecked ?
+                <TouchableOpacity style={styles.likeImg} onPress={() => setLikeChecked(false)}>
+                  <FullLike />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.likeImg} onPress={() => setLikeChecked(true)}>
+                  <EmptyLike />
+                </TouchableOpacity>
+              }
             </View>
 
             <View style={styles.infoText}>
@@ -94,7 +104,9 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
                   <Text style={styles.menuName}>{item.name}</Text>
                   <Text style={styles.menuPrice}>{item.price}</Text>
                 </View>
-                <View style={styles.menuImg}></View>
+                <View style={styles.menuImg}>
+                  <Image source={item.img} style={{height : '100%', width : '100%'}}/>
+                </View>
               </TouchableOpacity>
             ))}
           </View>

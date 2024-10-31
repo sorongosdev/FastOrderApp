@@ -136,7 +136,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             }
         </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
-             <BottomButton name="로그인하기" onPress={handleLoginPage}/>
+             <BottomButton name="로그인하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
         </TouchableOpacity>
     </SafeAreaView>)
 }

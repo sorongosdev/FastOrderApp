@@ -1,6 +1,15 @@
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import UnCheckedBox from '../assets/icon_unchecked_box.svg';
+import CheckedBox from '../assets/icon_checked_box.svg';
+import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
 
 interface LoginProps {
@@ -43,8 +52,13 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <View style={styles.img}></View>
-
+      <View style={styles.img}>
+        <TradeMark/>
+      </View>
+      <View style={styles.titleWrap}>
+        <Text style={styles.title}>패패오더</Text>
+        <Text style={styles.semiTitle}>패스트 주문, 패스트 식사</Text>
+      </View>
       <TextInput
         style={styles.input}
         placeholder="아이디"
@@ -60,14 +74,10 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
       />
 
       <View style={styles.checkWrap}>
-        <TouchableOpacity
-          style={styles.checkBox}
-          onPress={() => setChecked(!checked)}>
-          {checked && (
-            <View style={styles.customCheckBox}>
-              <View style={styles.checkMark} />
-            </View>
-          )}
+        <TouchableOpacity onPress={() => setChecked(!checked)}>
+        {
+          checked ? <CheckedBox/> : <UnCheckedBox/>
+        }
         </TouchableOpacity>
         <Text style={styles.checkboxText}>로그인 상태 유지</Text>
       </View>

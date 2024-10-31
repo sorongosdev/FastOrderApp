@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
         height : 'auto',
         width : '22%',
         borderRadius : 5,
-        backgroundColor : '#D9D9D9',
+        backgroundColor : '#1B1B1B',
         justifyContent : 'center',
         alignItems : 'center',
         marginLeft : '2%',
         marginTop : '2%'
     },
     buttonText : {
-        color : '#484747',
+        color : '#FFF',
         fontSize : 12,
         fontWeight : '400',
         fontStyle : 'normal',
