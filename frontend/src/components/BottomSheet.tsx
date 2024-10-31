@@ -33,7 +33,7 @@ const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT + 10; // 최하단
 export default function BottomSheet({
   navigation,
 }: NavigationProp): React.JSX.Element {
-  const [recentMenu, setrecentMenu] = useState([
+  const [recentMenu, setRecentMenu] = useState([
     {
       date: '8.17(수)',
       progress: '픽업완료',
