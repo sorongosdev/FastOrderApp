@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   filled: {
     backgroundColor: '#F55442',
-    borderColor: 'rgba(255, 158, 48, 1)'
+    borderColor: 'rgba(255, 158, 159, 0.5)'
   },
   transparentCircle : {
     backgroundColor: '#F55442',
