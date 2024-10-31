@@ -12,7 +12,7 @@ import LikesStoreHeader from '../components/LikesStoreHeader';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 export default function Likes({navigation}: NavigationProp): React.JSX.Element {
-  var [editButton, setEditButton] = useState(false);
+  const [editButton, setEditButton] = useState(false);
 
   const toggleEditButton = () => {
     setEditButton(prevEditButton => !prevEditButton);
