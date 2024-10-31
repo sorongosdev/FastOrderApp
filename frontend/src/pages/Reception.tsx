@@ -37,14 +37,14 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
                         <ProgressBar steps={steps} currentStep={currentStep}/>
                     </View>
 
-                    <View>
+                    <View style={{width : '85%'}}>
                         <Text style={styles.lableText}>OO님의 주문이 준비중이예요</Text>
                         <View style={styles.inputBox}>
                             <Text style={styles.inputText}>00:00시 완료 예정</Text>
                         </View>
                     </View>
 
-                    <View>
+                    <View style={{width : '85%'}}>
                         <Text style={styles.lableText}>찌개찌개 한양대 에리카 점</Text>
                         <View style={styles.menuBox}>
                             {orderMenu.map((item, index) => (
@@ -65,7 +65,7 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
                         </View>
                     </View>
 
-                    <View>
+                    <View style={{width : '85%'}}>
                         <Text style={styles.lableText}>가게 요청사항</Text>
                         <View style={styles.inputBox}>
                             <Text style={styles.inputText}>양파 빼주세요</Text>

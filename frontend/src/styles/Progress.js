@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#555',
     position : 'absolute',
-    top : -18,
+    top : '-100%',
   },
   line: {
     position: 'absolute',
-    top: 30,
+    top: '75%',
     left: 50,
     right: 50,
     height: 2,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   lineColor : {
     position: 'absolute',
-    top: 30,
+    top: '75%',
     left: 50,
     right: 50,
     height: 2,

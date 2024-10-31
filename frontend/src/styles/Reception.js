@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         fontWeight : '400'
     },
     inputBox : {
-        width : 325,
+        width : '100%',
         height : 49,
         borderWidth : 1,
         borderColor : '#F1F1F1',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         borderColor: '#F1F1F1',
         backgroundColor : '#FCFCFC',
         borderRadius: 5,
-        width: 325,
+        width: '100%',
         marginTop : '3%'
     },
     orderMenu: {

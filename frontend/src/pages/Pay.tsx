@@ -77,7 +77,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
                 <View style={styles.padding}></View>
 
-                <View>
+                <View style={{width : '85%'}}>
                     <Text style={styles.labelText}>가게 요청사항</Text>
                     <TextInput 
                         placeholder="요청 입력"
@@ -125,7 +125,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                         </View>
                     )}
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity style={{width :'85%'}}>
                     <Text style={styles.labelText}>할인쿠폰</Text>
                     <View style={styles.inputBox}>
                         <Text style={couponCount == 0 ? {color : '#A1A1A1'} : {color : '#1B1B1B'}}>{couponCount == 0 ? '사용 가능 0장' :`사용 가능 ${couponCount}장`}</Text>
@@ -134,7 +134,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                         </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
-                <View>
+                <View style={{width : '85%', height : '100%'}}>
                     <Text style={styles.labelText}>결제하기</Text>
                     <View style={styles.payInfo}>
                             <View style={styles.whiteBox}>
