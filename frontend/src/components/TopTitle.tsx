@@ -4,7 +4,7 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native';
-import BackArrow from '../assets/icon_back_arrow.svg';
+import BackArrow from '../assets/icon_back.svg';
 import styles from "../styles/TopTitle";
 
 interface TopTitleProps {

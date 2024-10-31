@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         justifyContent : 'space-between'
       },
       menuName : {
-        color : '#484747',
+        color : 'var(--pont-color, #222)',
         fontSize : 20,
         fontStyle : 'normal',
         fontWeight : '600',
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
       },
       price : {
         color : '#484747',
-        fontSize : 18,
+        fontSize : 20,
         fontStyle : 'normal',
-        fontWeight : '600',
+        fontWeight : '400',
         marginTop : '10%',
       },
       padding: {
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#D9D9D9',
         borderRadius: 5,
-        width: 75,
-        height: 25,
+        width: 85,
+        height: 30,
         marginTop: 31,
         marginLeft: 19,
         flexDirection: 'row',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
       },
       countText: {
         color: '#484747',
-        fontSize: 14,
+        fontSize: 20,
         fontStyle: 'normal',
         fontWeight: '500',
       },
