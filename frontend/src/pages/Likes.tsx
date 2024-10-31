@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 /** Style */
 import styles from '../styles/Likes';
@@ -12,6 +12,15 @@ import LikesStoreHeader from '../components/LikesStoreHeader';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 export default function Likes({navigation}: NavigationProp): React.JSX.Element {
+  const [editButton, setEditButton] = useState([false]);
+
+  const toggleEditButton = (index: number) => {
+    const newEditButton = editButton;
+    editButton[index] = !editButton[index];
+    setEditButton(newEditButton);
+    console.log('edit button pressed', index);
+  };
+
   return (
     <View style={styles.container}>
       <AppbarLikes navigation={navigation} />
