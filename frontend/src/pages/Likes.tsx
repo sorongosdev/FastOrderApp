@@ -71,6 +71,7 @@ export default function Likes({navigation}: NavigationProp): React.JSX.Element {
                 name={menu.name}
                 price={menu.price}
                 img={menu.img}
+                editButtonClicked={editButton}
               />
             ))}
           </View>
