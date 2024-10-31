@@ -8,7 +8,6 @@ import styles from '../styles/Order';
 import OrderListItem from '../components/OrderListItem';
 import AppbarDefault from '../components/AppbarDefault';
 import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function Order({navigation}: NavigationProp): React.JSX.Element {
   const [recentMenu, setRecentMenu] = useState([
@@ -51,10 +50,12 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
   ]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <AppbarDefault title="주문내역" />
       <View style={styles.divder}></View>
-      <ScrollView style={styles.orderListContainer}>
+      <ScrollView
+        style={styles.orderListContainer}
+        contentContainerStyle={{paddingVertical: 10}}>
         {recentMenu.map((menu, index) => (
           <OrderListItem
             navigation={navigation}
@@ -65,6 +66,6 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
           />
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
