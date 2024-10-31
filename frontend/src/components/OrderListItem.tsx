@@ -12,7 +12,12 @@ import DetailIcon from '@assets/icon_details.svg';
 import CloseIcon from '@assets/icon_cancel.svg';
 import styles from '../styles/OrderListItem';
 
-export default function OrderListItem(): React.JSX.Element {
+export default function OrderListItem({
+  navigation,
+}: NavigationProp): React.JSX.Element {
+  const navigateToPay = () => {
+    navigation.navigate('Pay');
+  };
   return (
     <View>
       <View style={styles.dateContainer}>
@@ -38,7 +43,7 @@ export default function OrderListItem(): React.JSX.Element {
           <Text style={styles.menuText}>김치찌개 외 1개 28,000원</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
+      <TouchableOpacity style={styles.orderButton} onPress={navigateToPay}>
         <Text style={styles.orderText}>같은 메뉴 주문하기</Text>
       </TouchableOpacity>
     </View>
