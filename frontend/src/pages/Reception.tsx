@@ -14,7 +14,7 @@ import ProgressBar from "../components/Progress";
 
 export default function Reception({navigation}:NavigationProp):React.JSX.Element {
     const steps = ['주문접수', '조리 중', '조리 완료'];
-    const currentStep = 2; // 현재 단계 설정 (0: 주문접수, 1: 조리 중, 2: 조리 완료)
+    const currentStep = 1; // 현재 단계 설정 (0: 주문접수, 1: 조리 중, 2: 조리 완료)
 
     const [orderMenu, setOrderMenu] = useState([
         { name: '제육볶음', price: '7,000원', img: ''},

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         position : 'relative'
     },
     mainText: {
-        color: '#484747',
+        color : 'var(--pont-color, #222)',
         fontSize: 18,
         fontWeight: '600',
         textAlign: 'center',

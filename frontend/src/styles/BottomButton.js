@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         bottom : 0
     },
     buttonText: {
-        color: '#464646',
+        color : 'var(--Backgrounds-Primary, #FFF)',
         fontSize: 18,
         fontStyle: 'normal',
         fontWeight: '600',

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
+import Plus from "../assets/icon_menu_plus.svg";
+import Minus from "../assets/icon_menu_minus.svg";
 import styles from "../styles/Shopping";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
@@ -59,12 +61,12 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                     <Text style={styles.menuName}>{item.name}</Text>
                                     <Text style={styles.menuPrice}>{item.price}</Text>
                                     <View style={styles.count}>
-                                        <TouchableOpacity onPress={() => handleMinus(index)}>
-                                            <Text style={styles.countText}>-</Text>
+                                        <TouchableOpacity style={styles.countBox} onPress={() => handleMinus(index)}>
+                                            <Minus />
                                         </TouchableOpacity>
                                         <Text style={styles.countText}>{item.count}</Text>
-                                        <TouchableOpacity onPress={() => handlePlus(index)}>
-                                            <Text style={styles.countText}>+</Text>
+                                        <TouchableOpacity style={styles.countBox} onPress={() => handlePlus(index)}>
+                                            <Plus />
                                         </TouchableOpacity>
                                     </View>
                                 </View>

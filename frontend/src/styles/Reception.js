@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
     },
     lableText : {
         color : '#484747',
-        fontSize : 18,
+        fontSize : 16,
         fontStyle : 'normal',
         fontWeight : '600',
         marginTop : '5%'
     },
     inputText : {
-        color : '#484747',
+        color : '#1B1B1B',
         fontSize : 14,
         fontStyle : 'normal',
         fontWeight : '400'
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
         width : 325,
         height : 49,
         borderWidth : 1,
-        borderColor : '#D9D9D9',
-        backgroundColor : 'rgba(217, 217, 217, 0.00)',
+        borderColor : '#F1F1F1',
+        backgroundColor : '#FCFCFC',
         borderRadius : 5,
         justifyContent : 'center',
         paddingLeft : '3%',
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     },
     menuBox: {
         borderWidth: 1,
-        borderColor: '#DFDFDF',
+        borderColor: '#F1F1F1',
+        backgroundColor : '#FCFCFC',
         borderRadius: 5,
         width: 325,
         marginTop : '3%'
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         color: '#484747',
         fontSize: 18,
         fontWeight: '600',
+        fontStyle : 'normal',
         marginLeft: '20%',
         marginTop : '15%',
     },
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
         color: '#484747',
         fontSize: 14,
         fontWeight: '500',
+        fontStyle : 'normal',
         marginLeft: '20%',
         marginTop : '5%',
     },

@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(218, 218, 218, 0.25)'
     },
     labelText : {
-        color : '#484747',
-        fontSize : 14,
+        color : '#222',
+        fontSize : 16,
         fontStyle : 'normal',
         fontWeight : '500',
         marginTop : '7%'
@@ -26,9 +26,7 @@ const styles = StyleSheet.create({
     inputBox : {
         width : 325,
         height : 49,
-        borderWidth : 1,
-        borderColor : '#D9D9D9',
-        backgroundColor : 'rgba(217, 217, 217, 0.00)',
+        backgroundColor : '#F4F4F4',
         borderRadius : 5,
         marginTop : '2%',
         alignItems : 'center',
@@ -38,6 +36,10 @@ const styles = StyleSheet.create({
     },
     mealType : {
         marginLeft : '6%',
+        fontSize : 14,
+        fontWeight : '400',
+        fontStyle : 'normal',
+        color : '#1B1B1B'
     },
     temporal : {
         flexDirection : 'row',
@@ -68,22 +70,23 @@ const styles = StyleSheet.create({
     whiteBox : {
         flexDirection: 'column',
         justifyContent: 'center',
-        height: '60%',
-        backgroundColor: '#FFF',
+        height: '50%',
+        backgroundColor: '#FCFCFC',
         width: '100%', 
         paddingLeft : '10%',
         gap : '6%'
     },
     papaPoint : {
-        color : '#484747',
+        color : '#222',
         fontSize : 14,
         fontWeight : '500',
-        fontStyle : 'normal'
+        fontStyle : 'normal',
+        lineHeight : 14
     },
     myPoint : {
-        color : '#484747',
-        fontSize : 12,
-        fontWeight : '500',
+        color : '#222',
+        fontSize : 14,
+        fontWeight : '400',
         fontStyle : 'normal'
     },
     textBox : {
@@ -94,56 +97,43 @@ const styles = StyleSheet.create({
     grayBox : {
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: '#D9D9D9',
-        height: '40%', 
+        backgroundColor: '#F4F4F4',
+        height: '50%', 
         width: '100%', 
         paddingLeft : '10%',
         gap : '4%'
     },
     payPoint : {
-        color : '#484747',
-        fontSize : 12,
+        color : '#222',
+        fontSize : 16,
+        fontWeight : '500',
+        fontStyle : 'normal'
+    },
+    remainPointText : {
+        color : '#222',
+        fontSize : 14,
         fontWeight : '400',
         fontStyle : 'normal'
+    },
+    remainPoint : {
+        color : '#222',
+        fontSize : 14,
+        fontWeight : '400',
+        fontStyle : 'normal',
+        color : '#EC424C'
     },
     checkWrap: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent : 'flex-start',
-      },
-      checkBox : {
-        height: width * 0.05,
-        width: width * 0.05, 
-        borderWidth: 1,
-        borderColor: '#B5B5B5',
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin : '2%',
-      },
-      customCheckBox: {
-        height : '100%',
-        width : '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-      },
-      checkMark: {
-        position: 'absolute',
-        left: 4, 
-        top: 3,
-        borderLeftWidth: 3,
-        borderBottomWidth: 3,
-        borderColor: 'orange',
-        transform: [{ rotate: '315deg' }], 
-        height: '50%', 
-        width: '60%'
+        marginTop : '2%',
       },
       checkboxText: {
         color: '#656565',
         fontSize: 14,
         fontStyle: 'normal',
         fontWeight: '400',
+        marginLeft : '2%'
       },
     
 
@@ -155,9 +145,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(217, 217, 217, 0.8)',
     },
     peopleModalView: {
-        height : width * 0.4,
-        width : width * 0.5,
-        backgroundColor: 'white',
+        height : width * 0.5,
+        width : width * 0.6,
+        backgroundColor: '#1B1B1B',
         borderRadius: 12,
         alignItems: 'center',
         shadowColor: '#000',
@@ -179,35 +169,46 @@ const styles = StyleSheet.create({
         fontStyle : 'normal',
         fontSize: 16,
         fontWeight: '600',
-        color : '#484747'
+        color : '#FFF'
     },
     peopleCountButtonText : {
         fontStyle : 'normal',
-        fontSize: 16,
+        fontSize: 16.706,
         fontWeight: '500',
-        color : '#484747'
+        color : '#EC424C'
     },
     count: {
         marginTop : '10%',
-        borderWidth: 1,
-        borderColor: '#D9D9D9',
+        borderWidth: 1.5,
+        borderColor: '#303030',
         borderRadius: 5,
-        width: 73,
-        height: 20,
+        width: '50%',
+        height: 33,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 12,
+        gap: 15,
     },
     countText: {
-        color: '#484747',
-        fontSize: 14,
-        fontWeight: '500',
+        color: '#FFF',
+        fontSize: 20,
+        fontWeight: '400',
+        fontStyle :'normal',
+    },
+    countBox : {
+        height : '100%',
+        justifyContent : 'center',
+    },
+    line : {
+        width : '100%',
+        height : 1,
+        backgroundColor :'#626262',
+        opacity : 0.3
     },
     peopleCountButton : {
         width : '100%',
-        height : '35%',
-        backgroundColor : '#D9D9D9',
+        height : '30%',
+        backgroundColor : '#1B1B1B',
         alignItems : 'center',
         justifyContent : 'center',
         borderBottomLeftRadius : 12,

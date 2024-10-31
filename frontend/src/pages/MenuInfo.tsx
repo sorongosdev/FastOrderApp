@@ -3,6 +3,8 @@ import { View, Text, SafeAreaView, TouchableOpacity} from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
+import Plus from "../assets/icon_menu_plus.svg";
+import Minus from "../assets/icon_menu_minus.svg";
 import BottomButton from "../components/BottomButton";
 import EmptyLike from "../assets/icon_empty_like.svg";
 import FullLike from "../assets/icon_full_like.svg";
@@ -61,11 +63,11 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
 
             <View style={styles.count}>
                 <TouchableOpacity onPress={handleMinus}>
-                    <Text style={styles.countText}>-</Text>
+                    <Minus />
                 </TouchableOpacity>
                 <Text style={styles.countText}>{count}</Text>
                 <TouchableOpacity onPress={handlePlus}>
-                    <Text style={styles.countText}>+</Text>
+                    <Plus />    
                 </TouchableOpacity>
             </View>
         </View>

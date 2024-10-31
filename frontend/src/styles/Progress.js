@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   filled: {
-    backgroundColor: '#FF741E',
+    backgroundColor: '#F55442',
     borderColor: 'rgba(255, 158, 48, 1)'
   },
   transparentCircle : {
-    backgroundColor: '#FF741E',
+    backgroundColor: '#F55442',
     borderColor: 'transparent'
   },
   label: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     left: 50,
     right: 50,
     height: 2,
-    backgroundColor : '#FF741E',
+    backgroundColor : '#F55442',
     zIndex : -1
   }
 
