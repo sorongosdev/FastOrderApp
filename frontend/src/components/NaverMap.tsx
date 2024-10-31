@@ -33,6 +33,30 @@ export default function NaverMap({
     navigation.navigate('Store');
   };
 
+  const regions: Region[] = [
+    {
+      // 마라미방 : 37.299701, 126.838338
+      latitude: 37.299701,
+      longitude: 126.838338,
+      latitudeDelta: 0.02,
+      longitudeDelta: 0.02,
+    },
+    {
+      // 인더비엣 37.300986, 126.837876
+      latitude: 37.300986,
+      longitude: 126.837876,
+      latitudeDelta: 0.02,
+      longitudeDelta: 0.02,
+    },
+    {
+      // 도스마스 "latitude": 37.29977232411561, "longitude": 126.83849480719579
+      latitude: 37.29977232411561,
+      longitude: 126.83849480719579,
+      latitudeDelta: 0.02,
+      longitudeDelta: 0.02,
+    },
+  ];
+
   const initialRegion: Region = {
     latitude: 37.29879436841754,
     longitude: 126.83961892219863,
@@ -50,15 +74,18 @@ export default function NaverMap({
         isShowLocationButton={true}
         initialRegion={initialRegion}
         onTapMap={handleMapTap}>
-        <NaverMapMarkerOverlay
-          latitude={37.29979436841754}
-          longitude={126.83861892219863}
-          onTap={() => handleStore()}
-          anchor={{x: 229, y: height / 2}}
-          width={80}
-          height={80}
-          image={require('../assets/icon_marker.png')}
-        />
+        {regions.map((region, index) => (
+          <NaverMapMarkerOverlay
+            key={index} // 각 마커에 고유한 키를 부여
+            latitude={region.latitude}
+            longitude={region.longitude}
+            onTap={() => handleStore()}
+            anchor={{x: 229, y: height / 2}}
+            width={80}
+            height={80}
+            image={require('../assets/icon_marker.png')}
+          />
+        ))}
       </NaverMapView>
     </View>
   );
