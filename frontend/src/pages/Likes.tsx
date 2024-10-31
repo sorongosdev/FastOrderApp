@@ -12,6 +12,36 @@ import LikesStoreHeader from '../components/LikesStoreHeader';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 export default function Likes({navigation}: NavigationProp): React.JSX.Element {
+  const [likesMenu, setLikesMenu] = useState([
+    {
+      storeName: '백소정 안산 한양대점',
+      storeType: '일식당',
+      menus: [
+        {name: '제육볶음', price: '7,000원', img: ''},
+        {name: '쭈꾸미', price: '10,000원', img: ''},
+        {name: '마라떡볶이', price: '14,000원', img: ''},
+      ],
+    },
+    {
+      storeName: '마라미방 안산 한양대점',
+      storeType: '중식당',
+      menus: [
+        {name: '마라탕', price: '7,000원', img: ''},
+        {name: '홍소육덮밥', price: '8,000원', img: ''},
+        {name: '양고기덮밥', price: '8,000원', img: ''},
+      ],
+    },
+    {
+      storeName: '백소정 안산 한양대점',
+      storeType: '일식당',
+      menus: [
+        {name: '제육볶음', price: '7,000원', img: ''},
+        {name: '쭈꾸미', price: '10,000원', img: ''},
+        {name: '마라떡볶이', price: '14,000원', img: ''},
+      ],
+    },
+  ]);
+
   const [editButton, setEditButton] = useState(false);
 
   const toggleEditButton = () => {
@@ -29,16 +59,22 @@ export default function Likes({navigation}: NavigationProp): React.JSX.Element {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.contentContainer}>
-        <LikesStoreHeader />
-        <LikesListItem />
-        <LikesListItem />
-        <LikesListItem />
-        <LikesListItem />
-        <LikesStoreHeader />
-        <LikesListItem />
-        <LikesListItem />
-        <LikesListItem />
-        <LikesListItem />
+        {likesMenu.map((item, index) => (
+          <View key={index}>
+            <LikesStoreHeader
+              storeName={item.storeName}
+              storeType={item.storeType}
+            />
+            {item.menus.map((menu, menuIndex) => (
+              <LikesListItem
+                key={menuIndex}
+                name={menu.name}
+                price={menu.price}
+                img={menu.img}
+              />
+            ))}
+          </View>
+        ))}
       </ScrollView>
     </View>
   );
