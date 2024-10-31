@@ -11,6 +11,7 @@ interface LikesListItemProp {
   name: string;
   price: string;
   img: string;
+  editButtonClicked: boolean;
 }
 
 export default function LikesListItem({
@@ -18,6 +19,7 @@ export default function LikesListItem({
   name,
   price,
   img,
+  editButtonClicked,
 }: LikesListItemProp): React.JSX.Element {
   return (
     <View style={styles.totalContainer}>
@@ -31,7 +33,11 @@ export default function LikesListItem({
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.menuImg}></View>
-          <View style={styles.closeIconBox}>
+          <View
+            style={[
+              styles.closeIconBox,
+              {display: editButtonClicked ? 'flex' : 'none'},
+            ]}>
             <CloseIcon />
           </View>
         </View>
