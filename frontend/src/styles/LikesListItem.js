@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  iconBox: {
-    height: '100%',
-    // borderWidth: 1,
-  },
   divider: {
     width: '100%',
     backgroundColor: '#F5F5F5',
@@ -57,6 +53,7 @@ const styles = StyleSheet.create({
   closeIconBox: {
     // borderWidth: 1,
     paddingTop: 5,
+    display: 'none',
   },
 });
 
