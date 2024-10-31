@@ -27,7 +27,7 @@ export default function OrderListItem({
     navigation.navigate('Pay');
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.dateContainer}>
         <View style={styles.dateWrapper}>
           <Text>{date}</Text>
