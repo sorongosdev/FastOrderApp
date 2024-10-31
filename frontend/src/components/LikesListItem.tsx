@@ -6,15 +6,27 @@ import CloseIcon from '@assets/icon_close.svg';
 /** Styles */
 import styles from '../styles/LikesListItem';
 
-export default function LikesListItem(): React.JSX.Element {
+interface LikesListItemProp {
+  key: number;
+  name: string;
+  price: string;
+  img: string;
+}
+
+export default function LikesListItem({
+  key,
+  name,
+  price,
+  img,
+}: LikesListItemProp): React.JSX.Element {
   return (
     <View style={styles.totalContainer}>
       <View style={[styles.divider, {height: 1}]}></View>
       <View style={styles.contentContainer}>
         <View style={styles.leftContainer}>
           <View style={styles.menuWrapper}>
-            <Text style={styles.menuName}>제육볶음</Text>
-            <Text style={styles.price}>7,000원</Text>
+            <Text style={styles.menuName}>{name}</Text>
+            <Text style={styles.price}>{price}</Text>
           </View>
         </View>
         <View style={styles.rightContainer}>
