@@ -12,13 +12,11 @@ import LikesStoreHeader from '../components/LikesStoreHeader';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 export default function Likes({navigation}: NavigationProp): React.JSX.Element {
-  const [editButton, setEditButton] = useState([false]);
+  var [editButton, setEditButton] = useState(false);
 
-  const toggleEditButton = (index: number) => {
-    const newEditButton = editButton;
-    editButton[index] = !editButton[index];
-    setEditButton(newEditButton);
-    console.log('edit button pressed', index);
+  const toggleEditButton = () => {
+    setEditButton(prevEditButton => !prevEditButton);
+    console.log('edit button pressed');
   };
 
   return (
@@ -26,8 +24,8 @@ export default function Likes({navigation}: NavigationProp): React.JSX.Element {
       <AppbarLikes navigation={navigation} />
       <View style={[styles.divider, {height: 2}]}></View>
       <View style={styles.editWrapper}>
-        <TouchableOpacity style={styles.editButton}>
-          <Text style={styles.editText}>편집</Text>
+        <TouchableOpacity style={styles.editButton} onPress={toggleEditButton}>
+          <Text style={styles.editText}>{editButton ? '완료' : '편집'}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.contentContainer}>
