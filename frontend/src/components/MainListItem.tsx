@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-} from 'react-native';
+import {TouchableOpacity, Text, View} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 import DetailIcon from '@assets/icon_details.svg';
