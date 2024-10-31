@@ -30,22 +30,22 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   filled: {
-    backgroundColor: '#FF741E',
-    borderColor: 'rgba(255, 158, 48, 1)'
+    backgroundColor: '#F55442',
+    borderColor: 'rgba(255, 158, 159, 0.5)'
   },
   transparentCircle : {
-    backgroundColor: '#FF741E',
+    backgroundColor: '#F55442',
     borderColor: 'transparent'
   },
   label: {
     fontSize: 12,
     color: '#555',
     position : 'absolute',
-    top : -18,
+    top : '-100%',
   },
   line: {
     position: 'absolute',
-    top: 30,
+    top: '75%',
     left: 50,
     right: 50,
     height: 2,
@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
   },
   lineColor : {
     position: 'absolute',
-    top: 30,
+    top: '75%',
     left: 50,
     right: 50,
     height: 2,
-    backgroundColor : '#FF741E',
+    backgroundColor : '#F55442',
     zIndex : -1
   }
 
