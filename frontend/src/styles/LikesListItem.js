@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   menuWrapper: {
     display: 'flex',
     gap: 10,
-    marginLeft: 12,
     // borderWidth: 1,
   },
   menuName: {
