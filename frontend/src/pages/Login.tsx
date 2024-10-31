@@ -1,12 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import styles from '../styles/Login';
 
 interface LoginProps {
@@ -32,7 +26,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const handleLogin = () => {
     console.log('아이디:', id);
     console.log('비밀번호:', password);
-    navigation.navigate('Main');
+    navigation.navigate('BottomNavigation');
   };
 
   function handleSignup() {
