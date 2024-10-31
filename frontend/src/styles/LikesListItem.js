@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   closeIconBox: {
-    // borderWidth: 1,
     paddingTop: 5,
     display: 'none',
   },
