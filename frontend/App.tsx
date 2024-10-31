@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import Login from './src/pages/Login';
-import Main from './src/pages/Main';
 import MyDetail from './src/pages/MyDetail';
 import Store from './src/pages/Store';
 import SignUp from './src/pages/SignUp';
@@ -9,6 +8,9 @@ import MenuInfo from './src/pages/MenuInfo';
 import Shopping from './src/pages/Shopping';
 import Pay from './src/pages/Pay';
 import Reception from './src/pages/Reception';
+
+import BottomNavigation from './src/components/BottomNavigation'; // BottomNavigation 추가
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -32,8 +34,8 @@ export default function App(): React.JSX.Element {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Main"
-            component={Main}
+            name="BottomNavigation"
+            component={BottomNavigation}
             options={{headerShown: false}}
           />
           <Stack.Screen

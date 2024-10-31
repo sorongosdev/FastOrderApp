@@ -35,7 +35,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const handleLogin = () => {
     console.log('아이디:', id);
     console.log('비밀번호:', password);
-    navigation.navigate('Main');
+    navigation.navigate('BottomNavigation');
   };
 
   function handleSignup() {

@@ -14,8 +14,8 @@ import styles from '../styles/MainListItem';
 export default function MainListItem({
   navigation,
 }: NavigationProp): React.JSX.Element {
-  const navigateToStore = () => {
-    navigation.navigate('Store');
+  const navigateToPay = () => {
+    navigation.navigate('Pay');
   };
   return (
     <View>
@@ -37,7 +37,7 @@ export default function MainListItem({
           <Text style={styles.menuText}>김치찌개 외 1개 28,000원</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton} onPress={navigateToStore}>
+      <TouchableOpacity style={styles.orderButton} onPress={navigateToPay}>
         <Text style={styles.orderText}>같은 메뉴 주문하기</Text>
       </TouchableOpacity>
       <View style={styles.divider}></View>

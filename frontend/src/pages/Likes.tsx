@@ -4,15 +4,17 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import styles from '../styles/Likes';
 /** Components */
 import AppbarLikes from '../components/AppbarLikes';
+import LikesListItem from '../components/LikesListItem';
 /** Packages */
 import {ScrollView} from 'react-native-gesture-handler';
 import LikesStoreHeader from '../components/LikesStoreHeader';
-import LikesListItem from '../components/LikesListItem';
+/** Props */
+import {NavigationProp} from '../navigation/NavigationProps';
 
-export default function Likes(): React.JSX.Element {
+export default function Likes({navigation}: NavigationProp): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <AppbarLikes />
+      <AppbarLikes navigation={navigation} />
       <View style={[styles.divider, {height: 2}]}></View>
       <View style={styles.editWrapper}>
         <TouchableOpacity style={styles.editButton}>
