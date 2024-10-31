@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-} from 'react-native';
-import {NavigationProp} from '../navigation/NavigationProps';
-
+import {TouchableOpacity, Text, View} from 'react-native';
+/** Icons */
 import DetailIcon from '@assets/icon_details.svg';
 import CloseIcon from '@assets/icon_cancel.svg';
 import styles from '../styles/OrderListItem';
+/** Props */
+import {NavigationProp} from '../navigation/NavigationProps';
 
 export default function OrderListItem({
   navigation,
