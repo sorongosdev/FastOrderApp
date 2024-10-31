@@ -42,13 +42,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  rightContainer: {},
+  rightContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 11,
+  },
   menuImg: {
     // borderWidth: 1,
     height: 61,
     width: 61,
     backgroundColor: '#D9D9D9',
     borderRadius: 5,
+  },
+  closeIconBox: {
+    // borderWidth: 1,
+    paddingTop: 5,
   },
 });
 

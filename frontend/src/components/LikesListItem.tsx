@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+/** Icons */
+import CloseIcon from '@assets/icon_close.svg';
 
 /** Styles */
 import styles from '../styles/LikesListItem';
@@ -17,6 +19,9 @@ export default function LikesListItem(): React.JSX.Element {
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.menuImg}></View>
+          <View style={styles.closeIconBox}>
+            <CloseIcon />
+          </View>
         </View>
       </View>
     </View>
