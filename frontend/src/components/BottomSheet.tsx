@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, Dimensions} from 'react-native';
 import Animated, {
   useSharedValue,
@@ -33,6 +33,45 @@ const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT + 10; // 최하단
 export default function BottomSheet({
   navigation,
 }: NavigationProp): React.JSX.Element {
+  const [recentMenu, setRecentMenu] = useState([
+    {
+      date: '8.17(수)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '김치찌개 외 1개 28,000원',
+    },
+    {
+      date: '8.16(화)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '된장찌개 외 1개 27,000원',
+    },
+    {
+      date: '8.15(월)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '김치찌개 외 1개 26,000원',
+    },
+    {
+      date: '8.17(수)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '김치찌개 외 1개 28,000원',
+    },
+    {
+      date: '8.16(화)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '된장찌개 외 1개 27,000원',
+    },
+    {
+      date: '8.15(월)',
+      progress: '픽업완료',
+      storeName: '찌개찌개',
+      menuName: '김치찌개 외 1개 26,000원',
+    },
+  ]);
+
   const translateY = useSharedValue(MID_Y);
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -89,11 +128,15 @@ export default function BottomSheet({
         <ScrollView
           showsVerticalScrollIndicator={false} // 수직 스크롤 바 숨기기
         >
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
+          {recentMenu.map((menu, index) => (
+            <MainListItem
+              navigation={navigation}
+              date={menu.date}
+              progress={menu.progress}
+              storeName={menu.storeName}
+              menuName={menu.menuName}
+            />
+          ))}
         </ScrollView>
       </Animated.View>
     </View>

@@ -10,8 +10,6 @@ import CartIcon from '@assets/icon_cart.svg';
 import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
 
-const Tab = createBottomTabNavigator();
-
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
   const [selectedButtons, setSelectedButtons] = React.useState([
     false,

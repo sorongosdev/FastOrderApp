@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 /** Icons */
-import DetailIcon from '@assets/icon_back_arrow.svg';
+import DetailIcon from '@assets/icon_back.svg';
 /** Styles */
 import styles from '../styles/AppbarLeft';
 import {StackNavigationProp} from '@react-navigation/stack';

@@ -1,24 +1,37 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-} from 'react-native';
-import {NavigationProp} from '../navigation/NavigationProps';
-
+import {TouchableOpacity, Text, View} from 'react-native';
+/** Icons */
 import DetailIcon from '@assets/icon_details.svg';
 import CloseIcon from '@assets/icon_cancel.svg';
 import styles from '../styles/OrderListItem';
+/** Props */
+import {NavigationProp} from '../navigation/NavigationProps';
 
-export default function OrderListItem(): React.JSX.Element {
+interface OrderListProp {
+  date: string;
+  progress: string;
+  storeName: string;
+  menuName: string;
+}
+
+interface CombinedInterface extends NavigationProp, OrderListProp {}
+
+export default function OrderListItem({
+  navigation,
+  date,
+  progress,
+  storeName,
+  menuName,
+}: CombinedInterface): React.JSX.Element {
+  const navigateToPay = () => {
+    navigation.navigate('Pay');
+  };
   return (
     <View>
       <View style={styles.dateContainer}>
         <View style={styles.dateWrapper}>
-          <Text>8.15(월)</Text>
-          <Text> • 주문완료</Text>
+          <Text>{date}</Text>
+          <Text> • {progress}</Text>
         </View>
         <View style={styles.closeIcon}>
           <CloseIcon />
@@ -30,15 +43,15 @@ export default function OrderListItem(): React.JSX.Element {
         {/* right */}
         <View style={styles.orderContainer}>
           <View style={styles.storeWrapper}>
-            <Text style={styles.storeText}>찌개찌개</Text>
+            <Text style={styles.storeText}>{storeName}</Text>
             <View style={styles.detailIconBox}>
               <DetailIcon></DetailIcon>
             </View>
           </View>
-          <Text style={styles.menuText}>김치찌개 외 1개 28,000원</Text>
+          <Text style={styles.menuText}>{menuName}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
+      <TouchableOpacity style={styles.orderButton} onPress={navigateToPay}>
         <Text style={styles.orderText}>같은 메뉴 주문하기</Text>
       </TouchableOpacity>
     </View>

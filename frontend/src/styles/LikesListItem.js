@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  iconBox: {
-    height: '100%',
-    // borderWidth: 1,
-  },
   divider: {
     width: '100%',
     backgroundColor: '#F5F5F5',
@@ -29,7 +25,6 @@ const styles = StyleSheet.create({
   menuWrapper: {
     display: 'flex',
     gap: 10,
-    marginLeft: 12,
     // borderWidth: 1,
   },
   menuName: {
@@ -43,13 +38,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  rightContainer: {},
+  rightContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 11,
+  },
   menuImg: {
     // borderWidth: 1,
     height: 61,
     width: 61,
     backgroundColor: '#D9D9D9',
     borderRadius: 5,
+  },
+  closeIconBox: {
+    paddingTop: 5,
+    display: 'none',
   },
 });
 

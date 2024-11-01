@@ -1,16 +1,17 @@
 // src/navigation/BottomNavigation.tsx
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SafeAreaView, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar, View} from 'react-native';
+/** Pages */
 import Main from '../pages/Main';
 import Order from '../pages/Order';
 import Likes from '../pages/Likes';
 import My from '../pages/My';
+/** Icons */
 import HomeIcon from '@assets/icon_home.svg';
 import ListIcon from '@assets/icon_list_active.svg';
 import LikeIcon from '@assets/icon_like.svg';
 import MyIcon from '@assets/icon_my.svg';
-import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
