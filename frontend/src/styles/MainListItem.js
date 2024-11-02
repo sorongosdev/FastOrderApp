@@ -1,11 +1,17 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  bottomSheetDateWrapper: {
+  sheetDateContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 18,
+    justifyContent: 'space-between',
   },
+  sheetDateLeftWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  likeIconBox: {},
   historyContainer: {
     display: 'flex',
     flexDirection: 'row',
