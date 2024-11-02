@@ -14,7 +14,6 @@ import MainListItem from '../components/MainListItem';
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
 import {HOME} from '../consts/BottomSheetConsts';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const LIST_ITEM_HEIGHT = HOME.LIST_ITEM_HEIGHT;
 const HANDLE_HEIGHT = HOME.HANDLE_HEIGHT;
