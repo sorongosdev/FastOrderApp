@@ -16,7 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
         } else if(currentStep == 2) {
             return;
         } else {
-            return '0%';
+            return '5%';
         }
     }    
     return(

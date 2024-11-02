@@ -30,16 +30,38 @@ const styles = StyleSheet.create({
         fontStyle : 'normal',
         fontWeight : '400'
     },
+    cancelInfoText : {
+        color : 'rgba(72, 71, 71, 0.50)',
+        fontSize : 14,
+        fontStyle : 'normal',
+        fontWeight : '400',
+    },
     inputBox : {
+        flexDirection : 'row',
         width : '100%',
         height : 49,
         borderWidth : 1,
         borderColor : '#F1F1F1',
         backgroundColor : '#FCFCFC',
         borderRadius : 5,
-        justifyContent : 'center',
+        alignItems : 'center',
         paddingLeft : '3%',
         marginTop : '2%',
+    },
+    cancelBox : {
+        backgroundColor : 'rgba(42, 42, 44, 0.50)',
+        borderRadius : 3.462,
+        width : '22%',
+        height : '50%',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginLeft : '3%'
+    },
+    cancelText : {
+        color: '#FFF',
+        fontSize: 11.077,
+        fontStyle: 'normal',
+        fontWeight: '600',
     },
     menuBox: {
         borderWidth: 1,
