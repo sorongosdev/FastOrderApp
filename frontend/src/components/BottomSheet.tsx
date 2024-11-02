@@ -51,6 +51,7 @@ export default function BottomSheet({
   const MIN_HEIGHT = HANDLE_HEIGHT; // 최하단 높이
 
   const heightValue = useSharedValue(MID_HEIGHT); // 초기 높이 설정
+  const handlePosition = useSharedValue(MID_HEIGHT); // 핸들의 Y 위치
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -59,31 +60,39 @@ export default function BottomSheet({
   });
 
   const handleGesture = (event: PanGestureHandlerGestureEvent) => {
-    if (event.nativeEvent.translationY < 0) {
-      // 위로 슬라이드
-      if (heightValue.value === MIN_HEIGHT) {
-        // 바텀시트 최하단일 때
-        heightValue.value = withTiming(MID_HEIGHT, {duration: 300}); // 중간으로
-      } else if (heightValue.value === MID_HEIGHT) {
-        // 바텀시트 중간
-        heightValue.value = withTiming(MAX_HEIGHT, {duration: 300}); // 최상단으로
-      }
+    const translationY = event.nativeEvent.translationY;
+
+    // 드래그 거리의 일부만 사용하여 높이를 업데이트
+    const dragFactor = 0.2; // 드래그 반응 비율 조정
+    const newHeight = heightValue.value - translationY * dragFactor;
+
+    // 새로운 높이가 MIN_HEIGHT와 MAX_HEIGHT 사이에 있는지 확인
+    if (newHeight > MAX_HEIGHT) {
+      heightValue.value = MAX_HEIGHT;
+    } else if (newHeight < MIN_HEIGHT) {
+      heightValue.value = MIN_HEIGHT;
     } else {
-      // 아래로 슬라이드
-      if (heightValue.value === MAX_HEIGHT) {
-        // 바텀시트 최상단일 때
-        heightValue.value = withTiming(MID_HEIGHT, {duration: 300}); // 중간으로
-      } else if (heightValue.value === MID_HEIGHT) {
-        // 바텀시트 중간
-        heightValue.value = withTiming(MIN_HEIGHT, {duration: 300}); // 최하단으로
-      }
+      heightValue.value = newHeight; // 높이 업데이트
+    }
+  };
+
+  const handleGestureEnd = () => {
+    // 드래그가 끝났을 때 높이에 따라 고정
+    if (heightValue.value > MAX_HEIGHT - 100) {
+      heightValue.value = withTiming(MAX_HEIGHT, {duration: 100});
+    } else if (heightValue.value > MID_HEIGHT - 150) {
+      heightValue.value = withTiming(MID_HEIGHT, {duration: 100});
+    } else {
+      heightValue.value = withTiming(MIN_HEIGHT, {duration: 100});
     }
   };
 
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.sheet, animatedStyle]}>
-        <PanGestureHandler onGestureEvent={handleGesture}>
+        <PanGestureHandler
+          onGestureEvent={handleGesture}
+          onEnded={handleGestureEnd}>
           <View style={styles.handleBox}>
             <View style={styles.handle} />
           </View>
