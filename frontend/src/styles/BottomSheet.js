@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     // height: height - SEARCHBAR_HEIGHT,
     backgroundColor: '#BCBCBC',
     borderRadius: 24,
+    borderBottomEndRadius: 0,
+    borderBottomStartRadius: 0,
     position: 'absolute',
     bottom: 0,
     // height: '100%',
