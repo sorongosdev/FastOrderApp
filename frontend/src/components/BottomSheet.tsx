@@ -52,24 +52,6 @@ export default function BottomSheet({
       storeName: '찌개찌개',
       menuName: '김치찌개 외 1개 26,000원',
     },
-    {
-      date: '8.17(수)',
-      progress: '픽업완료',
-      storeName: '찌개찌개',
-      menuName: '김치찌개 외 1개 28,000원',
-    },
-    {
-      date: '8.16(화)',
-      progress: '픽업완료',
-      storeName: '찌개찌개',
-      menuName: '된장찌개 외 1개 27,000원',
-    },
-    {
-      date: '8.15(월)',
-      progress: '픽업완료',
-      storeName: '찌개찌개',
-      menuName: '김치찌개 외 1개 26,000원',
-    },
   ]);
 
   const translateY = useSharedValue(MID_Y);
@@ -126,8 +108,8 @@ export default function BottomSheet({
           ㅇㅇ님의 최근 주문내역이에요!
         </Text>
         <ScrollView
-          showsVerticalScrollIndicator={false} // 수직 스크롤 바 숨기기
-        >
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 18}}>
           {recentMenu.map((menu, index) => (
             <MainListItem
               navigation={navigation}
