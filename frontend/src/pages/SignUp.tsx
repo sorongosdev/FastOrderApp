@@ -12,6 +12,8 @@ import styles from "../styles/SignUp";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
+// const BASE_URL = "http://3.39.26.152:8000";
+
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>('');
     const [pw, setPW] = useState<string>('');
@@ -23,8 +25,28 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [comparePW, setComparePW] = useState<boolean>(false);
 
 
+    // const handleSignup = async () => {
+    //     if (email && password && name && phone && username) {
+    //       try {
+    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+    //           email : email,
+    //           password : password,
+    //           name : name,
+    //           phone : phone,
+    //           username : username,
+    //           subscribed:  clickAgreement === 1// 동의 여부
+    //         });
+            
+    //         // 회원가입 성공 시 페이지 이동
+    //         navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
+    //       } catch (error) {
+    //         console.log("Error during signup:");
+    //       }
+    //     }
+    //   };
+
     function handleBack() {
-        navigation.navigate('Login');
+        navigation.goBack();
     }
     function handleIdInput(id : string) {
         setID(id);
@@ -136,7 +158,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             }
         </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
-             <BottomButton name="로그인하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
+             <BottomButton name="가입하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
         </TouchableOpacity>
     </SafeAreaView>)
 }

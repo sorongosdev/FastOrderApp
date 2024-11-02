@@ -20,6 +20,8 @@ import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
+// const BASE_URL = "http://3.39.26.152:8000";
+
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
@@ -31,11 +33,25 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
     const [pickupChecked, setPickupChecked] = useState<boolean>(false); //매장 식사 체크
 
-    
+    // const rankingGet = async () => {
+    //     try {
+    //         const response = await axios.get(`${BASE_URL}/api/galleries/ranking?type=사진&category=반려동물`);
+    //         // 응답이 배열인지 확인하고 설정
+    //         if (Array.isArray(response.data)) {
+    //             setRanking(response.data); // 배열로 설정
+    //             console.log(response.data);
+    //         } else {
+    //             console.error("응답이 배열이 아닙니다:", response.data);
+    //         }
+
+    //     } catch (error) {
+    //         console.error("Error fetching posts:", error);
+    //     }
+    // };
 
 
     function handleBack() {
-        navigation.navigate('Shopping');
+        navigation.goBack();
     }
     function handlePeoplePopUP() {
         setPeopleModalVisible(true);
@@ -68,6 +84,9 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
         setSelectedCount(count);
         setPeopleModalVisible(false);
     }
+    const formatPrice = (price:number) => {
+        return new Intl.NumberFormat("ko-KR").format(price);
+    };
 
     return (
     <SafeAreaView style={styles.container}>
@@ -141,24 +160,24 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                                 <Text style={styles.papaPoint}>패패오더 포인트</Text>
                                 <View style={styles.textBox}>
                                     <Text style={styles.myPoint}>총 보유 포인트</Text>
-                                    <Text style={styles.myPoint}>50,000 P</Text>
+                                    <Text style={styles.myPoint}>{`${formatPrice(50000)}P`}</Text>
                                 </View>
                             </View>
                             <View style={styles.grayBox}>
                                 <View style={styles.textBox}>
                                     <Text style={styles.payPoint}>결제예정 포인트</Text>
-                                    <Text style={styles.payPoint}>28,000 P</Text>
+                                    <Text style={styles.payPoint}>{`${formatPrice(28000)}P`}</Text>
                                 </View>
                                 <View style={styles.textBox}>
                                     <Text style={styles.remainPointText}>예상 포인트 잔액</Text>
-                                    <Text style={styles.remainPoint}>22,000 P</Text>
+                                    <Text style={styles.remainPoint}>{`${formatPrice(50000-28000)}P`}</Text>
                                 </View>
                             </View>
                     </View>
                 </View>
             </View>
         </ScrollView>
-        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {true}/>
+        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {pickupChecked || (storeChecked && selectedCount > 0)}/>
 
         {/* 식사 인원 모달 */}
             <Modal
