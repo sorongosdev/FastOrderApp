@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
   },
   orderContainer: {
     display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  orderLeftWrapper: {
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     paddingVertical: 14,
@@ -59,6 +65,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontWeight: '500',
+  },
+  likeIconBox: {
+    paddingTop: 14,
   },
   orderButton: {
     marginTop: 9,
