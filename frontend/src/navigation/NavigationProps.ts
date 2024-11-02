@@ -4,5 +4,6 @@
 export interface NavigationProp {
   navigation: {
     navigate: (screen: string) => void;
+    goBack : () => void;
   };
 }

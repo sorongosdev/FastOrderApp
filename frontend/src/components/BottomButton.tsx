@@ -17,7 +17,7 @@ export default function BottomButton({ name, onPress, checked }: BottomButtonPro
             style={[styles.buttonContainer, checked ? { backgroundColor: '#1B1B1B'} : {}]} 
             onPress={onPress}
         >
-            <Text style={[styles.buttonText, checked ? { color : '#FFF'} : {}]}>{name}</Text>
+            <Text style={[styles.buttonText, checked ? { color : '#FFF'} : {color : '#FFF'}]}>{name}</Text>
         </TouchableOpacity>
     )
 }

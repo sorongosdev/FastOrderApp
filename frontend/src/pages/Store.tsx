@@ -39,8 +39,8 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     navigation.navigate('MenuInfo');
   }
 
-  function handleMoveMain() {
-    navigation.navigate('Main')
+  function handleBack() {
+    navigation.goBack();
   }
   function handleMoveShopping() {
     navigation.navigate('Shopping')
@@ -50,7 +50,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.wrap}>
-          <StoreImg onBack={handleMoveMain} onShopping={handleMoveShopping} img={titleImg}/>
+          <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={titleImg}/>
           <View style={styles.infoBox}>
 
             <View style={styles.infoText}>

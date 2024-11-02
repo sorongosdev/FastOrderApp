@@ -24,7 +24,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
 
 
     function handleBack() {
-        navigation.navigate('Login');
+        navigation.goBack();
     }
     function handleIdInput(id : string) {
         setID(id);
@@ -136,7 +136,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             }
         </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
-             <BottomButton name="로그인하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
+             <BottomButton name="가입하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
         </TouchableOpacity>
     </SafeAreaView>)
 }

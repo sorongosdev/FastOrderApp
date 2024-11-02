@@ -29,7 +29,7 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     }
 
     function handleBack() {
-        navigation.navigate('Store')
+        navigation.goBack();
     }
     function handleMoveShopping() {
         navigation.navigate('Shopping')

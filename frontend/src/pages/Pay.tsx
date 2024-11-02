@@ -35,7 +35,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
 
     function handleBack() {
-        navigation.navigate('Shopping');
+        navigation.goBack();
     }
     function handlePeoplePopUP() {
         setPeopleModalVisible(true);
@@ -158,7 +158,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                 </View>
             </View>
         </ScrollView>
-        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {true}/>
+        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {pickupChecked || (storeChecked && selectedCount > 0)}/>
 
         {/* 식사 인원 모달 */}
             <Modal

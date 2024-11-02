@@ -38,7 +38,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     }
 
     function handleBack() {
-        navigation.navigate('Store');
+        navigation.goBack();
     }
 
     return (
