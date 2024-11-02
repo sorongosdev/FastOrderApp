@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
   orderListContainer: {
     backgroundColor: 'white',
     flex: 1,
-    paddingLeft: 33,
-    paddingRight: 17,
+    paddingHorizontal: 25,
   },
 });
 
