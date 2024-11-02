@@ -81,8 +81,8 @@ export default function NaverMap({
             longitude={region.longitude}
             onTap={() => handleStore()}
             anchor={{x: 229, y: height / 2}}
-            width={80}
-            height={80}
+            width={44}
+            height={44}
             image={require('../assets/icon_marker.png')}
           />
         ))}
