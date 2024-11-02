@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
+import {HOME} from '../consts/BottomSheetConsts';
 
-const SEARCHBAR_HEIGHT = 94.7;
+const SEARCHBAR_HEIGHT = HOME.SEARCHBAR_HEIGHT;
 const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({

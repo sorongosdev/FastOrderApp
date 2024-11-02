@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {HOME} from '../consts/BottomSheetConsts';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingBottom: 12.1,
     width: '100%',
+    height: HOME.SEARCHBAR_HEIGHT,
     backgroundColor: '#fff',
     // borderWidth: 1,
   },

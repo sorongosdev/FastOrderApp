@@ -13,15 +13,17 @@ import {
 import MainListItem from '../components/MainListItem';
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
+/** Consts */
+import {HOME} from '../consts/BottomSheetConsts';
 
 const {height} = Dimensions.get('window');
-const SEARCHBAR_HEIGHT = 94.7;
+const SEARCHBAR_HEIGHT = HOME.SEARCHBAR_HEIGHT;
+const LIST_ITEM_HEIGHT = HOME.LIST_ITEM_HEIGHT;
+const NAVIGATIONBAR_HEIGHT = HOME.NAVIGATIONBAR_HEIGHT;
+const HANDLE_HEIGHT = HOME.HANDLE_HEIGHT;
+
 const SHEET_HEIGHT = height - SEARCHBAR_HEIGHT;
-const LIST_ITEM_HEIGHT = 238;
-const NAVIGATIONBAR_HEIGHT = 74;
-const HANDLE_HEIGHT = 44;
 const MAX_Y = SHEET_HEIGHT; // 최상단
-// const MID_Y = MAX_Y + SHEET_HEIGHT - LIST_ITEM_HEIGHT; // 중간 상태 // 300
 const MID_Y =
   SHEET_HEIGHT +
   SHEET_HEIGHT -
