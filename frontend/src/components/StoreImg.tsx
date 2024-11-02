@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
-import Cart from '../assets/icon_cart.svg';
+import Cart from '../assets/icon_cart_white.svg';
 import BackArrow from '../assets/icon_back_arrow.svg';
 import styles from '../styles/StoreImg';
 
