@@ -17,6 +17,9 @@ import StoreImg from '../components/StoreImg';
 
 import styles from '../styles/Store';
 
+
+// const BASE_URL = "http://3.39.26.152:8000";
+
 export default function Store({ navigation }: NavigationProp): React.JSX.Element {
   const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
@@ -33,6 +36,42 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     { name: '비빔밥', price: '7,500원', img: menuImg },
     { name: '떡볶이', price: '5,500원', img: menuImg },
   ];
+
+  // const rankingGet = async () => {
+    //     try {
+    //         const response = await axios.get(`${BASE_URL}/api/galleries/ranking?type=사진&category=반려동물`);
+    //         // 응답이 배열인지 확인하고 설정
+    //         if (Array.isArray(response.data)) {
+    //             setRanking(response.data); // 배열로 설정
+    //             console.log(response.data);
+    //         } else {
+    //             console.error("응답이 배열이 아닙니다:", response.data);
+    //         }
+
+    //     } catch (error) {
+    //         console.error("Error fetching posts:", error);
+    //     }
+    // };
+
+    // const handleSignup = async () => {  //가게 아이디 찜 넘겨줄 겁니다.
+    //     if (email && password && name && phone && username) {
+    //       try {
+    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+    //           email : email,
+    //           password : password,
+    //           name : name,
+    //           phone : phone,
+    //           username : username,
+    //           subscribed:  clickAgreement === 1// 동의 여부
+    //         });
+            
+    //         // 회원가입 성공 시 페이지 이동
+    //         navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
+    //       } catch (error) {
+    //         console.log("Error during signup:");
+    //       }
+    //     }
+    //   };
 
 
   function handleMenuInfo() {

@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     },
     menuImg: {
         borderWidth: 1,
-        width: width * 0.15,
-        height: width * 0.15,
+        width: width * 0.18,
+        height: width * 0.18,
         borderColor: '#DFDFDF',
         borderRadius: 5,
         backgroundColor: '#D9D9D9',
-        marginRight: '5%',
-        marginTop : '5%'
+        marginRight : '-12%',
+        marginTop : '10%'
     },
     withSeparator: {
         borderBottomWidth: 1,
@@ -93,6 +93,10 @@ const styles = StyleSheet.create({
     withoutSeparator: {
         borderBottomWidth: 0, // 마지막 항목의 경우 선을 없앰
     },
+    cancel : {
+        marginRight : '3%',
+        marginTop : '3%'
+    }
 });
 
 export default styles;

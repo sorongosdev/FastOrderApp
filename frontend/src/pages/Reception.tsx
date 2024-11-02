@@ -5,24 +5,49 @@ import {
     View,
     Text,
     TouchableOpacity,
+    Image,
 } from "react-native";
 import styles from "../styles/Reception";
 import { NavigationProp } from "../navigation/NavigationProps";
 import TopTitle from "../components/TopTitle";
 import ProgressBar from "../components/Progress";
 import BottomButton from "../components/BottomButton";
+import { getItem } from "../components/Cart";
 
+
+// const BASE_URL = "http://3.39.26.152:8000";
+
+
+interface OrderItem {
+    menuName: string;
+    price: number;
+    count: number;
+    menuId: number; 
+    TitleImg : any;
+}
 
 
 export default function Reception({navigation}:NavigationProp):React.JSX.Element {
     const steps = ['접수확인', '조리 중', '조리 완료'];
     const [currentStep, setCurrentStep] = useState(-1); // 현재 단계 설정 (0: 접수확인, 1: 조리 중, 2: 조리 완료)
 
-    const [orderMenu, setOrderMenu] = useState([
-        { name: '제육볶음', price: '7,000원', img: ''},
-        { name: '김치찌개', price: '6,500원', img: ''},
-        { name: '된장찌개', price: '6,000원', img: ''}
-    ]);
+    const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const cartItems = await getItem('cartItems');
+                console.log("Fetched Cart Items:", cartItems); // 데이터 출력
+                if (cartItems) {
+                    setOrderMenu(JSON.parse(cartItems));
+                }
+            } catch (error) {
+                console.error("Failed to fetch cart items:", error);
+            }
+        };
+
+        fetchCartItems();
+    }, []);
 
     function handleMoveMain() {
         navigation.navigate('BottomNavigation');
@@ -92,10 +117,12 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
                                     ]}
                                 >
                                     <View>
-                                        <Text style={styles.menuName}>{item.name}</Text>
+                                        <Text style={styles.menuName}>{item.menuName}</Text>
                                         <Text style={styles.menuPrice}>{item.price}</Text>
                                     </View>
-                                    <View style={styles.menuImg}></View>
+                                    <View style={styles.menuImg}>
+                                        <Image source={item.TitleImg} style={{height :'100%', width : '100%'}}/>
+                                    </View>
                                 </View>
                             ))}
                         </View>
