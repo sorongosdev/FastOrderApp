@@ -37,18 +37,21 @@ export default function BottomSheet({
     {
       date: '8.17(수)',
       progress: '픽업완료',
+      like: false,
       storeName: '찌개찌개',
       menuName: '김치찌개 외 1개 28,000원',
     },
     {
       date: '8.16(화)',
       progress: '픽업완료',
+      like: false,
       storeName: '찌개찌개',
       menuName: '된장찌개 외 1개 27,000원',
     },
     {
       date: '8.15(월)',
       progress: '픽업완료',
+      like: false,
       storeName: '찌개찌개',
       menuName: '김치찌개 외 1개 26,000원',
     },
