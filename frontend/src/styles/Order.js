@@ -7,6 +7,22 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: '#F5F5F5',
   },
+  editWrapper: {
+    width: '100%',
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 8,
+    display: 'flex',
+    backgroundColor: 'white',
+  },
+  editButton: {
+    width: 30,
+  },
+  editText: {
+    color: '#3D3D3D',
+    fontSize: 14,
+    fontWeight: '500',
+  },
   orderListContainer: {
     backgroundColor: 'white',
     flex: 1,
