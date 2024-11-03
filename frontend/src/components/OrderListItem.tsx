@@ -54,15 +54,18 @@ export default function OrderListItem({
             <Text style={styles.menuText}>{menuName}</Text>
           </View>
           <View style={styles.likeIconBox}>
-            {likeChecked ? (
-              <TouchableOpacity onPress={() => setLikeChecked(false)}>
-                <FullLikeIcon />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => setLikeChecked(true)}>
-                <EmptyLikeIcon />
-              </TouchableOpacity>
-            )}
+            <View>
+              {likeChecked ? (
+                <TouchableOpacity onPress={() => setLikeChecked(false)}>
+                  <FullLikeIcon />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => setLikeChecked(true)}>
+                  <EmptyLikeIcon />
+                </TouchableOpacity>
+              )}
+            </View>
+            <CloseIcon style={styles.closeIcon} />
           </View>
         </View>
       </View>

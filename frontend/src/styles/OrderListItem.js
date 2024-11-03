@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
   },
   likeIconBox: {
     paddingTop: 14,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  closeIcon: {
+    display: 'none',
   },
   orderButton: {
     marginTop: 9,
