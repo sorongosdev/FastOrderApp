@@ -56,7 +56,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     function handleMinus(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = [...prevMenu];
-            if (newMenu[index].count > 0) {
+            if (newMenu[index].count > 1) {
                 newMenu[index].count--;
             }
             updateCartItems(newMenu);
@@ -103,11 +103,11 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                     <Text style={styles.menuName}>{item.menuName}</Text>
                                     <Text style={styles.menuPrice}>{formatPrice(item.price)}원</Text>
                                     <View style={styles.count}>
-                                        <TouchableOpacity style={styles.countBox} onPress={() => handleMinus(index)}>
+                                        <TouchableOpacity style={styles.countIcon} onPress={() => handleMinus(index)}>
                                             <Minus />
                                         </TouchableOpacity>
                                         <Text style={styles.countText}>{item.count}</Text>
-                                        <TouchableOpacity style={styles.countBox} onPress={() => handlePlus(index)}>
+                                        <TouchableOpacity style={styles.countIcon} onPress={() => handlePlus(index)}>
                                             <Plus />
                                         </TouchableOpacity>
                                     </View>
@@ -123,7 +123,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                     </View>
                 </View>
             </ScrollView>
-            <BottomButton name={`${formatPrice(totalPrice)}원 주문하기`} onPress={handlePayPage} checked={true}/>
+            <BottomButton name={`${formatPrice(totalPrice)}원 주문하기`} onPress={handlePayPage} checked={orderMenu.length > 0} color="#EC424C"/>
         </SafeAreaView>
     );
 }

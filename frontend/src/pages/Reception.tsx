@@ -37,7 +37,6 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
         const fetchCartItems = async () => {
             try {
                 const cartItems = await getItem('cartItems');
-                console.log("Fetched Cart Items:", cartItems); // 데이터 출력
                 if (cartItems) {
                     setOrderMenu(JSON.parse(cartItems));
                 }
@@ -79,7 +78,7 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.wrap}>
-                    <TopTitle name="주문내역" onPress={handleBack} />
+                    <TopTitle name="접수내역" onPress={handleBack} />
 
                     <View style={styles.padding}></View>
 
@@ -136,7 +135,7 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
                     </View>
                 </View>
             </ScrollView>
-            <BottomButton name="홈으로 돌아가기" onPress={handleMoveMain} checked={true}/>
+            <BottomButton name="홈으로 돌아가기" onPress={handleMoveMain} checked={true} color="#EC424C"/>
         </SafeAreaView>
     )
 }   

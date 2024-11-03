@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -19,8 +19,15 @@ import Minus from '../assets/icon_minus.svg';
 import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
+import { getItem } from "../components/Cart";
 
 // const BASE_URL = "http://3.39.26.152:8000";
+
+
+interface OrderItem {
+    price: number;
+    count: number;
+}
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
@@ -32,6 +39,25 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
     const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
     const [pickupChecked, setPickupChecked] = useState<boolean>(false); //매장 식사 체크
+
+    const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
+
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const cartItems = await getItem('cartItems');
+                console.log("Fetched Cart Items:", cartItems); // 데이터 출력
+                if (cartItems) {
+                    setOrderMenu(JSON.parse(cartItems));
+                }
+            } catch (error) {
+                console.error("Failed to fetch cart items:", error);
+            }
+        };
+
+        fetchCartItems();
+    }, []);
 
     // const rankingGet = async () => {
     //     try {
@@ -45,10 +71,11 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     //         }
 
     //     } catch (error) {
-    //         console.error("Error fetching posts:", error);
+    //         console.error("Error fetching gets:", error);
     //     }
     // };
 
+    const totalPrice = orderMenu.reduce((total, item) => total + item.price * item.count, 0);
 
     function handleBack() {
         navigation.goBack();
@@ -166,18 +193,18 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                             <View style={styles.grayBox}>
                                 <View style={styles.textBox}>
                                     <Text style={styles.payPoint}>결제예정 포인트</Text>
-                                    <Text style={styles.payPoint}>{`${formatPrice(28000)}P`}</Text>
+                                    <Text style={styles.payPoint}>{`${formatPrice(totalPrice)}P`}</Text>
                                 </View>
                                 <View style={styles.textBox}>
                                     <Text style={styles.remainPointText}>예상 포인트 잔액</Text>
-                                    <Text style={styles.remainPoint}>{`${formatPrice(50000-28000)}P`}</Text>
+                                    <Text style={styles.remainPoint}>{`${formatPrice(50000-totalPrice)}P`}</Text>
                                 </View>
                             </View>
                     </View>
                 </View>
             </View>
         </ScrollView>
-        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {pickupChecked || (storeChecked && selectedCount > 0)}/>
+        <BottomButton name="결제하기" onPress={handleMoveReception} checked = {pickupChecked || (storeChecked && selectedCount > 0)} color="#1B1B1B"/>
 
         {/* 식사 인원 모달 */}
             <Modal
@@ -192,11 +219,11 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                         <View style={styles.peopleModalTopBox}>
                             <Text style={styles.peopleModalText}>매장 식사 인원 수</Text>
                             <View style={styles.count}>
-                                <TouchableOpacity style={styles.countBox} onPress={handleMinus}>
+                                <TouchableOpacity style={styles.countIcon} onPress={handleMinus}>
                                     <Minus />
                                 </TouchableOpacity>
                                 <Text style={styles.countText}>{count}</Text>
-                                <TouchableOpacity style={styles.countBox} onPress={handlePlus}>
+                                <TouchableOpacity style={styles.countIcon} onPress={handlePlus}>
                                     <Plus />
                                 </TouchableOpacity>
                             </View>

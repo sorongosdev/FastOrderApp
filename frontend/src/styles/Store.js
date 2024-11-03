@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     },
     likeImg : {
         marginLeft : '43%',
-        marginTop : '-1%'
     },
     locationImg : {
       marginTop : '4.7%'
