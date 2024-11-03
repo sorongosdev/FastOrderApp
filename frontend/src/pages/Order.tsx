@@ -76,6 +76,7 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
             progress={menu.progress}
             storeName={menu.storeName}
             menuName={menu.menuName}
+            editButtonClicked={editButton}
           />
         ))}
       </ScrollView>

@@ -15,6 +15,7 @@ interface OrderListProp {
   progress: string;
   storeName: string;
   menuName: string;
+  editButtonClicked: boolean;
 }
 
 interface CombinedInterface extends NavigationProp, OrderListProp {}
@@ -25,6 +26,7 @@ export default function OrderListItem({
   progress,
   storeName,
   menuName,
+  editButtonClicked,
 }: CombinedInterface): React.JSX.Element {
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
 
@@ -54,7 +56,7 @@ export default function OrderListItem({
             <Text style={styles.menuText}>{menuName}</Text>
           </View>
           <View style={styles.likeIconBox}>
-            <View>
+            <View style={{display: editButtonClicked ? 'none' : 'flex'}}>
               {likeChecked ? (
                 <TouchableOpacity onPress={() => setLikeChecked(false)}>
                   <FullLikeIcon />
@@ -65,7 +67,12 @@ export default function OrderListItem({
                 </TouchableOpacity>
               )}
             </View>
-            <CloseIcon style={styles.closeIcon} />
+            <CloseIcon
+              style={[
+                styles.closeIcon,
+                {display: editButtonClicked ? 'flex' : 'none'},
+              ]}
+            />
           </View>
         </View>
       </View>
