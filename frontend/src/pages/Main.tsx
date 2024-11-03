@@ -1,7 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, View, TextInput} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 /** Style */
 import styles from '../styles/Main';
 /** Icons */

@@ -1,7 +1,12 @@
 import {StyleSheet} from 'react-native';
+import {HOME} from '../consts/BottomSheetConsts';
+
+const SEARCHBAR_HEIGHT = HOME.SEARCHBAR_HEIGHT;
 
 const styles = StyleSheet.create({
   mainContainer: {
+    width: '100%',
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -11,12 +16,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 30,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   searchBarContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -25,8 +24,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingBottom: 12.1,
     width: '100%',
+    height: SEARCHBAR_HEIGHT,
     backgroundColor: '#fff',
-    // borderWidth: 1,
   },
   searchBarWrapper: {
     display: 'flex',

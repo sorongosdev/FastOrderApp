@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
-
+/** Icons */
 import DetailIcon from '@assets/icon_details.svg';
+import EmptyLikeIcon from '@assets/icon_empty_like.svg';
+import FullLikeIcon from '@assets/icon_full_like.svg';
+/** Styles */
 import styles from '../styles/MainListItem';
 
 interface MainListProp {
@@ -21,14 +24,29 @@ export default function MainListItem({
   storeName,
   menuName,
 }: CombinedInterface): React.JSX.Element {
+  const [likeChecked, setLikeChecked] = useState<boolean>(false);
+
   const navigateToPay = () => {
     navigation.navigate('Pay');
   };
   return (
     <View>
-      <View style={styles.bottomSheetDateWrapper}>
-        <Text>{date}</Text>
-        <Text> • {progress}</Text>
+      <View style={styles.sheetDateContainer}>
+        <View style={styles.sheetDateLeftWrapper}>
+          <Text>{date}</Text>
+          <Text> • {progress}</Text>
+        </View>
+        <View style={styles.likeIconBox}>
+          {likeChecked ? (
+            <TouchableOpacity onPress={() => setLikeChecked(false)}>
+              <FullLikeIcon />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => setLikeChecked(true)}>
+              <EmptyLikeIcon />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
       <View style={styles.historyContainer}>
         {/* left */}

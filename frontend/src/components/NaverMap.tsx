@@ -5,6 +5,8 @@ import {
   NaverMapMarkerOverlay,
 } from '@mj-studio/react-native-naver-map';
 import {NavigationProp} from '../navigation/NavigationProps';
+/** Styles */
+import styles from '../styles/NaverMap';
 
 interface NaverMapProps {
   clientId: string;
@@ -65,12 +67,11 @@ export default function NaverMap({
   };
 
   const {height} = Dimensions.get('window');
-  const containerHeight = height - 200;
 
   return (
     <View style={styles.container}>
       <NaverMapView
-        style={{width: '100%', height: containerHeight}}
+        style={styles.mapContainer}
         isShowLocationButton={true}
         initialRegion={initialRegion}
         onTapMap={handleMapTap}>
@@ -81,8 +82,8 @@ export default function NaverMap({
             longitude={region.longitude}
             onTap={() => handleStore()}
             anchor={{x: 229, y: height / 2}}
-            width={80}
-            height={80}
+            width={44}
+            height={44}
             image={require('../assets/icon_marker.png')}
           />
         ))}
@@ -90,9 +91,3 @@ export default function NaverMap({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-});

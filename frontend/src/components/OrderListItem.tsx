@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
 /** Icons */
 import DetailIcon from '@assets/icon_details.svg';
+import EmptyLikeIcon from '@assets/icon_empty_like.svg';
+import FullLikeIcon from '@assets/icon_full_like.svg';
 import CloseIcon from '@assets/icon_cancel.svg';
+/** Styles */
 import styles from '../styles/OrderListItem';
 /** Props */
 import {NavigationProp} from '../navigation/NavigationProps';
@@ -23,6 +26,8 @@ export default function OrderListItem({
   storeName,
   menuName,
 }: CombinedInterface): React.JSX.Element {
+  const [likeChecked, setLikeChecked] = useState<boolean>(false);
+
   const navigateToPay = () => {
     navigation.navigate('Pay');
   };
@@ -33,22 +38,32 @@ export default function OrderListItem({
           <Text>{date}</Text>
           <Text> • {progress}</Text>
         </View>
-        <View style={styles.closeIcon}>
-          <CloseIcon />
-        </View>
       </View>
       <View style={styles.historyContainer}>
         {/* left */}
         <View style={styles.storeImg}></View>
         {/* right */}
         <View style={styles.orderContainer}>
-          <View style={styles.storeWrapper}>
-            <Text style={styles.storeText}>{storeName}</Text>
-            <View style={styles.detailIconBox}>
-              <DetailIcon></DetailIcon>
+          <View style={styles.orderLeftWrapper}>
+            <View style={styles.storeWrapper}>
+              <Text style={styles.storeText}>{storeName}</Text>
+              <View style={styles.detailIconBox}>
+                <DetailIcon></DetailIcon>
+              </View>
             </View>
+            <Text style={styles.menuText}>{menuName}</Text>
           </View>
-          <Text style={styles.menuText}>{menuName}</Text>
+          <View style={styles.likeIconBox}>
+            {likeChecked ? (
+              <TouchableOpacity onPress={() => setLikeChecked(false)}>
+                <FullLikeIcon />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => setLikeChecked(true)}>
+                <EmptyLikeIcon />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
       <TouchableOpacity style={styles.orderButton} onPress={navigateToPay}>
