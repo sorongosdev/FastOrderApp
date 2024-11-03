@@ -24,18 +24,20 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(false); //로그인 상태 유지
 
 //   const handleLogin = async () => {
-//     if (email && password) {
+//     if (id !== '' && password !== '') {
 //         try {
 //             const response = await axios.post(`${BASE_URL}/api/login/`, {
 //                 id : id,
 //                 pw : password
 //             });
 //            //로그인 성공 시 ID 토큰 저장
-//            const token = response.data.token; // 서버에서 반환하는 토큰
-//            await AsyncStorage.setItem('idToken', token);
+//            if(checked) {
+//              const token = response.data.token; // 서버에서 반환하는 토큰
+//              await AsyncStorage.setItem('idToken', token);            
+//            }
 //             // 로그인 성공 시 페이지 이동
 //             navigate('/BottomNavigation'); // 성공적으로 로그인한 후 메인 페이지로 이동
 //         } catch (error) {

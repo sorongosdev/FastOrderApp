@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
       width: width * 0.4, 
       alignItems: 'center',
       justifyContent : 'center',
+      marginBottom : '4%'
     },  
     titleWrap : {
       gap : '10%',

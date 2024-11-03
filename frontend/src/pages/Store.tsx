@@ -25,7 +25,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
   const titleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
   const menuImg = require('../assets/menu_title.png'); // require로 임포트
-  const menu = [
+  const [menu, setMenu] = useState([
     { name: '제육볶음', price: '7,000원', img: menuImg },
     { name: '김치찌개', price: '6,500원', img: menuImg },
     { name: '된장찌개', price: '6,000원', img: menuImg },
@@ -35,43 +35,22 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     { name: '갈비탕', price: '8,000원', img: menuImg },
     { name: '비빔밥', price: '7,500원', img: menuImg },
     { name: '떡볶이', price: '5,500원', img: menuImg },
-  ];
+  ]);
 
-  // const rankingGet = async () => {
+  // const StoreInfoGet = async () => {
     //     try {
-    //         const response = await axios.get(`${BASE_URL}/api/galleries/ranking?type=사진&category=반려동물`);
+    //         const response = await axios.get(`${BASE_URL}/api/galleries/`);
     //         // 응답이 배열인지 확인하고 설정
     //         if (Array.isArray(response.data)) {
-    //             setRanking(response.data); // 배열로 설정
-    //             console.log(response.data);
+    //             setMenu(reponse.data);
     //         } else {
     //             console.error("응답이 배열이 아닙니다:", response.data);
     //         }
 
     //     } catch (error) {
-    //         console.error("Error fetching posts:", error);
+    //         console.error("Error fetching get:", error);
     //     }
     // };
-
-    // const handleSignup = async () => {  //가게 아이디 찜 넘겨줄 겁니다.
-    //     if (email && password && name && phone && username) {
-    //       try {
-    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
-    //           email : email,
-    //           password : password,
-    //           name : name,
-    //           phone : phone,
-    //           username : username,
-    //           subscribed:  clickAgreement === 1// 동의 여부
-    //         });
-            
-    //         // 회원가입 성공 시 페이지 이동
-    //         navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
-    //       } catch (error) {
-    //         console.log("Error during signup:");
-    //       }
-    //     }
-    //   };
 
 
   function handleMenuInfo() {
@@ -83,7 +62,22 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   }
   function handleMoveShopping() {
     navigation.navigate('Shopping')
-}
+  }
+  function handleLike() {
+    setLikeChecked(!likeChecked);
+    // const StoreLike = async () => {  //가게 아이디 넘겨줄 겁니다.
+    //     if (likeChecked) {
+    //       try {
+    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+    //           store_id = store_id;
+    //         });
+    //       } catch (error) {
+    //         console.log("Error during Store Like");
+    //       }
+    //     }
+    //   };
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -95,15 +89,9 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
             <View style={styles.infoText}>
               <Text style={styles.storeName}>찌개찌개</Text>
               <Text style={styles.storeMainMenu}>찌개, 전골</Text>
-              { likeChecked ?
-                <TouchableOpacity style={styles.likeImg} onPress={() => setLikeChecked(false)}>
-                  <FullLike />
-                </TouchableOpacity>
-                :
-                <TouchableOpacity style={styles.likeImg} onPress={() => setLikeChecked(true)}>
-                  <EmptyLike />
-                </TouchableOpacity>
-              }
+              <TouchableOpacity style={styles.likeImg} onPress={handleLike}>
+                { likeChecked ?  <FullLike /> : <EmptyLike /> }
+              </TouchableOpacity>
             </View>
 
             <View style={styles.infoText}>

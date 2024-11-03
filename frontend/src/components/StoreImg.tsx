@@ -1,6 +1,7 @@
 import { View, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
 import Cart from '../assets/icon_cart_white.svg';
 import BackArrow from '../assets/icon_back_arrow.svg';
+import ShoppingCartIcon from "../components/ShoppingCartIcon";
 import styles from '../styles/StoreImg';
 
 interface StoreImgProps {
@@ -17,7 +18,7 @@ export default function StoreImg({ onBack, onShopping, img }: StoreImgProps): Re
           <BackArrow width={'100%'} height={'100%'} />
         </TouchableOpacity>
         <TouchableOpacity onPress={onShopping} style={styles.cartImg}>
-          <Cart width={'100%'} height={'100%'}/>
+          <ShoppingCartIcon color='White'/>
         </TouchableOpacity>
         <Image source={img} style={styles.img}/>
       </View>

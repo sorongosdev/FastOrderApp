@@ -20,9 +20,11 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [secondPW, setSecondPW] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
-    const [authenticationNumber, setAuthenticationNumber] = useState<string>('0');
-    const [checkedAuthentication, setCheckedAuthentication] = useState<boolean>(false);
-    const [comparePW, setComparePW] = useState<boolean>(false);
+    const [authenticationNumber, setAuthenticationNumber] = useState<string>('0'); //인증번호 입력 변수 
+    const [compareViewAuth, setCompareViewAuth] = useState<boolean>(false);
+    const [checkedAuthentication, setCheckedAuthentication] = useState<boolean>(false); //인증번호 맞는지 T/F변수
+    const [comparePW, setComparePW] = useState<boolean>(false); //비밀번호 같은지 확인
+    const [authenticationId, setAuthenticationId] = useState<string>('2'); //id 중복확인
 
 
     // const handleSignup = async () => {
@@ -85,9 +87,13 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
 
 
     function handleGetAuthentication() {
-        console.log(phone);
-        Alert.alert('인증번호를 받았습니다.');
-        setAuthenticationNumber('1');
+        if(phone.length === 11) {
+            Alert.alert('인증번호를 받았습니다.');
+            setCompareViewAuth(true);
+        } else {
+            Alert.alert('휴대폰 번호 11자리를 입력하세요.');
+        }
+        
     }
     function handleSetAuthentication() {
         if(authenticationNumber === '123') {
@@ -100,22 +106,40 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     }
 
     function handleDuplicate() {
-        Alert.alert('중복확인')    
+            //  const Duplicate = async () => {
+            //     if (id) {
+            //       try {
+            //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+            //           id : id //보낼 변수
+            //         });
+                    
+            //         if(response.data) {
+            //           setAuthenticationId(id);
+            //         }
+            //         Alert.alert("사용하셔도 되는 아이디 입니다.")
+            //       } catch () {
+            //         Alert.alert("중복된 아이디 입니다.")
+            //       }
+            //     }
+            //   }; 
     }
 
 
     function handleLoginPage() {
-        if(comparePW && checkedAuthentication) {
+        if(comparePW && checkedAuthentication && (authenticationId === id)) {
             console.log(id);
             console.log(pw);
             console.log(phone);
             console.log(name);
             setID('');
             setPW('');
+            setSecondPW('');
             setPhone('');
             setName('');
             setAuthenticationNumber('0');
             setCheckedAuthentication(false);
+            setAuthenticationId('');
+            setCompareViewAuth(false);
             navigation.navigate('Login')
         }
     }
@@ -142,13 +166,13 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             <TextInput style={styles.inputName} placeholder="성명을 입력하세요" placeholderTextColor='#929292' onChangeText={handleName}/>
             <Text style={styles.lableText}>휴대폰 인증</Text>
             <View style={styles.authBox}>
-                <TextInput style={styles.inputButton} placeholder="휴대폰 번호" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
+                <TextInput style={styles.inputButton} placeholder="휴대폰 번호 (- 제외하고 입력)" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
                 <TouchableOpacity style={styles.buttonBox} onPress={handleGetAuthentication}>
                     <Text style={styles.buttonText}>인증번호 받기</Text>
                 </TouchableOpacity>
             </View>
             {
-            authenticationNumber === '0' ? null :
+            !compareViewAuth ? null :
                 <View style={styles.authBox}>
                     <TextInput style={styles.inputButton} placeholder="인증 번호" placeholderTextColor="#929292" onChangeText={handleAuthentication}></TextInput>
                     <TouchableOpacity style={styles.buttonBox} onPress={handleSetAuthentication}>
@@ -158,7 +182,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             }
         </View>
         <TouchableOpacity style= {styles.bottomButtonBox}>
-             <BottomButton name="가입하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name != '' && id != ''}/>
+             <BottomButton name="가입하기" onPress={handleLoginPage} checked={comparePW && checkedAuthentication && name !== '' && authenticationId !== ''} color="#1B1B1B"/>
         </TouchableOpacity>
     </SafeAreaView>)
 }

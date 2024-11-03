@@ -188,15 +188,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 15,
     },
+    countIcon : {
+        width : '25%',
+        height : '100%',
+        alignItems : 'center',
+        justifyContent : 'center'
+    },
     countText: {
         color: '#FFF',
         fontSize: 20,
         fontWeight: '400',
         fontStyle :'normal',
-    },
-    countBox : {
-        height : '100%',
-        justifyContent : 'center',
     },
     line : {
         width : '100%',
