@@ -6,7 +6,7 @@ import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/Order';
 /**Components */
 import OrderListItem from '../components/OrderListItem';
-import AppbarDefault from '../components/AppbarDefault';
+import AppbarSmall from '../components/AppbarSmall';
 import {ScrollView} from 'react-native-gesture-handler';
 
 export default function Order({navigation}: NavigationProp): React.JSX.Element {
@@ -51,8 +51,8 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <AppbarDefault title="주문내역" />
-      <View style={styles.divder}></View>
+      <AppbarSmall title="주문내역" navigation={navigation} />
+      <View style={[styles.divider, {height: 2}]}></View>
       <ScrollView
         style={styles.orderListContainer}
         contentContainerStyle={{paddingVertical: 10}}>
