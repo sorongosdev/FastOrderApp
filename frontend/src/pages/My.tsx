@@ -1,11 +1,13 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, ImageBackground} from 'react-native';
 /** Icons */
 import DetailIcon from '@assets/icon_my_details.svg';
+import DumplingIcon from '@assets/icon_dumpling.svg';
 /** Style */
 import styles from '../styles/My';
 import AppbarDefault from '../components/AppbarDefault';
 import {NavigationProp} from '../navigation/NavigationProps';
+import CouponItem from '../components/CouponItem';
 
 export default function My({navigation}: NavigationProp): React.JSX.Element {
   const handlePress = () => {
@@ -36,8 +38,25 @@ export default function My({navigation}: NavigationProp): React.JSX.Element {
             <Text style={styles.buttonText}>포인트로 충전하기</Text>
           </TouchableOpacity>
         </View>
-        {/* 빈 공간 */}
-        <View style={styles.couponContainer}></View>
+        <View style={styles.couponTitleContainer}>
+          <Text style={styles.titleText}>돌돌님의 쿠폰</Text>
+          <TouchableOpacity style={styles.couponDetailWrapper}>
+            <Text>더보기</Text>
+            <View style={styles.couponDetailIconBox}>
+              <DetailIcon width={5} height={10} />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.couponContainer}>
+          <View style={styles.row}>
+            <CouponItem />
+            <CouponItem />
+          </View>
+          <View style={styles.row}>
+            <CouponItem />
+            <CouponItem />
+          </View>
+        </View>
         {/* 문의 및 알림 */}
         <View style={styles.helpContainer}>
           <View style={styles.helpTitle}>
@@ -51,6 +70,9 @@ export default function My({navigation}: NavigationProp): React.JSX.Element {
               <TouchableOpacity>
                 <Text style={styles.helpMenuText}>공지사항</Text>
               </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>쿠폰 사용내역</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.helpMenuWrapper}>
               <TouchableOpacity>
@@ -58,6 +80,9 @@ export default function My({navigation}: NavigationProp): React.JSX.Element {
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text style={styles.helpMenuText}>약관 및 정책</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.helpMenuText}>문의 내역</Text>
               </TouchableOpacity>
             </View>
           </View>
