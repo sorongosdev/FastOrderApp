@@ -35,7 +35,12 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
                 "name" : name,
                 "phone" : phone,
  
-            });
+            },
+        {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+        });
             console.log(response);
             // 회원가입 성공 시 페이지 이동
             setID('');

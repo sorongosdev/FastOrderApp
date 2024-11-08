@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, 
   Text, 
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { NavigationProp } from '../navigation/NavigationProps'; // 인터페이스 import
+import { NavigationProp } from '../navigation/NavigationProps'; 
 import EmptyLike from '../assets/icon_empty_like.svg';
 import FullLike from '../assets/icon_full_like.svg';
 import Location from '../assets/icon_location.svg';
@@ -17,8 +17,7 @@ import StoreImg from '../components/StoreImg';
 
 import styles from '../styles/Store';
 
-
-// const BASE_URL = "http://3.39.26.152:8000";
+// const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
 export default function Store({ navigation }: NavigationProp): React.JSX.Element {
   const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
@@ -36,21 +35,35 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
     { name: '비빔밥', price: '7,500원', img: menuImg },
     { name: '떡볶이', price: '5,500원', img: menuImg },
   ]);
+    //useEffect(() => {
+    //     const postFetchStore = async () => {
+      //     try {
+      //         const response = await axios.post(`${BASE_URL}/stores`, {
+      //           id : store_id 
+      //         });
+      //     } catch (error) {
+      //         console.error("Error fetching get:", error);
+      //     }
+    //     };
+        // const getFetchStoreMenu = async () => {
+        //     try {
+        //         const response = await axios.get(`${BASE_URL}/stores/${store_id}`);
+        //         // 응답이 배열인지 확인하고 설정
+        //         if (Array.isArray(response.data)) {
+        //             setMenu(response.data); // 배열로 설정
+        //             console.log(response.data);
+        //         } else {
+        //             console.error("응답이 배열이 아닙니다:", response.data);
+        //         }
 
-  // const StoreInfoGet = async () => {
-    //     try {
-    //         const response = await axios.get(`${BASE_URL}/api/galleries/`);
-    //         // 응답이 배열인지 확인하고 설정
-    //         if (Array.isArray(response.data)) {
-    //             setMenu(reponse.data);
-    //         } else {
-    //             console.error("응답이 배열이 아닙니다:", response.data);
-    //         }
+        //     } catch (error) {
+        //         console.error("Error fetching posts:", error);
+        //     }
+        // };
+    //}, [])
 
-    //     } catch (error) {
-    //         console.error("Error fetching get:", error);
-    //     }
-    // };
+  
+    
 
 
   function handleMenuInfo() {
@@ -65,10 +78,10 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   }
   function handleLike() {
     setLikeChecked(!likeChecked);
-    // const StoreLike = async () => {  //가게 아이디 넘겨줄 겁니다.
+    // const postFetchStoreLike = async () => {  //가게 아이디 넘겨줄 겁니다.
     //     if (likeChecked) {
     //       try {
-    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+    //         const response = await axios.post(`${BASE_URL}/stores/like`, {
     //           store_id = store_id;
     //         });
     //       } catch (error) {

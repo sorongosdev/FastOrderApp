@@ -10,7 +10,7 @@ import EmptyLike from "../assets/icon_empty_like.svg";
 import FullLike from "../assets/icon_full_like.svg";
 import { setItem, getItem } from "../components/Cart";
 
-// const BASE_URL = "http://3.39.26.152:8000";
+// const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
 
 
@@ -37,9 +37,10 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     // };
 
     async function handleOrder() {
-        const menuName = '제육볶음';
-        const price = 7000; 
-        const menuId = 1; // 예시로 메뉴 ID를 1로 설정, 실제 ID로 변경 필요
+        const menuId = 23; // 메뉴 ID를 23으로 설정
+        const details = [3, 5, 11]; // 세부 옵션 ID 배열
+        const quantity = count; // 수량
+    
 
         // 기존 장바구니 정보를 가져오기
         const existingOrders = await getItem('cartItems'); // 'cartItems'에서 기존 장바구니 정보 가져오기
@@ -47,12 +48,11 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
 
         // 새로운 메뉴 항목 추가
         orders.push({
-            menuName,
-            price,
-            count,
-            menuId,
-            TitleImg
+            menu : menuId,
+            details: details,
+            quantity: quantity,
         });
+    
 
         // 장바구니 정보 업데이트
         await setItem('cartItems', JSON.stringify(orders));

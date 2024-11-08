@@ -10,17 +10,17 @@ import { setItem, getItem } from "../components/Cart";
 import Cancel from "../assets/icon_cancel.svg";
 
 interface OrderItem {
-    menuName: string;
-    price: number;
-    count: number;
-    menuId: number; 
-    TitleImg : any;
+    menu : string,
+    details: number,
+    quantity: number,
 }
 
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const menuImg = require('../assets/menu_title.png');
     const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
+    const price = 7000;
+    const name = "제육볶음";
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -56,8 +56,8 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     function handleMinus(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = [...prevMenu];
-            if (newMenu[index].count > 1) {
-                newMenu[index].count--;
+            if (newMenu[index].quantity > 1) {
+                newMenu[index].quantity--;
             }
             updateCartItems(newMenu);
             return newMenu;
@@ -67,7 +67,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     function handlePlus(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = [...prevMenu];
-            newMenu[index].count++;
+            newMenu[index].quantity++;
             updateCartItems(newMenu);
             return newMenu;
         });
@@ -81,7 +81,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
         navigation.goBack();
     }
 
-    const totalPrice = orderMenu.reduce((total, item) => total + item.price * item.count, 0);
+    const totalPrice = orderMenu.reduce((total, item) => total + price * item.quantity, 0);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -100,20 +100,20 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                 ]}
                             >
                                 <View>
-                                    <Text style={styles.menuName}>{item.menuName}</Text>
-                                    <Text style={styles.menuPrice}>{formatPrice(item.price)}원</Text>
+                                    <Text style={styles.menuName}>{name}</Text>
+                                    <Text style={styles.menuPrice}>{formatPrice(price)}원</Text>
                                     <View style={styles.count}>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handleMinus(index)}>
                                             <Minus />
                                         </TouchableOpacity>
-                                        <Text style={styles.countText}>{item.count}</Text>
+                                        <Text style={styles.countText}>{item.quantity}</Text>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handlePlus(index)}>
                                             <Plus />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={styles.menuImg}>
-                                    <Image source={item.TitleImg} style={{height : '100%', width: '100%'}}/>
+                                    <Image source={menuImg} style={{height : '100%', width: '100%'}}/>
                                 </View>
                                 <TouchableOpacity style={styles.cancel} onPress={() => deleteCartItems(index)}>
                                     <Cancel />

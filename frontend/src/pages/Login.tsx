@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   View,
@@ -11,6 +12,7 @@ import UnCheckedBox from '../assets/icon_unchecked_box.svg';
 import CheckedBox from '../assets/icon_checked_box.svg';
 import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
+import { storeToken } from '../components/UserToken';
 
 interface LoginProps {
   navigation: {
@@ -18,7 +20,7 @@ interface LoginProps {
   };
 }
 
-// const BASE_URL = "http://3.39.26.152:8000";
+const BASE_URL = "https://money.ipdisk.co.kr:58210";
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
@@ -26,25 +28,25 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false); //로그인 상태 유지
 
-//   const handleLogin = async () => {
-//     if (id !== '' && password !== '') {
-//         try {
-//             const response = await axios.post(`${BASE_URL}/api/login/`, {
-//                 id : id,
-//                 pw : password
-//             });
-//            //로그인 성공 시 ID 토큰 저장
-//            if(checked) {
-//              const token = response.data.token; // 서버에서 반환하는 토큰
-//              await AsyncStorage.setItem('idToken', token);            
-//            }
-//             // 로그인 성공 시 페이지 이동
-//             navigate('/BottomNavigation'); // 성공적으로 로그인한 후 메인 페이지로 이동
-//         } catch (error) {
-//             console.error("Error during login:", error);
-//         }
-//     }
-// };
+  const postFetchLogin = async () => {
+    if (id !== '' && password !== '') {
+        try {
+            const response = await axios.post(`${BASE_URL}/user/login`, {
+                'id' : id,
+                'pw' : password
+            });
+           //로그인 성공 시 ID 토큰 저장
+             const token = response.data.token; // 서버에서 반환하는 토큰
+             storeToken(token);            
+            // 로그인 성공 시 페이지 이동
+            navigation.navigate('BottomNavigation'); // 성공적으로 로그인한 후 메인 페이지로 이동
+           } catch (error) {
+            console.error("Error during login:", error);
+        }
+
+        
+    }
+};
 
   function InputIdHandler(Id: string) {
     setId(Id);
@@ -55,12 +57,11 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   }
 
   const handleLogin = () => {
-    console.log('아이디:', id);
-    console.log('비밀번호:', password);
     navigation.navigate('BottomNavigation');
+    // postFetchLogin();
   };
 
-  function handleSignup() {
+  function handleMoveSignUp() {
     navigation.navigate('SignUp');
   }
 
@@ -115,7 +116,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
           비밀번호 찾기
         </Text>
         <Text style={styles.bottomText}>|</Text>
-        <Text style={styles.bottomTextSign} onPress={handleSignup}>
+        <Text style={styles.bottomTextSign} onPress={handleMoveSignUp}>
           회원가입
         </Text>
       </View>
