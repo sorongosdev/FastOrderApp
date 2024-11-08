@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: 12,
     paddingTop: 5.7,
     paddingHorizontal: 25,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   },
   searchBarWrapper: {
     display: 'flex',
+    width: '95%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -42,8 +44,9 @@ const styles = StyleSheet.create({
   buttonGroup: {
     display: 'flex',
     gap: 5,
+    width: '95%',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   chip: {
     paddingVertical: 3,
