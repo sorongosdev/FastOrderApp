@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
       fontWeight : '500',
     },
     input: {
-      height: '7%',
-      width: '84%',
+      height: 60,
+      width: 325,
       borderColor: '#B5B5B5',
       borderWidth: 1,
       marginTop: 9,
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
       borderRadius : 50
     },
     buttonBox: {
-      height: '7%',
-      width: '84%',
+      height: 60,
+      width: 325,
       backgroundColor: '#1B1B1B',
       borderRadius: 50,
       justifyContent: 'center',
