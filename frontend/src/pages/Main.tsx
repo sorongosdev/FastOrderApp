@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, Text, View, TextInput} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 /** Style */
@@ -10,7 +10,7 @@ import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
 
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
-  const [selectedButtons, setSelectedButtons] = React.useState([
+  const [selectedButtons, setSelectedButtons] = useState([
     false,
     false,
     false,
