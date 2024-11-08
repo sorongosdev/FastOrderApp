@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
     View,
     Text,
@@ -12,40 +13,47 @@ import styles from "../styles/SignUp";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
-// const BASE_URL = "http://3.39.26.152:8000";
+const BASE_URL = "https://money.ipdisk.co.kr:58210";
 
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
-    const [id, setID] = useState<string>('');
-    const [pw, setPW] = useState<string>('');
-    const [secondPW, setSecondPW] = useState<string>('');
-    const [name, setName] = useState<string>('');
-    const [phone, setPhone] = useState<string>('');
-    const [authenticationNumber, setAuthenticationNumber] = useState<string>('0'); //인증번호 입력 변수 
+    const [id, setID] = useState<string>("");
+    const [pw, setPW] = useState<string>("");
+    const [secondPW, setSecondPW] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [authenticationNumber, setAuthenticationNumber] = useState<string>("0"); //인증번호 입력 변수 
     const [compareViewAuth, setCompareViewAuth] = useState<boolean>(false);
     const [checkedAuthentication, setCheckedAuthentication] = useState<boolean>(false); //인증번호 맞는지 T/F변수
     const [comparePW, setComparePW] = useState<boolean>(false); //비밀번호 같은지 확인
-    const [authenticationId, setAuthenticationId] = useState<string>('2'); //id 중복확인
+    const [authenticationId, setAuthenticationId] = useState<string>("2"); //id 중복확인
+
+    const getFetchSignup = async () => {
+        try {
+            const response = await axios.post(`${BASE_URL}/user/signup`, {
+                "text_id" : id,
+                "pw" : pw,
+                "name" : name,
+                "phone" : phone,
+ 
+            });
+            console.log(response);
+            // 회원가입 성공 시 페이지 이동
+            setID('');
+            setPW('');
+            setSecondPW('');
+            setPhone('');
+            setName('');
+            setAuthenticationNumber('0');
+            setCheckedAuthentication(false);
+            // setAuthenticationId('');
+            setCompareViewAuth(false);
+            navigation.navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
+        } catch (error) {
+            console.error("Error during signup:", error);
+        }
+    };
 
 
-    // const handleSignup = async () => {
-    //     if (email && password && name && phone && username) {
-    //       try {
-    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
-    //           email : email,
-    //           password : password,
-    //           name : name,
-    //           phone : phone,
-    //           username : username,
-    //           subscribed:  clickAgreement === 1// 동의 여부
-    //         });
-            
-    //         // 회원가입 성공 시 페이지 이동
-    //         navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
-    //       } catch (error) {
-    //         console.log("Error during signup:");
-    //       }
-    //     }
-    //   };
 
     function handleBack() {
         navigation.goBack();
@@ -117,7 +125,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             //           setAuthenticationId(id);
             //         }
             //         Alert.alert("사용하셔도 되는 아이디 입니다.")
-            //       } catch () {
+            //       } catch (error) {
             //         Alert.alert("중복된 아이디 입니다.")
             //       }
             //     }
@@ -126,21 +134,12 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
 
 
     function handleLoginPage() {
-        if(comparePW && checkedAuthentication && (authenticationId === id)) {
+        if(comparePW && checkedAuthentication) {
             console.log(id);
             console.log(pw);
             console.log(phone);
             console.log(name);
-            setID('');
-            setPW('');
-            setSecondPW('');
-            setPhone('');
-            setName('');
-            setAuthenticationNumber('0');
-            setCheckedAuthentication(false);
-            setAuthenticationId('');
-            setCompareViewAuth(false);
-            navigation.navigate('Login')
+            getFetchSignup();
         }
     }
 
@@ -159,8 +158,8 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             </View>
 
             <Text style={styles.lableText}>비밀번호</Text>
-            <TextInput style={styles.input} placeholder="비밀번호" placeholderTextColor="#929292" onChangeText={handlePwInput}></TextInput>
-            <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#929292" onChangeText={handleSecondPW}></TextInput>
+            <TextInput style={styles.input} placeholder="비밀번호" placeholderTextColor="#929292" onChangeText={handlePwInput} secureTextEntry={true}></TextInput>
+            <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#929292" onChangeText={handleSecondPW} secureTextEntry={true}></TextInput>
 
             <Text style={styles.lableText}>이름</Text>
             <TextInput style={styles.inputName} placeholder="성명을 입력하세요" placeholderTextColor='#929292' onChangeText={handleName}/>
