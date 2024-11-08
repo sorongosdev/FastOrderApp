@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import StoreImg from '../components/StoreImg';
 
 const {width} = Dimensions.get('window');
 const CONTENT_HORIZONTAL_PADDING = 25; // 양쪽 여백
@@ -79,38 +80,71 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#484747',
   },
+  couponTitleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 21,
+    // borderWidth: 1,
+  },
+  titleText: {
+    color: '#484848',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  couponDetailWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 9,
+  },
+  couponDetailIconBox: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   couponContainer: {
+    display: 'flex',
+    flex: 1,
+    // flexDirection: 'row',
+    justifyContent: 'space-between',
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#D9D9D9',
-    marginTop: 12,
-    width: COUPON_WIDTH,
-    height: COUPON_HEIGHT,
+    marginTop: 8,
+  },
+  row: {
+    flexDirection: 'row', // 가로 방향으로 배치
+    justifyContent: 'space-between', // 아이템 간의 간격을 균등하게 조정
   },
   helpContainer: {
-    paddingHorizontal: 31,
+    marginTop: 20,
+    flex: 1,
+    // paddingHorizontal: 31,
+    // borderWidth: 1,
   },
   helpTitle: {
-    paddingVertical: 20,
+    // borderWidth: 1,
+    // paddingVertical: 20,
+    marginBottom: 12,
   },
   helpTitleText: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#484747',
+    color: '#484848',
+    fontSize: 16,
+    fontWeight: '600',
   },
   helpMenuContainer: {
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: 20,
+    // borderWidth: 1,
   },
   helpMenuWrapper: {
     display: 'flex',
     flex: 1,
-    gap: 12,
+    // borderWidth: 1,
+    gap: 8,
   },
   helpMenuText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '500',
-    color: '#484747',
+    color: '#12121299',
   },
 });
 

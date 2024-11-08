@@ -1,19 +1,26 @@
-import styles from '../styles/AppbarLikes';
-
 import {View, Text} from 'react-native';
 /**Icons */
 import CartIcon from '@assets/icon_cart.svg';
+/**Styles */
+import styles from '../styles/AppbarSmall';
 import {NavigationProp} from '../navigation/NavigationProps';
 
-export default function AppbarLikes({
+interface AppbarProp {
+  title: string;
+}
+
+interface CombinedProps extends NavigationProp, AppbarProp {}
+
+export default function AppbarSmall({
   navigation,
-}: NavigationProp): React.JSX.Element {
+  title,
+}: CombinedProps): React.JSX.Element {
   const navigateToShopping = () => {
     navigation.navigate('Shopping');
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ㅇㅇ님의 찜</Text>
+      <Text style={styles.title}>{title}</Text>
       <View style={styles.rightContainer}>
         <CartIcon onPress={navigateToShopping} />
       </View>

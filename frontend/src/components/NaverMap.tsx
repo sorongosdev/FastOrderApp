@@ -60,10 +60,10 @@ export default function NaverMap({
   ];
 
   const initialRegion: Region = {
-    latitude: 37.29879436841754,
-    longitude: 126.83961892219863,
-    latitudeDelta: 0.02,
-    longitudeDelta: 0.02,
+    latitude: 37.297509529215484,
+    longitude: 126.83672336012268,
+    latitudeDelta: 0.004, // 위도 방향
+    longitudeDelta: 0.002, // 경도 방향
   };
 
   const {height} = Dimensions.get('window');
