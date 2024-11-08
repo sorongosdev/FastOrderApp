@@ -10,19 +10,14 @@ import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
 
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
-  const [selectedButtons, setSelectedButtons] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-  const foodTypes = ['한식', '일식', '중식', '양식', '카페'];
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
+    null,
+  ); // 선택된 버튼 인덱스
+  const foodTypes = ['전체', '한식', '일식', '중식', '양식', '카페'];
 
   const handlePress = (index: number) => {
-    const newSelectedButtons = [...selectedButtons];
-    newSelectedButtons[index] = !newSelectedButtons[index];
-    setSelectedButtons(newSelectedButtons);
+    // 선택된 버튼 인덱스 업데이트
+    setSelectedButtonIndex(index === selectedButtonIndex ? null : index); // 같은 버튼을 다시 누르면 해제
     console.log('Pressed', index);
   };
 
@@ -45,9 +40,8 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
               style={[
                 styles.chip,
                 {
-                  backgroundColor: selectedButtons[index]
-                    ? '#9A9A9A'
-                    : '#E0E0E0',
+                  backgroundColor:
+                    selectedButtonIndex === index ? '#9A9A9A' : '#E0E0E0',
                 },
               ]}>
               <View style={styles.chipContainer}>
