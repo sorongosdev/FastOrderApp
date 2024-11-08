@@ -36,26 +36,6 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     //     }
     // };
 
-    // const handleSignup = async () => { //메뉴 id 찜 넘겨줄 겁니다.
-    //     if (email && password && name && phone && username) {
-    //       try {
-    //         const response = await axios.post(`${BASE_URL}/api/users/`, {
-    //           email : email,
-    //           password : password,
-    //           name : name,
-    //           phone : phone,
-    //           username : username,
-    //           subscribed:  clickAgreement === 1// 동의 여부
-    //         });
-            
-    //         // 회원가입 성공 시 페이지 이동
-    //         navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
-    //       } catch (error) {
-    //         console.log("Error during signup:");
-    //       }
-    //     }
-    //   };
-
     async function handleOrder() {
         const menuName = '제육볶음';
         const price = 7000; 
@@ -100,6 +80,20 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
     function handleMoveShopping() {
         navigation.navigate('Shopping')
     }
+    function handleLike() {
+        setLikeChecked(!likeChecked);
+        // const StoreLike = async () => {  //메뉴 아이디 넘겨줄 겁니다.
+        //     if (likeChecked) {
+        //       try {
+        //         const response = await axios.post(`${BASE_URL}/api/users/`, {
+        //           menu_id = menu_id;
+        //         });
+        //       } catch (error) {
+        //         console.log("Error during Menu Like");
+        //       }
+        //     }
+        //   };
+      }
     return (
     <SafeAreaView style={styles.container}>
         <View style = {styles.wrap}>
@@ -108,15 +102,9 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
                     <View style={styles.InfoBox}>
                         <Text style={styles.menuName}>제육볶음</Text>
                         <View>
-                        { likeChecked ?
-                            <TouchableOpacity onPress={() => setLikeChecked(false)}>
-                            <FullLike />
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity onPress={() => setLikeChecked(true)}>
-                            <EmptyLike />
-                            </TouchableOpacity>
-                        }
+                        <TouchableOpacity onPress={handleLike}>
+                            { likeChecked ?  <FullLike /> : <EmptyLike /> }
+                        </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.InfoBox}>
@@ -128,16 +116,16 @@ export default function MenuInfo({ navigation }: NavigationProp):React.JSX.Eleme
             <View style={styles.padding}></View>
 
             <View style={styles.count}>
-                <TouchableOpacity onPress={handleMinus}>
+                <TouchableOpacity style={styles.countIcon} onPress={handleMinus}>
                     <Minus />
                 </TouchableOpacity>
                 <Text style={styles.countText}>{count}</Text>
-                <TouchableOpacity onPress={handlePlus}>
+                <TouchableOpacity style={styles.countIcon} onPress={handlePlus}>
                     <Plus />    
                 </TouchableOpacity>
             </View>
         </View>
-        <BottomButton name="주문하기" onPress={handleOrder} checked={count > 0}/>
+        <BottomButton name="주문하기" onPress={handleOrder} checked={count > 0} color="#EC424C"/>
     </SafeAreaView>
     )
 }   

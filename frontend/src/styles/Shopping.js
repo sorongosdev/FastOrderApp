@@ -66,15 +66,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 12,
     },
+    countIcon : {
+        width : '20%',
+        height : '100%',
+        alignItems : 'center',
+        justifyContent : 'center'
+    },
     countText: {
         color: '#484747',
         fontSize: 17.824,
         fontWeight: '500',
         fontStyle : 'normal',
-    },
-    countBox : {
-        height : '100%',
-        justifyContent : 'center',
     },
     menuImg: {
         borderWidth: 1,

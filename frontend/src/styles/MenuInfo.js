@@ -53,6 +53,12 @@ const styles = StyleSheet.create({
         gap: 12,
         marginLeft : '9%'
       },
+      countIcon : {
+        width : '20%',
+        height : '100%',
+        alignItems : 'center',
+        justifyContent : 'center'
+      },
       countText: {
         color: '#484747',
         fontSize: 20,
