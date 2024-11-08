@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View} from 'react-native';
 /** Style */
 import styles from '../styles/Likes';
 /** Components */
-import AppbarLikes from '../components/AppbarLikes';
+import AppbarSmall from '../components/AppbarSmall';
 import LikesListItem from '../components/LikesListItem';
 /** Packages */
 import {ScrollView} from 'react-native-gesture-handler';
@@ -51,7 +51,7 @@ export default function Likes({navigation}: NavigationProp): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <AppbarLikes navigation={navigation} />
+      <AppbarSmall title="ㅇㅇ님의 찜" navigation={navigation} />
       <View style={[styles.divider, {height: 2}]}></View>
       <View style={styles.editWrapper}>
         <TouchableOpacity style={styles.editButton} onPress={toggleEditButton}>

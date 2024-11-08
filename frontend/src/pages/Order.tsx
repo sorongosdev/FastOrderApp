@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 
 /** Style */
 import styles from '../styles/Order';
 /**Components */
 import OrderListItem from '../components/OrderListItem';
-import AppbarDefault from '../components/AppbarDefault';
+import AppbarSmall from '../components/AppbarSmall';
 import {ScrollView} from 'react-native-gesture-handler';
 
 export default function Order({navigation}: NavigationProp): React.JSX.Element {
@@ -48,11 +48,24 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
       menuName: '김치찌개 외 1개 26,000원',
     },
   ]);
+  const [editButton, setEditButton] = useState(false);
+
+  const toggleEditButton = () => {
+    setEditButton(prevEditButton => !prevEditButton);
+    console.log('edit button pressed');
+  };
 
   return (
     <View style={styles.container}>
-      <AppbarDefault title="주문내역" />
-      <View style={styles.divder}></View>
+      <AppbarSmall title="주문내역" navigation={navigation} />
+      <View style={[styles.divider, {height: 2}]}></View>
+      <View style={styles.editWrapper}>
+        <TouchableOpacity style={styles.editButton} onPress={toggleEditButton}>
+          <Text style={styles.editText}>{editButton ? '완료' : '편집'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.divider, {height: 1}]}></View>
+
       <ScrollView
         style={styles.orderListContainer}
         contentContainerStyle={{paddingVertical: 10}}>
@@ -63,6 +76,7 @@ export default function Order({navigation}: NavigationProp): React.JSX.Element {
             progress={menu.progress}
             storeName={menu.storeName}
             menuName={menu.menuName}
+            editButtonClicked={editButton}
           />
         ))}
       </ScrollView>
