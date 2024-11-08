@@ -13,7 +13,7 @@ import styles from "../styles/SignUp";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
-const BASE_URL = "https://money.ipdisk.co.kr:58210";
+const BASE_URL = 'http://money.ipdisk.co.kr:58200';
 
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>("");
@@ -27,36 +27,42 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [comparePW, setComparePW] = useState<boolean>(false); //비밀번호 같은지 확인
     const [authenticationId, setAuthenticationId] = useState<string>("2"); //id 중복확인
 
+    
     const getFetchSignup = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/user/signup`, {
-                "text_id" : id,
-                "pw" : pw,
-                "name" : name,
-                "phone" : phone,
- 
+          const response = await axios.post(
+            `${BASE_URL}/user/signup`,
+            {
+              text_id: id,
+              pw: pw,
+              name : name,
+              phone : phone,
             },
-        {
-            headers : {
-                'Content-Type' : 'application/json',
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
             },
-        });
-            console.log(response);
-            // 회원가입 성공 시 페이지 이동
-            setID('');
-            setPW('');
-            setSecondPW('');
-            setPhone('');
-            setName('');
-            setAuthenticationNumber('0');
-            setCheckedAuthentication(false);
-            // setAuthenticationId('');
-            setCompareViewAuth(false);
-            navigation.navigate('/login'); // 성공적으로 가입한 후 메인 페이지로 이동
+          );
+          console.log('complete');
+          // 회원가입 성공 시 페이지 이동
+          setID('');
+          setPW('');
+          setSecondPW('');
+          setPhone('');
+          setName('');
+          setAuthenticationNumber('0');
+          setCheckedAuthentication(false);
+          setCompareViewAuth(false);
+          navigation.navigate('Login'); // 성공적으로 가입한 후 페이지로 이동
         } catch (error) {
-            console.error("Error during signup:", error);
+          console.log('hi');
+          console.error('Error during signup:', error);
         }
-    };
+        console.log('finish');
+      };
+    
+    
 
 
 
