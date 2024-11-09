@@ -42,6 +42,7 @@ const KoreaMarker = require('../assets/marker_korea.png');
 const JapanMarker = require('../assets/marker_japan.png');
 const ChinaMarker = require('../assets/marker_china.png');
 const WesternMarker = require('../assets/marker_western.png');
+const EtcMarker = require('../assets/marker_etc.png');
 
 export default function NaverMap({
   navigation,
@@ -70,8 +71,9 @@ export default function NaverMap({
       case '양식':
         return WesternMarker;
       case '카페':
+        return CafeMarker;
       default:
-        return CafeMarker; // 기본적으로 카페 마커
+        return EtcMarker; // 기본적으로 카페 마커
     }
   };
 
