@@ -48,17 +48,24 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 9,
     borderRadius: 44,
+    height: 28,
   },
   chipContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 2,
+    gap: 4,
     alignItems: 'center',
   },
   iconBox: {
     width: 16,
     height: 16,
-    backgroundColor: '#9A9A9A',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  chipText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
 });
 
