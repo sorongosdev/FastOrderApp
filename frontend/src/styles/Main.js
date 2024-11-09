@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: 12,
     paddingTop: 5.7,
     paddingHorizontal: 25,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   },
   searchBarWrapper: {
     display: 'flex',
+    width: '95%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -40,26 +42,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonGroup: {
-    display: 'flex',
-    gap: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    gap: 6,
   },
   chip: {
     paddingVertical: 3,
     paddingHorizontal: 9,
     borderRadius: 44,
+    height: 28,
   },
   chipContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 2,
+    gap: 4,
     alignItems: 'center',
   },
   iconBox: {
     width: 16,
     height: 16,
-    backgroundColor: '#9A9A9A',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  chipText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
 });
 

@@ -8,10 +8,6 @@ import {NavigationProp} from '../navigation/NavigationProps';
 /** Styles */
 import styles from '../styles/NaverMap';
 
-interface NaverMapProps {
-  clientId: string;
-}
-
 interface Coord {
   latitude: number;
   longitude: number;
@@ -24,40 +20,41 @@ interface Region {
   longitudeDelta: number;
 }
 
+interface Store {
+  no: number;
+  store_name: string;
+  store_type: string;
+  latitude: string;
+  longitude: string;
+}
+
+interface StoreProp {
+  stores: Store[]; // stores prop 정의
+}
+
+interface CombinedInterface extends NavigationProp, StoreProp {
+  onMarkerPress: (storeId: number) => void;
+}
+
+/** Markers */
+const CafeMarker = require('../assets/marker_cafe.png');
+const KoreaMarker = require('../assets/marker_korea.png');
+const JapanMarker = require('../assets/marker_japan.png');
+const ChinaMarker = require('../assets/marker_china.png');
+const WesternMarker = require('../assets/marker_western.png');
+
 export default function NaverMap({
   navigation,
-}: NavigationProp): React.JSX.Element {
-  const handleMapTap = (params: Coord & {x: number; y: number}) => {
-    console.log('맵이 클릭되었습니다:', params);
-  };
+  stores,
+  onMarkerPress,
+}: CombinedInterface): React.JSX.Element {
+  // const handleMapTap = (params: Coord & {x: number; y: number}) => {
+  //   console.log('맵이 클릭되었습니다:', params);
+  // };
 
   const handleStore = () => {
     navigation.navigate('Store');
   };
-
-  const regions: Region[] = [
-    {
-      // 마라미방 : 37.299701, 126.838338
-      latitude: 37.299701,
-      longitude: 126.838338,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-    {
-      // 인더비엣 37.300986, 126.837876
-      latitude: 37.300986,
-      longitude: 126.837876,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-    {
-      // 도스마스 "latitude": 37.29977232411561, "longitude": 126.83849480719579
-      latitude: 37.29977232411561,
-      longitude: 126.83849480719579,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-  ];
 
   const initialRegion: Region = {
     latitude: 37.297509529215484,
@@ -66,25 +63,37 @@ export default function NaverMap({
     longitudeDelta: 0.002, // 경도 방향
   };
 
-  const {height} = Dimensions.get('window');
+  const getMarkerImage = (storeType: string) => {
+    switch (storeType) {
+      case '한식':
+        return KoreaMarker;
+      case '일식':
+        return JapanMarker;
+      case '중식':
+        return ChinaMarker;
+      case '양식':
+        return WesternMarker;
+      case '카페':
+      default:
+        return CafeMarker; // 기본적으로 카페 마커
+    }
+  };
 
   return (
     <View style={styles.container}>
       <NaverMapView
         style={styles.mapContainer}
         isShowLocationButton={true}
-        initialRegion={initialRegion}
-        onTapMap={handleMapTap}>
-        {regions.map((region, index) => (
+        initialRegion={initialRegion}>
+        {stores.map(store => (
           <NaverMapMarkerOverlay
-            key={index} // 각 마커에 고유한 키를 부여
-            latitude={region.latitude}
-            longitude={region.longitude}
-            onTap={() => handleStore()}
-            anchor={{x: 229, y: height / 2}}
+            key={store.no}
+            latitude={parseFloat(store.latitude)}
+            longitude={parseFloat(store.longitude)}
             width={44}
-            height={44}
-            image={require('../assets/icon_marker.png')}
+            height={48}
+            image={getMarkerImage(store.store_type)}
+            onTap={() => onMarkerPress(store.no)} // 클릭 시 store.no를 전달
           />
         ))}
       </NaverMapView>
