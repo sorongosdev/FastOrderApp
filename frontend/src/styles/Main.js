@@ -42,11 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonGroup: {
-    display: 'flex',
-    gap: 5,
-    width: '95%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: 6,
   },
   chip: {
     paddingVertical: 3,
