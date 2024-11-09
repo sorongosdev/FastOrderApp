@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, Text, View, TextInput} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 /** Style */
 import styles from '../styles/Main';
@@ -32,7 +38,11 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           <TextInput style={styles.input} placeholder="검색" />
           <CartIcon onPress={navigateToShopping} />
         </View>
-        <View style={styles.buttonGroup}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.buttonGroup} // 좌우 패딩 설정
+        >
           {foodTypes.map((type, index) => (
             <TouchableOpacity
               key={index}
@@ -50,7 +60,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
               </View>
             </TouchableOpacity>
           ))}
-        </View>
+        </ScrollView>
       </View>
       <NaverMap navigation={navigation}></NaverMap>
       <BottomSheet navigation={navigation} />
