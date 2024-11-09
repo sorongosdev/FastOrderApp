@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
+import axios from 'axios';
 /** Style */
 import styles from '../styles/Main';
 /** Icons */
@@ -32,19 +33,35 @@ const foodIcons = {
   기타: <EtcIcon />,
 } as const; // as const로 타입을 고정
 
+const BASE_URL = 'http://money.ipdisk.co.kr:58200';
+
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
     null,
   );
+  const [stores, setStores] = useState([]); // stores 상태 추가
   const foodTypes = Object.keys(foodIcons) as (keyof typeof foodIcons)[]; // keyof 사용
 
-  const handlePress = (index: number) => {
+  const handlePress = async (index: number) => {
     setSelectedButtonIndex(index === selectedButtonIndex ? null : index);
-    console.log('Pressed', index);
+
+    if (index == 0) {
+      await getTotalStores();
+    }
   };
 
   const navigateToShopping = () => {
     navigation.navigate('Shopping');
+  };
+
+  const getTotalStores = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/stores`);
+      setStores(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error during getStores:', error);
+    }
   };
 
   return (
@@ -77,8 +94,8 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </ScrollView>
       </View>
-      <NaverMap navigation={navigation} />
-      <BottomSheet navigation={navigation} />
+      <NaverMap navigation={navigation} stores={stores} />
+      {/* <BottomSheet navigation={navigation} data={stores} /> */}
     </View>
   );
 }

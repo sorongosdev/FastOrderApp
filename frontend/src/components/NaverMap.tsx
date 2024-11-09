@@ -20,40 +20,30 @@ interface Region {
   longitudeDelta: number;
 }
 
+interface Store {
+  no: number;
+  store_name: string;
+  latitude: string;
+  longitude: string;
+}
+
+interface StoreProp {
+  stores: Store[]; // stores prop 정의
+}
+
+interface CombinedInterface extends NavigationProp, StoreProp {}
+
 export default function NaverMap({
   navigation,
-}: NavigationProp): React.JSX.Element {
-  const handleMapTap = (params: Coord & {x: number; y: number}) => {
-    console.log('맵이 클릭되었습니다:', params);
-  };
+  stores,
+}: CombinedInterface): React.JSX.Element {
+  // const handleMapTap = (params: Coord & {x: number; y: number}) => {
+  //   console.log('맵이 클릭되었습니다:', params);
+  // };
 
   const handleStore = () => {
     navigation.navigate('Store');
   };
-
-  const regions: Region[] = [
-    {
-      // 마라미방 : 37.299701, 126.838338
-      latitude: 37.299701,
-      longitude: 126.838338,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-    {
-      // 인더비엣 37.300986, 126.837876
-      latitude: 37.300986,
-      longitude: 126.837876,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-    {
-      // 도스마스 "latitude": 37.29977232411561, "longitude": 126.83849480719579
-      latitude: 37.29977232411561,
-      longitude: 126.83849480719579,
-      latitudeDelta: 0.02,
-      longitudeDelta: 0.02,
-    },
-  ];
 
   const initialRegion: Region = {
     latitude: 37.297509529215484,
@@ -62,25 +52,22 @@ export default function NaverMap({
     longitudeDelta: 0.002, // 경도 방향
   };
 
-  const {height} = Dimensions.get('window');
+  console.log('Stores:', stores);
 
   return (
     <View style={styles.container}>
       <NaverMapView
         style={styles.mapContainer}
         isShowLocationButton={true}
-        initialRegion={initialRegion}
-        onTapMap={handleMapTap}>
-        {regions.map((region, index) => (
+        initialRegion={initialRegion}>
+        {stores.map(store => (
           <NaverMapMarkerOverlay
-            key={index} // 각 마커에 고유한 키를 부여
-            latitude={region.latitude}
-            longitude={region.longitude}
-            onTap={() => handleStore()}
-            anchor={{x: 229, y: height / 2}}
+            key={store.no} // 각 마커에 고유한 키 설정
+            latitude={parseFloat(store.latitude)}
+            longitude={parseFloat(store.longitude)}
             width={44}
-            height={44}
-            image={require('../assets/icon_marker.png')}
+            height={48}
+            image={require('../assets/marker_cafe.png')} // 마커 이미지
           />
         ))}
       </NaverMapView>
