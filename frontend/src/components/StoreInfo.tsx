@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
 
 /** Consts */
@@ -27,6 +27,10 @@ export default function OrderHistory({
 }: CombinedProp): React.JSX.Element {
   const [store, setStore] = useState<Store | null>(null);
 
+  const navigateToStore = () => {
+    navigation.navigate('Store');
+  };
+
   const getStoresByType = async (storeId: number) => {
     try {
       const response = await axios.get(`${BASE_URL}/stores/mini/id/${storeId}`);
@@ -45,12 +49,14 @@ export default function OrderHistory({
 
   return (
     <View style={styles.container}>
-      {store ? ( // store가 null이 아닐 때만 렌더링
-        <>
-          <View style={styles.storeNameWrapper}>
+      {store ? (
+        <View>
+          <TouchableOpacity
+            style={styles.storeNameWrapper}
+            onPress={navigateToStore}>
             <Text style={styles.storeName}>{store.store_name}</Text>
             <Text style={styles.storeType}>{store.store_type}</Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.statusWrapper}>
             <Text style={styles.businessStatus}>영업중</Text>
@@ -66,9 +72,9 @@ export default function OrderHistory({
             <View style={styles.menuImg}></View>
             <View style={styles.menuImg}></View>
           </ScrollView>
-        </>
+        </View>
       ) : (
-        <Text>Loading...</Text> // 데이터가 로드 중일 때 표시할 내용
+        <Text>가게 정보 불러오는 중</Text>
       )}
     </View>
   );
