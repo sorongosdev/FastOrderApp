@@ -24,13 +24,13 @@ import NaverMap from '../components/NaverMap';
 
 // 아이콘 매핑 정의
 const foodIcons = {
-  전체: <EtcIcon />,
+  전체: null, // 아이콘 없음
   한식: <KoreanIcon />,
   일식: <JapaneseIcon />,
   중식: <ChineseIcon />,
   양식: <WesternIcon />,
   카페: <CafeIcon />,
-  기타: <EtcIcon />,
+  기타: null, // 아이콘 없음
 } as const; // as const로 타입을 고정
 
 const BASE_URL = 'http://money.ipdisk.co.kr:58200';
@@ -128,7 +128,9 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
                 },
               ]}>
               <View style={styles.chipContainer}>
-                <View style={styles.iconBox}>{foodIcons[type]}</View>
+                {foodIcons[type] && ( // 아이콘이 있을 때만 렌더링
+                  <View style={styles.iconBox}>{foodIcons[type]}</View>
+                )}
                 <Text style={styles.chipText}>{type}</Text>
               </View>
             </TouchableOpacity>
