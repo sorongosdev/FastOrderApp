@@ -39,7 +39,8 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
     null,
   );
-  const [stores, setStores] = useState([]); // stores 상태 추가
+  const [stores, setStores] = useState([]);
+  const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null); // 스토어 마커 클릭
   const foodTypes = Object.keys(foodIcons) as (keyof typeof foodIcons)[]; // keyof 사용
 
   const handlePress = async (index: number) => {
@@ -94,8 +95,12 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
           ))}
         </ScrollView>
       </View>
-      <NaverMap navigation={navigation} stores={stores} />
-      {/* <BottomSheet navigation={navigation} data={stores} /> */}
+      <NaverMap
+        navigation={navigation}
+        stores={stores}
+        onMarkerPress={setSelectedStoreId}
+      />
+      <BottomSheet navigation={navigation} storeId={selectedStoreId} />
     </View>
   );
 }

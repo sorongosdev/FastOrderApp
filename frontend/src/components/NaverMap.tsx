@@ -32,7 +32,9 @@ interface StoreProp {
   stores: Store[]; // stores prop 정의
 }
 
-interface CombinedInterface extends NavigationProp, StoreProp {}
+interface CombinedInterface extends NavigationProp, StoreProp {
+  onMarkerPress: (storeId: number) => void;
+}
 
 /** Markers */
 const CafeMarker = require('../assets/marker_cafe.png');
@@ -44,6 +46,7 @@ const WesternMarker = require('../assets/marker_western.png');
 export default function NaverMap({
   navigation,
   stores,
+  onMarkerPress,
 }: CombinedInterface): React.JSX.Element {
   // const handleMapTap = (params: Coord & {x: number; y: number}) => {
   //   console.log('맵이 클릭되었습니다:', params);
@@ -89,7 +92,8 @@ export default function NaverMap({
             longitude={parseFloat(store.longitude)}
             width={44}
             height={48}
-            image={getMarkerImage(store.store_type)} // 마커 이미지
+            image={getMarkerImage(store.store_type)}
+            onTap={() => onMarkerPress(store.no)} // 클릭 시 store.no를 전달
           />
         ))}
       </NaverMapView>
