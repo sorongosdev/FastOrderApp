@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import { NavigationProp } from '../navigation/NavigationProps';
+import { NavigationProp, RouteProp } from '../navigation/NavigationProps';
 import axios from "axios";
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
@@ -50,9 +50,12 @@ interface MenuOption {
     details: MenuDetail[];
 }
 
+type MenuInfoProps = NavigationProp & RouteProp;
+
 const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
-export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Element {
+export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JSX.Element {
+    const { menuId } = route.params;
     const [count, setCount] = useState(0);
     const [likeChecked, setLikeChecked] = useState<boolean>(false);
     const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
@@ -64,36 +67,34 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
     // 총 가격 계산 함수
     const calculateTotalPrice = () => {
         if (!menu) return 0; // menu가 null일 경우 0 반환
-    
+
         // 기본 메뉴 가격
         let totalPrice = menu.price * count;
-    
+        
         // 선택된 옵션 가격 추가
         options.forEach(option => {
-            if (selectedOptions[option.option.title]) {
-                option.details.forEach(detail => {
-                    totalPrice += detail.price; // 선택된 세부 옵션 가격 추가
-                });
-            }
-        });
-    
-        return totalPrice; // 총 가격 반환
+            option.details.forEach(detail => {
+                if (selectedOptions[detail.title]) {
+                    totalPrice += detail.price * count; // 선택된 세부 옵션 가격만 추가
+                }
+            });
+    });
+
+    return totalPrice; // 총 가격 반환
     };
 
     useEffect(() => {
         const getFetchMenuInfo = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/stores/id/menu/4`);
-                console.log(response.data);
+                const response = await axios.get(`${BASE_URL}/stores/id/menu/${menuId}`);
                 setMenu(response.data.menu_data); // 메뉴 정보 설정
                 setOptions(response.data.menu_options); // 옵션 정보 설정
-                console.log(options);
             } catch (error) {
                 console.error("Error fetching menu info:", error);
             }
         };
         getFetchMenuInfo();
-    }, []);
+    }, [menuId]);
 
     async function handleOrder() {
         if (!menu) return; // menu가 null일 경우 주문 처리 중단
@@ -111,7 +112,8 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
                 ...options
                     .filter(option => selectedOptions[option.option.title])
                     .flatMap(option => option.details.map(detail => ({ Cost: detail.price, Title: detail.title })))
-            ]
+            ],
+            store_id : menu.store,
         };
 
         const existingOrders = await getItem('cartItems');
@@ -157,7 +159,6 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
             ...prev,
             [optionTitle]: !prev[optionTitle],
         }));
-        console.log(selectedOptions);
     }
 
     return (
@@ -212,28 +213,31 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
                 <View style={{ height: '20%', justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
                     <View style={styles.flavoursBox}>
                         <Text style={styles.price}>옵션 선택</Text>
-                        {options[1].option ?
-                        <View style={styles.detailRound}>
-                            <Text>{options[1].option.is_required === "required" ? "필수" : "선택"}</Text>
-                        </View>
-                        :
-                        <Text style={styles.price}>옵션 선택이 없습니다</Text>
+                        {options.length > 1 && options[1].option ?
+                            <View style={styles.detailRound}>
+                                <Text>{options[1].option.is_required === "required" ? "필수" : "선택"}</Text>
+                            </View>
+                            :
+                            <Text style={styles.price}>옵션 선택이 없습니다</Text>
                         }
                     </View>
-                    {options[1].details.map((detail) => (
-                        <View key={detail.title} style={styles.flavoursBox}>
-                            <TouchableOpacity
-                                style={styles.wrapper}
-                                onPress={() => handleToggleOption(detail.title)}
-                            >
-                                {selectedOptions[detail.title] ? <CheckedBox /> : <UncheckedBox />}
-                                <Text style={styles.flavoursPrice}>{detail.title}</Text>
-                            </TouchableOpacity>
-                            {detail  && (
-                                <Text style={styles.flavoursPrice}>{detail ? `${formatPrice(detail.price)}원` : '0원'}</Text> // 첫 번째 세부사항 가격 표시
-                            )}
-                        </View>
-                    ))}
+                    
+                    {options.length > 1 && options[1].details && options[1].details.length > 0 ? (
+                        options[1].details.map((detail) => (
+                            <View key={detail.title} style={styles.flavoursBox}>
+                                <TouchableOpacity
+                                    style={styles.wrapper}
+                                    onPress={() => handleToggleOption(detail.title)}
+                                >
+                                    {selectedOptions[detail.title] ? <CheckedBox /> : <UncheckedBox />}
+                                    <Text style={styles.flavoursPrice}>{detail.title}</Text>
+                                </TouchableOpacity>
+                                <Text style={styles.flavoursPrice}>{`${formatPrice(detail.price)}원`}</Text>
+                            </View>
+                        ))
+                    ) : (
+                        <Text style={styles.price}>세부사항이 없습니다</Text>
+                    )}
                 </View>
 
                 <View style={styles.padding}></View>

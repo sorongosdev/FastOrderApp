@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import Plus from "../assets/icon_menu_plus.svg";
@@ -9,20 +10,39 @@ import TopTitle from "../components/TopTitle";
 import { setItem, getItem } from "../components/Cart";
 import Cancel from "../assets/icon_cancel.svg";
 
-interface OrderItem {
-    Menu : string,
-    Option: number,
-    Count : number,
-    Price : number,
+interface Option {
+    Cost: number;
+    Title: string;
+}
+
+interface Menu {
+    Price: number;
+    Title: string;
+}
+
+interface CartItem {
+    Menu: Menu;
+    Count: number;
+    Price: number;
+    Option: Option[];
+    store_id?: number; // Optional field since it's only present in some items
 }
 
 
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const menuImg = require('../assets/menu_title.png');
-    const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
-    const price = 7000;
-    const name = "제육볶음";
+    const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
+    const [storeTitle, setStoreTitle] = useState<string>('');
 
+
+    useEffect(() => {
+        if (orderMenu.length === 0) {
+            setStoreTitle("");
+        }
+    }, [orderMenu]);
+    
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
@@ -35,14 +55,30 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                 console.error("Failed to fetch cart items:", error);
             }
         };
-
+    
         fetchCartItems();
-    }, []);
+    }, []); 
+    
+    useEffect(() => {
+        const getFetchMenu = async () => {
+            if (orderMenu.length > 0 && orderMenu[0].store_id) {
+                try {
+                    const response = await axios.get(`${BASE_URL}/stores/mini/id/${orderMenu[0].store_id}`);
+                    setStoreTitle(response.data.store_name);
+                } catch (error) {
+                    console.error("Error fetching menu info:", error);
+                }
+            }
+        };
+    
+        getFetchMenu();
+    }, [orderMenu]); 
+    
 
     const formatPrice = (price:number) => {
         return new Intl.NumberFormat("ko-KR").format(price);
     };
-    const updateCartItems = async (updatedMenu: OrderItem[]) => {
+    const updateCartItems = async (updatedMenu: CartItem[]) => {
         await setItem('cartItems', JSON.stringify(updatedMenu));
         console.log("Updated Cart Items:", JSON.stringify(updatedMenu, null, 2)); // 업데이트된 장바구니 정보 확인
     };
@@ -97,7 +133,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                 <View style={styles.wrap}>
                     <TopTitle name="장바구니" onPress={handleBack} />
                     <View style={styles.padding}></View>
-                    <Text style={styles.storeName}>찌개찌개 한양대 에리카 점</Text>
+                    <Text style={styles.storeName}>{storeTitle !== '' ? storeTitle : ''}</Text>
                     <View style={styles.menuBox}>
                         {orderMenu.map((item, index) => (
                             <View 
@@ -108,8 +144,8 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                 ]}
                             >
                                 <View>
-                                    <Text style={styles.menuName}>{name}</Text>
-                                    <Text style={styles.menuPrice}>{formatPrice(price)}원</Text>
+                                    <Text style={styles.menuName}>{item.Menu.Title}</Text>
+                                    <Text style={styles.menuPrice}>{formatPrice(item.Price)}원</Text>
                                     <View style={styles.count}>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handleMinus(index)}>
                                             <Minus />

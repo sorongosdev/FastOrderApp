@@ -82,8 +82,8 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
       return new Intl.NumberFormat("ko-KR").format(price);
   };
 
-  function handleMenuInfo() {
-    navigation.navigate('MenuInfo');
+  function handleMenuInfo(number : number) {
+    navigation.navigate("MenuInfo", { menuId: number });
   }
 
   function handleBack() {
@@ -157,7 +157,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
 
           <View style={styles.menuWrap}>
             {menu.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.menu} onPress={handleMenuInfo}>
+              <TouchableOpacity key={index} style={styles.menu} onPress={() => handleMenuInfo(item.no)}>
                 <View style={styles.menuBox}>
                   <Text style={styles.menuName}>{item.name}</Text>
                   <Text style={styles.menuPrice}>{`${formatPrice(item.price)}원`}</Text>
