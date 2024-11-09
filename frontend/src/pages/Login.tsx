@@ -102,7 +102,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
         <TouchableOpacity onPress={() => setChecked(!checked)}>
           {checked ? <CheckedBox /> : <UnCheckedBox />}
         </TouchableOpacity>
-        <Text style={styles.checkboxText}>로그인 상태 유지</Text>
+        <Text style={styles.checkboxText}>자동 로그인</Text>
       </View>
       <TouchableOpacity style={styles.buttonBox} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
