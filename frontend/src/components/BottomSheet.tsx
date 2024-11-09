@@ -10,11 +10,13 @@ import {
   PanGestureHandlerGestureEvent,
   ScrollView,
 } from 'react-native-gesture-handler';
-import MainListItem from '../components/MainListItem';
+/** Components */
+import OrderHistory from '../components/OrderHistory';
+import StoreInfo from '../components/StoreInfo';
+
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
 import {HOME} from '../consts/BottomSheetConsts';
-import OrderHistory from '../components/OrderHistory';
 
 const LIST_ITEM_HEIGHT = HOME.LIST_ITEM_HEIGHT;
 const HANDLE_HEIGHT = HOME.HANDLE_HEIGHT;
@@ -78,8 +80,11 @@ export default function BottomSheet({
             <View style={styles.handle} />
           </View>
         </PanGestureHandler>
-        <Text style={styles.bottomSheetTitle}>{storeId}</Text>
-        <OrderHistory navigation={navigation} />
+        {storeId ? (
+          <StoreInfo navigation={navigation} storeId={storeId} />
+        ) : (
+          <OrderHistory navigation={navigation} />
+        )}
       </Animated.View>
     </View>
   );
