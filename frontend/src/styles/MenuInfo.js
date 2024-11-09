@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       },
       round : {
         borderRadius: 15,
-        height : 19,
+        height : 20,
         width : 39,
         backgroundColor : 'rgba(236, 66, 76, 0.30)',
         alignItems :'center',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       },
       detailRound : {
         borderRadius: 15,
-        height : 19,
+        height : 20,
         width : 39,
         backgroundColor : 'rgba(42, 42, 44, 0.10)',
         alignItems :'center',

@@ -1,58 +1,122 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
+import axios from "axios";
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
 import Plus from "../assets/icon_menu_plus.svg";
 import Minus from "../assets/icon_menu_minus.svg";
 import BottomButton from "../components/BottomButton";
 import EmptyLike from "../assets/icon_empty_like.svg";
-import EmptyEclips from "../assets/icon_eclips.svg";
-import CheckedEclips from "../assets/icon_flavour_Eclips.svg";
 import FullLike from "../assets/icon_full_like.svg";
+import CheckedEclips from "../assets/icon_checked_eclips.svg";
+import EmptyEclips from "../assets/icon_eclips.svg";
 import UncheckedBox from "../assets/icon_unchecked_box.svg";
 import CheckedBox from "../assets/icon_checked_box.svg";
 import { setItem, getItem } from "../components/Cart";
 
-const OPTIONS = [
-    { title: "아보카도 추가", cost: 500 },
-    { title: "샤워크림 추가", cost: 700 },
-    // 추후 추가할 옵션은 여기 배열에 추가
-];
+// 메뉴 데이터 인터페이스
+interface MenuData {
+    no: number;
+    name: string;
+    image: string | null;
+    price: number;
+    description: string;
+    min_quantity: number;
+    max_quantity: number;
+    is_soldout: number;
+    store: number;
+}
+
+// 메뉴 옵션의 세부사항 인터페이스
+interface MenuDetail {
+    no: number;
+    title: string;
+    price: number;
+    last_modified: string | null;
+    option: number;
+}
+
+// 메뉴 옵션 인터페이스
+interface MenuOption {
+    option: {
+        no: number;
+        is_required: "required" | "optional";
+        title: string;
+        is_duplicate_allowed: "Yes" | "No";
+        max_duplicate_limit: number;
+        menu: number;
+    };
+    details: MenuDetail[];
+}
+
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
 export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Element {
     const [count, setCount] = useState(0);
     const [likeChecked, setLikeChecked] = useState<boolean>(false);
     const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: boolean }>({});
-
+    const [menu, setMenu] = useState<MenuData | null>(null); // 메뉴 정보를 저장할 상태
+    const [options, setOptions] = useState<MenuOption[]>([]); // 옵션 정보를 저장할 상태
     const TitleImg = require('../assets/jjiggajjigga_title.png');
-    const basePrice = 7000; // 기본 가격
+
     // 총 가격 계산 함수
     const calculateTotalPrice = () => {
-        const options = OPTIONS.filter(option => selectedOptions[option.title]);
-        const totalOptionsCost = options.reduce((sum, option) => sum + option.cost, 0);
-        return (basePrice + totalOptionsCost) *  count; // 수량에 따른 가격 추가
+        if (!menu) return 0; // menu가 null일 경우 0 반환
+    
+        // 기본 메뉴 가격
+        let totalPrice = menu.price * count;
+    
+        // 선택된 옵션 가격 추가
+        options.forEach(option => {
+            if (selectedOptions[option.option.title]) {
+                option.details.forEach(detail => {
+                    totalPrice += detail.price; // 선택된 세부 옵션 가격 추가
+                });
+            }
+        });
+    
+        return totalPrice; // 총 가격 반환
     };
 
+    useEffect(() => {
+        const getFetchMenuInfo = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/stores/id/menu/4`);
+                console.log(response.data);
+                setMenu(response.data.menu_data); // 메뉴 정보 설정
+                setOptions(response.data.menu_options); // 옵션 정보 설정
+                console.log(options);
+            } catch (error) {
+                console.error("Error fetching menu info:", error);
+            }
+        };
+        getFetchMenuInfo();
+    }, []);
+
     async function handleOrder() {
-        const options = OPTIONS.filter(option => selectedOptions[option.title]);
-        const menu = {
+        if (!menu) return; // menu가 null일 경우 주문 처리 중단
+        if (!options) return;
+        
+        const orderedMenu = {
             Menu: {
-                Price: basePrice,
-                Title: "제윢볶음"
+                Price: menu.price,
+                Title: menu.name,
             },
             Count: count,
             Price: calculateTotalPrice(), // 총 가격 계산
             Option: [
-                { Cost: 7000, Title: selectedFlavor },
-                ...options.map(option => ({ Cost: option.cost, Title: option.title }))
+                { Cost: menu.price, Title: selectedFlavor || "" }, // 선택된 맛
+                ...options
+                    .filter(option => selectedOptions[option.option.title])
+                    .flatMap(option => option.details.map(detail => ({ Cost: detail.price, Title: detail.title })))
             ]
         };
 
         const existingOrders = await getItem('cartItems');
         const orders = existingOrders ? JSON.parse(existingOrders) : [];
-        orders.push(menu);
+        orders.push(orderedMenu); // 주문 항목 추가
         await setItem('cartItems', JSON.stringify(orders));
         console.log("Updated Cart Items:", orders);
         navigation.navigate('Shopping');
@@ -93,30 +157,40 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
             ...prev,
             [optionTitle]: !prev[optionTitle],
         }));
+        console.log(selectedOptions);
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.wrap}>
                 <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={TitleImg} />
-                <View style={styles.storeBox}>
-                    <View style={styles.InfoBox}>
-                        <Text style={styles.menuName}>제육볶음</Text>
-                        <View>
-                            <TouchableOpacity onPress={handleLike}>
-                                {likeChecked ? <FullLike /> : <EmptyLike />}
-                            </TouchableOpacity>
+                {menu && (
+                    <View style={styles.storeBox}>
+                        <View style={styles.InfoBox}>
+                            <Text style={styles.menuName}>{menu.name}</Text>
+                            <View>
+                                <TouchableOpacity onPress={handleLike}>
+                                    {likeChecked ? <FullLike /> : <EmptyLike />}
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
+                )}
 
                 <View style={styles.padding}></View>
-                <View style={{ justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
+
+                <View style={{ height: '20%', justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
                     <View style={styles.flavoursBox}>
-                        <Text style={styles.price}>가격</Text>
-                        <View style={styles.round}>
-                            <Text>필수</Text>
-                        </View>
+                        {options && options.length > 0 && options[0].option ? (
+                            <>
+                                <Text style={styles.price}>{options[0].option.title}</Text>
+                                <View style={styles.round}>
+                                    <Text>{options[0].option.is_required === "required" ? "필수" : "선택"}</Text>
+                                </View>
+                            </>
+                        ) : (
+                            <Text style={styles.price}>맛 선택이 없습니다</Text>
+                        )}
                     </View>
 
                     {["순한맛", "중간맛", "매운맛"].map((flavor) => (
@@ -128,29 +202,36 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
                                 {selectedFlavor === flavor ? <CheckedEclips /> : <EmptyEclips />}
                                 <Text style={styles.flavoursPrice}>{flavor}</Text>
                             </TouchableOpacity>
-                            <Text style={styles.flavoursPrice}>{`${formatPrice(7000)}원`}</Text>
+                            <Text>{menu ? `${formatPrice(menu?.price)}원` : "가격 정보 없음"}</Text>
                         </View>
                     ))}
                 </View>
+
                 <View style={styles.padding}></View>
 
-                <View style={{ justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
+                <View style={{ height: '20%', justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
                     <View style={styles.flavoursBox}>
-                        <Text style={styles.price}>가격</Text>
+                        <Text style={styles.price}>옵션 선택</Text>
+                        {options[1].option ?
                         <View style={styles.detailRound}>
-                            <Text>선택</Text>
+                            <Text>{options[1].option.is_required === "required" ? "필수" : "선택"}</Text>
                         </View>
+                        :
+                        <Text style={styles.price}>옵션 선택이 없습니다</Text>
+                        }
                     </View>
-                    {OPTIONS.map((option) => (
-                        <View key={option.title} style={styles.flavoursBox}>
+                    {options[1].details.map((detail) => (
+                        <View key={detail.title} style={styles.flavoursBox}>
                             <TouchableOpacity
                                 style={styles.wrapper}
-                                onPress={() => handleToggleOption(option.title)}
+                                onPress={() => handleToggleOption(detail.title)}
                             >
-                                {selectedOptions[option.title] ? <CheckedBox /> : <UncheckedBox />}
-                                <Text style={styles.flavoursPrice}>{option.title}</Text>
+                                {selectedOptions[detail.title] ? <CheckedBox /> : <UncheckedBox />}
+                                <Text style={styles.flavoursPrice}>{detail.title}</Text>
                             </TouchableOpacity>
-                            <Text style={styles.flavoursPrice}>{`${formatPrice(option.cost)}원`}</Text>
+                            {detail  && (
+                                <Text style={styles.flavoursPrice}>{detail ? `${formatPrice(detail.price)}원` : '0원'}</Text> // 첫 번째 세부사항 가격 표시
+                            )}
                         </View>
                     ))}
                 </View>
@@ -170,29 +251,7 @@ export default function MenuInfo({ navigation }: NavigationProp): React.JSX.Elem
                     </View>
                 </View>
             </View>
-            <BottomButton name={`${formatPrice(calculateTotalPrice())} 주문하기`} onPress={handleOrder} checked={count > 0 && selectedFlavor != null} color="#EC424C" />
+            <BottomButton name={`${formatPrice(calculateTotalPrice())}원 담기`} onPress={handleOrder} checked={count > 0 && selectedFlavor != null} color="#EC424C" />
         </SafeAreaView>
     );
 }
-
-
-
-
-    // const BASE_URL = "http://money.ipdisk.co.kr:58200/";
-
-
-    // const rankingGet = async () => {
-    //     try {
-    //         const response = await axios.get(`${BASE_URL}/api/galleries/ranking?type=사진&category=반려동물`);
-    //         // 응답이 배열인지 확인하고 설정
-    //         if (Array.isArray(response.data)) {
-    //             setRanking(response.data); // 배열로 설정
-    //             console.log(response.data);
-    //         } else {
-    //             console.error("응답이 배열이 아닙니다:", response.data);
-    //         }
-
-    //     } catch (error) {
-    //         console.error("Error fetching posts:", error);
-    //     }
-    // };

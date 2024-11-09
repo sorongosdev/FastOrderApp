@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   View, 
   Text, 
@@ -17,54 +18,69 @@ import StoreImg from '../components/StoreImg';
 
 import styles from '../styles/Store';
 
-// const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+interface MenuItem {
+  no: number;
+  name: string;
+  image: string | null; // 이미지가 null일 수도 있으므로
+  price: number;
+  description: string;
+  min_quantity: number;
+  max_quantity: number;
+  is_soldout: number;
+  store: number;
+}
+
+interface StoreInfo {
+  business_days: string | null; // 영업일, null일 수 있음
+  business_hours: string | null; // 영업시간, null일 수 있음
+  description: string | null; // 설명, null일 수 있음
+  location: string; // 위치
+  logo: string | null; // 로고 이미지 URL, null일 수 있음
+  no: number; // 가게 번호
+  phone_number: string | null; // 전화번호, null일 수 있음
+  ready_time12: string | null; // 1인분 준비 시간, null일 수 있음
+  ready_time34: string | null; // 2인분-3인분 준비 시간, null일 수 있음
+  seating_available: boolean | null; // 좌석 가능 여부, null일 수 있음
+  store_name: string; // 가게 이름
+  store_status: string | null; // 가게 상태, null일 수 있음
+  store_type: string; // 가게 타입
+}
+
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
 export default function Store({ navigation }: NavigationProp): React.JSX.Element {
   const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
   const titleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
   const menuImg = require('../assets/menu_title.png'); // require로 임포트
-  const [menu, setMenu] = useState([
-    { name: '제육볶음', price: '7,000원', img: menuImg },
-    { name: '김치찌개', price: '6,500원', img: menuImg },
-    { name: '된장찌개', price: '6,000원', img: menuImg },
-    { name: '갈비탕', price: '8,000원', img: menuImg },
-    { name: '비빔밥', price: '7,500원', img: menuImg },
-    { name: '떡볶이', price: '5,500원', img: menuImg },
-    { name: '갈비탕', price: '8,000원', img: menuImg },
-    { name: '비빔밥', price: '7,500원', img: menuImg },
-    { name: '떡볶이', price: '5,500원', img: menuImg },
+  const [store, setStore] = useState<StoreInfo | null>(null); // StoreInfo 객체로 초기화
+  const [menu, setMenu] = useState<MenuItem[]>([
+    {name : '제육', price : 7000, image : null, min_quantity :0, max_quantity : 99, is_soldout : 0, store : 1002, description : 'dd', no : 5}
   ]);
-    //useEffect(() => {
-    //     const postFetchStore = async () => {
-      //     try {
-      //         const response = await axios.post(`${BASE_URL}/stores`, {
-      //           id : store_id 
-      //         });
-      //     } catch (error) {
-      //         console.error("Error fetching get:", error);
-      //     }
-    //     };
-        // const getFetchStoreMenu = async () => {
-        //     try {
-        //         const response = await axios.get(`${BASE_URL}/stores/${store_id}`);
-        //         // 응답이 배열인지 확인하고 설정
-        //         if (Array.isArray(response.data)) {
-        //             setMenu(response.data); // 배열로 설정
-        //             console.log(response.data);
-        //         } else {
-        //             console.error("응답이 배열이 아닙니다:", response.data);
-        //         }
-
-        //     } catch (error) {
-        //         console.error("Error fetching posts:", error);
-        //     }
-        // };
-    //}, [])
+  useEffect(() => {
+        const getFetchStoreMenu = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/stores/id/1002`);
+                // 응답이 배열인지 확인하고 설정
+                console.log(response.data);
+                const formattedMenu = response.data.menu_data;
+                setMenu(formattedMenu);
+                setStore(response.data.store_data);
+              
+                console.log(menu);
+                console.log(store);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        };
+        getFetchStoreMenu();
+    }, [])
 
   
     
-
+  const formatPrice = (price:number) => {
+      return new Intl.NumberFormat("ko-KR").format(price);
+  };
 
   function handleMenuInfo() {
     navigation.navigate('MenuInfo');
@@ -99,9 +115,11 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
           <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={titleImg}/>
           <View style={styles.infoBox}>
 
-            <View style={styles.infoText}>
-              <Text style={styles.storeName}>찌개찌개</Text>
-              <Text style={styles.storeMainMenu}>찌개, 전골</Text>
+            <View style={styles.infoTopText}>
+              <View style={{flexDirection : 'row'}}>
+                <Text style={styles.storeName}>{store?.store_name}</Text>
+                <Text style={styles.storeMainMenu}>{store?.description}</Text>
+              </View>
               <TouchableOpacity style={styles.likeImg} onPress={handleLike}>
                 { likeChecked ?  <FullLike /> : <EmptyLike /> }
               </TouchableOpacity>
@@ -111,7 +129,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
               <View style={styles.locationImg}>
               <Location />
               </View>
-              <Text style={styles.storeAddress}>경기 안산시 상록구 한양대학로 60</Text>
+              <Text style={styles.storeAddress}>{store?.location}</Text>
             </View>
 
             <View style={styles.infoText}>
@@ -142,10 +160,10 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
               <TouchableOpacity key={index} style={styles.menu} onPress={handleMenuInfo}>
                 <View style={styles.menuBox}>
                   <Text style={styles.menuName}>{item.name}</Text>
-                  <Text style={styles.menuPrice}>{item.price}</Text>
+                  <Text style={styles.menuPrice}>{`${formatPrice(item.price)}원`}</Text>
                 </View>
                 <View style={styles.menuImg}>
-                  <Image source={item.img} style={{height : '100%', width : '100%'}}/>
+                  <Image source={menuImg} style={{height : '100%', width : '100%'}}/>
                 </View>
               </TouchableOpacity>
             ))}
