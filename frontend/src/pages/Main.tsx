@@ -35,13 +35,21 @@ const foodIcons = {
 
 const BASE_URL = 'http://money.ipdisk.co.kr:58200';
 
+interface Store {
+  no: number;
+  store_name: string;
+  latitude: string;
+  longitude: string;
+  store_type: string;
+}
+
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
   /** 칩그룹 버튼 상태*/
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
     null,
   );
   /** 불러온 store*/
-  const [stores, setStores] = useState([]);
+  const [stores, setStores] = useState<Store[]>([]);
   /**  마커 눌렀을 때 선택된 매장 아이디*/
   const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
   /** 음식 분류 */
@@ -54,10 +62,12 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   }, []);
 
   const handlePress = async (index: number) => {
-    setSelectedButtonIndex(index === selectedButtonIndex ? null : index);
+    setSelectedButtonIndex(index);
 
-    if (index === 0) {
-      await getTotalStores();
+    if (foodTypes[index] === '전체') {
+      await getTotalStores(); // 모든 매장으로 업데이트
+    } else {
+      await getStoresByType(foodTypes[index]); // 선택된 타입으로 매장 가져오기
     }
   };
 
@@ -68,12 +78,32 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
   const getTotalStores = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/stores`);
-      setStores(response.data);
-      console.log(response.data);
+      setStores(response.data); // 모든 매장 데이터 설정
+      console.log('Total Stores:', response.data);
     } catch (error) {
       console.error('Error during getStores:', error);
     }
   };
+
+  const getStoresByType = async (type: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/stores/${type}`);
+      setStores(response.data); // 선택된 타입의 매장 데이터 설정
+      console.log(`Stores of type ${type}:`, response.data);
+    } catch (error) {
+      console.error(`Error during getStores of type ${type}:`, error);
+    }
+  };
+
+  // 매장 필터링
+  const filteredStores =
+    selectedButtonIndex !== null
+      ? foodTypes[selectedButtonIndex] === '전체'
+        ? stores
+        : stores.filter(
+            store => store.store_type === foodTypes[selectedButtonIndex],
+          )
+      : stores;
 
   return (
     <View style={styles.mainContainer}>
@@ -107,7 +137,7 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
       </View>
       <NaverMap
         navigation={navigation}
-        stores={stores}
+        stores={filteredStores} // 필터링된 매장 전달
         onMarkerPress={setSelectedStoreId}
       />
       <BottomSheet navigation={navigation} storeId={selectedStoreId} />
