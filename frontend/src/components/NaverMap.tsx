@@ -23,6 +23,7 @@ interface Region {
 interface Store {
   no: number;
   store_name: string;
+  store_type: string;
   latitude: string;
   longitude: string;
 }
@@ -32,6 +33,13 @@ interface StoreProp {
 }
 
 interface CombinedInterface extends NavigationProp, StoreProp {}
+
+/** Markers */
+const CafeMarker = require('../assets/marker_cafe.png');
+const KoreaMarker = require('../assets/marker_korea.png');
+const JapanMarker = require('../assets/marker_japan.png');
+const ChinaMarker = require('../assets/marker_china.png');
+const WesternMarker = require('../assets/marker_western.png');
 
 export default function NaverMap({
   navigation,
@@ -52,7 +60,21 @@ export default function NaverMap({
     longitudeDelta: 0.002, // 경도 방향
   };
 
-  console.log('Stores:', stores);
+  const getMarkerImage = (storeType: string) => {
+    switch (storeType) {
+      case '한식':
+        return KoreaMarker;
+      case '일식':
+        return JapanMarker;
+      case '중식':
+        return ChinaMarker;
+      case '양식':
+        return WesternMarker;
+      case '카페':
+      default:
+        return CafeMarker; // 기본적으로 카페 마커
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -62,12 +84,12 @@ export default function NaverMap({
         initialRegion={initialRegion}>
         {stores.map(store => (
           <NaverMapMarkerOverlay
-            key={store.no} // 각 마커에 고유한 키 설정
+            key={store.no}
             latitude={parseFloat(store.latitude)}
             longitude={parseFloat(store.longitude)}
             width={44}
             height={48}
-            image={require('../assets/marker_cafe.png')} // 마커 이미지
+            image={getMarkerImage(store.store_type)} // 마커 이미지
           />
         ))}
       </NaverMapView>
