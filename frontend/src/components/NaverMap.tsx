@@ -8,10 +8,6 @@ import {NavigationProp} from '../navigation/NavigationProps';
 /** Styles */
 import styles from '../styles/NaverMap';
 
-interface NaverMapProps {
-  clientId: string;
-}
-
 interface Coord {
   latitude: number;
   longitude: number;
