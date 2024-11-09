@@ -1,4 +1,3 @@
-// src/navigation/BottomNavigation.tsx
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SafeAreaView, StatusBar, View} from 'react-native';
@@ -8,30 +7,38 @@ import Order from '../pages/Order';
 import Likes from '../pages/Likes';
 import My from '../pages/My';
 /** Icons */
-import HomeIcon from '@assets/icon_home.svg';
-import ListIcon from '@assets/icon_list_active.svg';
-import LikeIcon from '@assets/icon_like.svg';
-import MyIcon from '@assets/icon_my.svg';
+import HomeActiveIcon from '@assets/icon_active_home.svg';
+import HomeEmptyIcon from '@assets/icon_empty_home.svg';
+import ListActiveIcon from '@assets/icon_list_active.svg';
+import ListEmptyIcon from '@assets/icon_list_empty.svg';
+import LikeActiveIcon from '@assets/icon_like_active.svg';
+import LikeEmptyIcon from '@assets/icon_like_empty.svg';
+import MyActiveIcon from '@assets/icon_my_active.svg';
+import MyEmptyIcon from '@assets/icon_my_empty.svg';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation() {
+  const activeColor = '#515151';
+  const inactiveColor = '#A2A2A2';
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Tab.Navigator
         screenOptions={({route}) => ({
-          tabBarIcon: () => {
+          tabBarIcon: ({focused}) => {
             let IconComponent;
+            // let iconColor = focused ? activeColor : inactiveColor; // 공통 색상 사용
 
             if (route.name === 'Main') {
-              IconComponent = HomeIcon;
+              IconComponent = focused ? HomeActiveIcon : HomeEmptyIcon;
             } else if (route.name === 'OrderList') {
-              IconComponent = ListIcon;
+              IconComponent = focused ? ListActiveIcon : ListEmptyIcon;
             } else if (route.name === 'Likes') {
-              IconComponent = LikeIcon;
+              IconComponent = focused ? LikeActiveIcon : LikeEmptyIcon;
             } else {
-              IconComponent = MyIcon;
+              IconComponent = focused ? MyActiveIcon : MyEmptyIcon;
             }
 
             return (
@@ -52,6 +59,8 @@ export default function BottomNavigation() {
             padding: 15,
           },
           headerShown: false,
+          tabBarActiveTintColor: activeColor, // 공통 액티브 색상
+          tabBarInactiveTintColor: inactiveColor, // 공통 비활성 색상
         })}>
         <Tab.Screen
           name="Main"
