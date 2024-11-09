@@ -18,9 +18,14 @@ import {HOME} from '../consts/BottomSheetConsts';
 const LIST_ITEM_HEIGHT = HOME.LIST_ITEM_HEIGHT;
 const HANDLE_HEIGHT = HOME.HANDLE_HEIGHT;
 
+interface CombinedInterface extends NavigationProp {
+  storeId: number | null;
+}
+
 export default function BottomSheet({
   navigation,
-}: NavigationProp): React.JSX.Element {
+  storeId,
+}: CombinedInterface): React.JSX.Element {
   const [recentMenu, setRecentMenu] = useState([
     {
       date: '8.17(수)',
@@ -96,9 +101,10 @@ export default function BottomSheet({
             <View style={styles.handle} />
           </View>
         </PanGestureHandler>
-        <Text style={styles.bottomSheetTitle}>
+        <Text style={styles.bottomSheetTitle}>{storeId}</Text>
+        {/* <Text style={styles.bottomSheetTitle}>
           ㅇㅇ님의 최근 주문내역이에요!
-        </Text>
+        </Text> */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 18}}>
