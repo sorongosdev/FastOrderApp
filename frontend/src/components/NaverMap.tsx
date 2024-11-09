@@ -48,10 +48,6 @@ export default function NaverMap({
   stores,
   onMarkerPress,
 }: CombinedInterface): React.JSX.Element {
-  // const handleMapTap = (params: Coord & {x: number; y: number}) => {
-  //   console.log('맵이 클릭되었습니다:', params);
-  // };
-
   const handleStore = () => {
     navigation.navigate('Store');
   };
@@ -93,7 +89,7 @@ export default function NaverMap({
             width={44}
             height={48}
             image={getMarkerImage(store.store_type)}
-            onTap={() => onMarkerPress(store.no)} // 클릭 시 store.no를 전달
+            onTap={() => onMarkerPress(store.no)}
           />
         ))}
       </NaverMapView>
