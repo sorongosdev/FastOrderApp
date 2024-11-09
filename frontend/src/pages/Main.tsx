@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -36,17 +36,27 @@ const foodIcons = {
 const BASE_URL = 'http://money.ipdisk.co.kr:58200';
 
 export default function Main({navigation}: NavigationProp): React.JSX.Element {
+  /** 칩그룹 버튼 상태*/
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
     null,
   );
+  /** 불러온 store*/
   const [stores, setStores] = useState([]);
-  const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null); // 스토어 마커 클릭
-  const foodTypes = Object.keys(foodIcons) as (keyof typeof foodIcons)[]; // keyof 사용
+  /**  마커 눌렀을 때 선택된 매장 아이디*/
+  const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
+  /** 음식 분류 */
+  const foodTypes = Object.keys(foodIcons) as (keyof typeof foodIcons)[];
+
+  // 컴포넌트가 마운트될 때 전체 버튼을 선택하고 매장을 불러옴
+  useEffect(() => {
+    setSelectedButtonIndex(0); // 전체 버튼 선택
+    getTotalStores(); // 매장 불러오기
+  }, []);
 
   const handlePress = async (index: number) => {
     setSelectedButtonIndex(index === selectedButtonIndex ? null : index);
 
-    if (index == 0) {
+    if (index === 0) {
       await getTotalStores();
     }
   };
