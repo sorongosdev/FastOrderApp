@@ -42,7 +42,7 @@ export default function OrderHistory({
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 18}}>
+        contentContainerStyle={{paddingBottom: 68}}>
         {recentMenu.map((menu, index) => (
           <MainListItem
             key={index}
