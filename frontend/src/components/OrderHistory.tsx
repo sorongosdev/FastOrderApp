@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Dimensions, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
-import MainListItem from '../components/MainListItem';
-
-/** Styles */
 import {NavigationProp} from '../navigation/NavigationProps';
+
+/** Components */
+import MainListItem from '../components/MainListItem';
+/** Styles */
+import styles from '../styles/OrderHistory';
 
 export default function OrderHistory({
   navigation,
@@ -35,19 +37,23 @@ export default function OrderHistory({
   ]);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingBottom: 18}}>
-      {recentMenu.map((menu, index) => (
-        <MainListItem
-          key={index}
-          navigation={navigation}
-          date={menu.date}
-          progress={menu.progress}
-          storeName={menu.storeName}
-          menuName={menu.menuName}
-        />
-      ))}
-    </ScrollView>
+    <View>
+      <Text style={styles.bottomSheetTitle}>ㅇㅇ님의 최근 주문내역이에요!</Text>
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: 18}}>
+        {recentMenu.map((menu, index) => (
+          <MainListItem
+            key={index}
+            navigation={navigation}
+            date={menu.date}
+            progress={menu.progress}
+            storeName={menu.storeName}
+            menuName={menu.menuName}
+          />
+        ))}
+      </ScrollView>
+    </View>
   );
 }
