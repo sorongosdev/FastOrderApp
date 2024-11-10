@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, Alert } from "react-native";
 import { NavigationProp, RouteProp } from '../navigation/NavigationProps';
 import axios from "axios";
 import styles from "../styles/MenuInfo";
@@ -14,7 +14,6 @@ import EmptyEclips from "../assets/icon_eclips.svg";
 import UncheckedBox from "../assets/icon_unchecked_box.svg";
 import CheckedBox from "../assets/icon_checked_box.svg";
 import { setItem, getItem } from "../components/Cart";
-import { Menu } from "react-native-paper";
 
 // 메뉴 데이터 인터페이스
 interface MenuData {
@@ -53,36 +52,48 @@ interface MenuOption {
 
 type MenuInfoProps = NavigationProp & RouteProp;
 
-const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+const BASE_URL = 'https://fforder.shop:58210';
 
 export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JSX.Element {
     const { menuId } = route.params;
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const [likeChecked, setLikeChecked] = useState<boolean>(false);
-    const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
+    const [selectedFlavor, setSelectedFlavor] = useState<string>("");
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: boolean }>({});
     const [menu, setMenu] = useState<MenuData | null>(null); // 메뉴 정보를 저장할 상태
     const [options, setOptions] = useState<MenuOption[]>([]); // 옵션 정보를 저장할 상태
     const TitleImg = require('../assets/jjiggajjigga_title.png');
 
-    // 총 가격 계산 함수
     const calculateTotalPrice = () => {
         if (!menu) return 0; // menu가 null일 경우 0 반환
-
+    
         // 기본 메뉴 가격
         let totalPrice = menu.price * count;
         
-        // 선택된 옵션 가격 추가
+        // 선택된 필수 옵션 가격 추가
+        options.forEach(option => {
+            if (option.option.is_required === "required") {
+                option.details.forEach(detail => {
+                    if (selectedFlavor === detail.title) { // 필수 옵션이 선택된 경우
+                        totalPrice += detail.price * count; // 선택된 세부 옵션 가격 추가
+                    }
+                });
+            }
+        });
+    
+        // 선택된 선택적 옵션 가격 추가
         options.forEach(option => {
             option.details.forEach(detail => {
                 if (selectedOptions[detail.title]) {
                     totalPrice += detail.price * count; // 선택된 세부 옵션 가격만 추가
                 }
             });
-    });
-
-    return totalPrice; // 총 가격 반환
+        });
+    
+        return totalPrice; // 총 가격 반환
     };
+    
+    
 
     useEffect(() => {
         const getFetchMenuInfo = async () => {
@@ -129,7 +140,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
         const orders = existingOrders ? JSON.parse(existingOrders) : [];
     
         if (orders.length > 0 && orders[0].store_id !== orderedMenu.store_id) {
-            console.warn("다른 가게의 메뉴를 추가할 수 없습니다.");
+            Alert.alert("다른 가게의 메뉴를 추가할 수 없습니다.");
             return; 
         }
     
@@ -138,6 +149,13 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
         console.log("Updated Cart Items:", orders);
         navigation.navigate('Shopping');
     }
+
+    useEffect(() => {
+        // options[0].option.is_required가 "required"가 아니면, selectedFlavor를 "1"로 설정
+        if (options.length > 0 && options[0].option.is_required === "optional") {
+            setSelectedFlavor("1");
+        }
+    }, [options]); // options가 변경될 때마다 이 효과 실행
     
     
 
@@ -169,6 +187,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
 
     function handleSelectFlavor(flavor: string) {
         setSelectedFlavor(flavor);
+        
     }
 
     function handleToggleOption(optionTitle: string) {
@@ -176,7 +195,6 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             ...prev,
             [optionTitle]: !prev[optionTitle]
         }));
-        console.log(selectedOptions);
     }
 
     return (
@@ -198,50 +216,41 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
 
                 <View style={styles.padding}></View>
 
-                <View style={{ height: '20%', justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
+                {options.length > 1 && options[0].details?.length > 0 ? (
+                <View style={{ justifyContent: 'flex-start', marginTop: '5%', gap: 20, marginBottom: '5%' }}>
                     <View style={styles.flavoursBox}>
                         {options && options.length > 0 && options[0].option ? (
                             <>
                                 <Text style={styles.price}>{options[0].option.title}</Text>
-                                <View style={styles.round}>
+                                <View style={options[0].option.is_required === "required" ? styles.round : styles.detailRound}>
                                     <Text>{options[0].option.is_required === "required" ? "필수" : "선택"}</Text>
                                 </View>
                             </>
                         ) : (
-                            <Text style={styles.price}>맛 선택이 없습니다</Text>
+                            <View></View>
                         )}
                     </View>
 
-                    {["순한맛", "중간맛", "매운맛"].map((flavor) => (
-                        <View key={flavor} style={styles.flavoursBox}>
-                            <TouchableOpacity
-                                style={styles.wrapper}
-                                onPress={() => handleSelectFlavor(flavor)} // 맛 선택 핸들러
-                            >
-                                {selectedFlavor === flavor ? <CheckedEclips /> : <EmptyEclips />}
-                                <Text style={styles.flavoursPrice}>{flavor}</Text>
-                            </TouchableOpacity>
-                            <Text>{menu ? `${formatPrice(menu?.price)}원` : "가격 정보 없음"}</Text>
-                        </View>
-                    ))}
-                </View>
-
-                <View style={styles.padding}></View>
-
-                <View style={{ height: '20%', justifyContent: 'center', alignItems: 'center', paddingVertical: '5%', rowGap: '10%' }}>
-                    <View style={styles.flavoursBox}>
-                        <Text style={styles.price}>옵션 선택</Text>
-                        {options.length > 1 && options[1].option ?
-                            <View style={styles.detailRound}>
-                                <Text>{options[1].option.is_required === "required" ? "필수" : "선택"}</Text>
+                    {options[0].option.is_required === "required" ? (
+                        options[0].details.map((optionObj) => (
+                            <View key={optionObj.no} style={styles.flavoursBox}>
+                                <TouchableOpacity
+                                    style={styles.wrapper}
+                                    onPress={() => {
+                                        handleSelectFlavor(optionObj.title);
+                                        handleToggleOption(optionObj.title);
+                                    }}
+                                >
+                                    {selectedFlavor === optionObj.title ? <CheckedEclips /> : <EmptyEclips />}
+                                    <Text style={styles.flavoursPrice}>{optionObj.title}</Text>
+                                </TouchableOpacity>
+                                <Text>
+                                    {menu ? `${formatPrice(optionObj.price)}원` : "가격 정보 없음"}
+                                </Text>
                             </View>
-                            :
-                            <Text style={styles.price}>옵션 선택이 없습니다</Text>
-                        }
-                    </View>
-                    
-                    {options.length > 1 && options[1].details && options[1].details.length > 0 ? (
-                        options[1].details.map((detail) => (
+                        ))
+                    ) : (
+                        options[0].details.map((detail) => (
                             <View key={detail.title} style={styles.flavoursBox}>
                                 <TouchableOpacity
                                     style={styles.wrapper}
@@ -253,12 +262,49 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
                                 <Text style={styles.flavoursPrice}>{`${formatPrice(detail.price)}원`}</Text>
                             </View>
                         ))
-                    ) : (
-                        <Text style={styles.price}>세부사항이 없습니다</Text>
                     )}
-                </View>
+                </View>) : (<View></View>)
+                
+                }
+                <View style={styles.paddingSecond}></View>
 
-                <View style={styles.padding}></View>
+
+                
+                {options.length > 1 && options[1].details?.length > 0 ? (
+                <View style={{ justifyContent: 'flex-start', marginTop: '5%', gap : 20, marginBottom: '5%'}}>
+                    <View style={styles.flavoursBox}>
+                        <Text style={styles.price}>옵션 선택</Text>
+                        {options[1].option ? (
+                            <View style={options[1].option.is_required === "required" ?  styles.round : styles.detailRound }>
+                                <Text>{options[1].option.is_required === "required" ? "필수" : "선택"}</Text>
+                            </View>
+                        ) : (
+                            <View></View>
+                        )}
+                    </View>
+                    {options[1].details.map((detail) => (
+                        <View key={detail.title} style={styles.flavoursBox}>
+                            <TouchableOpacity
+                                style={styles.wrapper}
+                                onPress={() => handleToggleOption(detail.title)}
+                            >
+                                {selectedOptions[detail.title] ? <CheckedBox /> : <UncheckedBox />}
+                                <Text style={styles.flavoursPrice}>{detail.title}</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.flavoursPrice}>{`${formatPrice(detail.price)}원`}</Text>
+                        </View>
+                        ))}
+                </View>
+                    ) : (
+                        <View style={styles.paddingSecond}></View>
+                    )}
+
+                {options.length > 1 && options[1].details && options[1].details.length > 0 ?
+                <View style={styles.paddingSecond}></View> :
+                <View></View>
+                }
+                
+
 
                 <View style={styles.countBox}>
                     <Text style={styles.countText}>수량</Text>
@@ -273,7 +319,12 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
                     </View>
                 </View>
             </View>
-            <BottomButton name={`${formatPrice(calculateTotalPrice())}원 담기`} onPress={handleOrder} checked={count > 0 && selectedFlavor != null} color="#EC424C" />
+            <BottomButton 
+                name={`${formatPrice(calculateTotalPrice())}원 담기`} 
+                onPress={handleOrder} 
+                checked={count > 0 && selectedFlavor !== ""} 
+                color="#EC424C" 
+            />
         </SafeAreaView>
     );
 }

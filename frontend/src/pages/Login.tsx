@@ -13,8 +13,7 @@ interface LoginProps {
   };
 }
 
-// const BASE_URL = "http://3.39.26.152:8000";
-const BASE_URL = 'http://money.ipdisk.co.kr:58200';
+const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');

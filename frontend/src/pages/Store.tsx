@@ -48,11 +48,10 @@ interface StoreInfo {
 
 type StoreProps = NavigationProp & RouteProp;
 
-const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Store({ navigation, route }: StoreProps): React.JSX.Element {
   const { storeId } = route.params;
-  const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
   const titleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
   const menuImg = require('../assets/menu_title.png'); // require로 임포트
@@ -139,20 +138,20 @@ export default function Store({ navigation, route }: StoreProps): React.JSX.Elem
               <View style={styles.clockImg}>
               <Clock />
               </View>
-              <Text style={styles.storeOpen}>영업중</Text>
-              <Text style={styles.storeFastOrder}>{isFastOrderOn ? ' • 패스트 오더 가능' : ' • 패스트 오더 불가능'}</Text>
+              <Text style={styles.storeOpen}>{store?.store_status === "Open" ? "영업중" : "영업전"}</Text>
+              <Text style={styles.storeFastOrder}>{store?.seating_available ? ' • 패스트 오더 가능' : ' • 패스트 오더 불가능'}</Text>
             </View>
             <View style={styles.infoWaitTime}>
-              <Text style={styles.minTime}>12시 기준   1인분-2인분 15분</Text>
+              <Text style={styles.minTime}>{`12시 기준   1인분-2인분${store?.ready_time12}분`}</Text>
               <View>
-                <Text style={styles.maxTime}>2인분-3인분 30분</Text>
+                <Text style={styles.maxTime}>{`2인분-3인분 ${store?.ready_time34}분`}</Text>
               </View>
             </View>
             <View style={styles.infoText}>
               <View style={styles.phoneImg}>
               <Phone />
               </View>
-              <Text style={styles.storePhoneNumber}>010-7686-8560</Text>
+              <Text style={styles.storePhoneNumber}>{store?.phone_number}</Text>
             </View>
           </View>
 

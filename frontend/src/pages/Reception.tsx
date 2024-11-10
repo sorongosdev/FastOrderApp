@@ -12,10 +12,8 @@ import { NavigationProp } from "../navigation/NavigationProps";
 import TopTitle from "../components/TopTitle";
 import ProgressBar from "../components/Progress";
 import BottomButton from "../components/BottomButton";
-import { getItem } from "../components/Cart";
+// import { getItem } from "../components/Cart";
 
-
-// const BASE_URL = "http://3.39.26.152:8000";
 
 
 interface OrderItem {
@@ -26,6 +24,7 @@ interface OrderItem {
     TitleImg : any;
 }
 
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
 export default function Reception({navigation}:NavigationProp):React.JSX.Element {
     const steps = ['접수확인', '조리 중', '조리 완료'];
@@ -33,20 +32,20 @@ export default function Reception({navigation}:NavigationProp):React.JSX.Element
 
     const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
 
-    useEffect(() => {
-        const fetchCartItems = async () => {
-            try {
-                const cartItems = await getItem('cartItems');
-                if (cartItems) {
-                    setOrderMenu(JSON.parse(cartItems));
-                }
-            } catch (error) {
-                console.error("Failed to fetch cart items:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchCartItems = async () => {
+    //         try {
+    //             const cartItems = await getItem('cartItems');
+    //             if (cartItems) {
+    //                 setOrderMenu(JSON.parse(cartItems));
+    //             }
+    //         } catch (error) {
+    //             console.error("Failed to fetch cart items:", error);
+    //         }
+    //     };
 
-        fetchCartItems();
-    }, []);
+    //     fetchCartItems();
+    // }, []);
 
     function handleMoveMain() {
         navigation.navigate('BottomNavigation');

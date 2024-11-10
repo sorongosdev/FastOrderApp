@@ -13,8 +13,7 @@ import styles from "../styles/SignUp";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
-const BASE_URL = 'http://money.ipdisk.co.kr:58200';
-
+const BASE_URL = 'https://fforder.shop:58210';
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>("");
     const [pw, setPW] = useState<string>("");

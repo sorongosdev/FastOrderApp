@@ -20,7 +20,7 @@ import Minus from '../assets/icon_minus.svg';
 import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
-import { getItem } from "../components/Cart";
+import { setItem, getItem } from "../components/Cart";
 import { getToken } from "../components/UserToken";
 import { setReception } from "../components/PayPost";
 
@@ -44,12 +44,11 @@ interface CartItem {
     store_id?: number; // Optional field since it's only present in some items
 }
 
-const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
-    const [selectedChecked, setSelectedChecked] = useState<boolean>(false); //확정 다음에도 사용
     const [checked, setChecked] = useState<boolean>(false); //다음에도 사용
     const [couponCount ,setCouponCount] = useState<number>(0);
     const [count, setCount] = useState<number>(0); //식사 인원 카운트 수
@@ -101,7 +100,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                 cost_coupon: 0,
             });
 
-            console.log("Order Response:", response.data);
+            await setItem('cartItems', JSON.stringify([])); // 빈 배열로 초기화
 
             await setReception('orderPayload', JSON.stringify(orderPayload));
             console.log("Order payload saved to AsyncStorage.");
