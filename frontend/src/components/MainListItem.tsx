@@ -7,6 +7,7 @@ import EmptyLikeIcon from '@assets/icon_empty_like.svg';
 import FullLikeIcon from '@assets/icon_full_like.svg';
 /** Styles */
 import styles from '../styles/MainListItem';
+import MainModal from './MainModal';
 
 interface MainListProp {
   date: string;
@@ -25,27 +26,39 @@ export default function MainListItem({
   menuName,
 }: CombinedInterface): React.JSX.Element {
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const navigateToPay = () => {
     navigation.navigate('Pay');
+  };
+
+  const handleLikePress = () => {
+    if (likeChecked) {
+      setModalVisible(true);
+    } else {
+      setLikeChecked(true);
+    }
+  };
+
+  const confirmLike = () => {
+    setLikeChecked(false);
+    setModalVisible(false);
+  };
+
+  const cancelLike = () => {
+    setModalVisible(false);
   };
   return (
     <View>
       <View style={styles.sheetDateContainer}>
         <View style={styles.sheetDateLeftWrapper}>
-          <Text>{date}</Text>
-          <Text> • {progress}</Text>
+          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.progress}> • {progress}</Text>
         </View>
         <View style={styles.likeIconBox}>
-          {likeChecked ? (
-            <TouchableOpacity onPress={() => setLikeChecked(false)}>
-              <FullLikeIcon />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => setLikeChecked(true)}>
-              <EmptyLikeIcon />
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity onPress={handleLikePress}>
+            {likeChecked ? <FullLikeIcon /> : <EmptyLikeIcon />}
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.historyContainer}>
@@ -66,6 +79,11 @@ export default function MainListItem({
         <Text style={styles.orderText}>같은 메뉴 주문하기</Text>
       </TouchableOpacity>
       <View style={styles.divider}></View>
+      <MainModal
+        visible={modalVisible}
+        onClose={cancelLike}
+        onConfirm={confirmLike}
+      />
     </View>
   );
 }

@@ -10,7 +10,10 @@ import {
   PanGestureHandlerGestureEvent,
   ScrollView,
 } from 'react-native-gesture-handler';
-import MainListItem from '../components/MainListItem';
+/** Components */
+import OrderHistory from '../components/OrderHistory';
+import StoreInfo from '../components/StoreInfo';
+
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
 import {HOME} from '../consts/BottomSheetConsts';
@@ -26,30 +29,6 @@ export default function BottomSheet({
   navigation,
   storeId,
 }: CombinedInterface): React.JSX.Element {
-  const [recentMenu, setRecentMenu] = useState([
-    {
-      date: '8.17(수)',
-      progress: '픽업완료',
-      like: false,
-      storeName: '찌개찌개',
-      menuName: '김치찌개 외 1개 28,000원',
-    },
-    {
-      date: '8.16(화)',
-      progress: '픽업완료',
-      like: false,
-      storeName: '찌개찌개',
-      menuName: '된장찌개 외 1개 27,000원',
-    },
-    {
-      date: '8.15(월)',
-      progress: '픽업완료',
-      like: false,
-      storeName: '찌개찌개',
-      menuName: '김치찌개 외 1개 26,000원',
-    },
-  ]);
-
   const MAX_HEIGHT = LIST_ITEM_HEIGHT * 2; // 최상단 높이
   const MID_HEIGHT = LIST_ITEM_HEIGHT; // 중간 높이
   const MIN_HEIGHT = HANDLE_HEIGHT; // 최하단 높이
@@ -101,24 +80,11 @@ export default function BottomSheet({
             <View style={styles.handle} />
           </View>
         </PanGestureHandler>
-        <Text style={styles.bottomSheetTitle}>{storeId}</Text>
-        {/* <Text style={styles.bottomSheetTitle}>
-          ㅇㅇ님의 최근 주문내역이에요!
-        </Text> */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 18}}>
-          {recentMenu.map((menu, index) => (
-            <MainListItem
-              key={index}
-              navigation={navigation}
-              date={menu.date}
-              progress={menu.progress}
-              storeName={menu.storeName}
-              menuName={menu.menuName}
-            />
-          ))}
-        </ScrollView>
+        {storeId ? (
+          <StoreInfo navigation={navigation} storeId={storeId} />
+        ) : (
+          <OrderHistory navigation={navigation} />
+        )}
       </Animated.View>
     </View>
   );
