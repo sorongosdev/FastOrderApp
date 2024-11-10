@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {Alert} from 'react-native';
 import 'react-native-gesture-handler';
+import messaging from '@react-native-firebase/messaging';
+
 import Login from './src/pages/Login';
 import MyDetail from './src/pages/MyDetail';
 import Store from './src/pages/Store';
@@ -9,7 +12,9 @@ import Shopping from './src/pages/Shopping';
 import Pay from './src/pages/Pay';
 import Reception from './src/pages/Reception';
 
-import BottomNavigation from './src/components/BottomNavigation'; // BottomNavigation 추가
+/** Components */
+import BottomNavigation from './src/components/BottomNavigation';
+import FCMHandler from './src/components/FCMHandler'; // FCMHandler 컴포넌트 추가
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -21,11 +26,11 @@ export default function App(): React.JSX.Element {
   return (
     <PaperProvider>
       <NavigationContainer>
+        <FCMHandler />
         <Stack.Navigator>
           <Stack.Screen
             name="Login"
             component={Login}
-            // Appbar을 기본적으로 보여주고 있어서 일단 앱바 제거함
             options={{headerShown: false}}
           />
           <Stack.Screen
