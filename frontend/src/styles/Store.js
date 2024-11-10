@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
       marginLeft: 26.5,
       marginBottom : '10%',
     },
+    infoTopText: {
+      flexDirection: 'row',
+      width : '85%',
+      justifyContent : 'space-between'
+    },
     infoText: {
       flexDirection: 'row',
       width : '100%'

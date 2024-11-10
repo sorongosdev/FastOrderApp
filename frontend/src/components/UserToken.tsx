@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // ID 토큰 저장
-const storeToken = async (token:string) => {
+export const storeToken = async (token:string) => {
     try {
         await AsyncStorage.setItem('idToken', token);
     } catch (e) {
@@ -10,7 +10,7 @@ const storeToken = async (token:string) => {
 };
 
 // ID 토큰 가져오기
-const getToken = async () => {
+export const getToken = async () => {
     try {
         const token = await AsyncStorage.getItem('idToken');
         return token;
