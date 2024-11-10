@@ -17,7 +17,6 @@ import JapaneseIcon from '@assets/icon_food_japan.svg';
 import ChineseIcon from '@assets/icon_food_china.svg';
 import WesternIcon from '@assets/icon_food_western.svg';
 import CafeIcon from '@assets/icon_food_cafe.svg';
-import EtcIcon from '@assets/icon_food_etc.svg';
 /** Components */
 import BottomSheet from '../components/BottomSheet';
 import NaverMap from '../components/NaverMap';
@@ -25,11 +24,11 @@ import NaverMap from '../components/NaverMap';
 // 아이콘 매핑 정의
 const foodIcons = {
   전체: null, // 아이콘 없음
-  한식: <KoreanIcon />,
-  일식: <JapaneseIcon />,
-  중식: <ChineseIcon />,
-  양식: <WesternIcon />,
-  카페: <CafeIcon />,
+  한식: <KoreanIcon width={16} height={16} />,
+  일식: <JapaneseIcon width={16} height={16} />,
+  중식: <ChineseIcon width={16} height={16} />,
+  양식: <WesternIcon width={16} height={16} />,
+  카페: <CafeIcon width={16} height={16} />,
   기타: null, // 아이콘 없음
 } as const; // as const로 타입을 고정
 
@@ -109,7 +108,10 @@ export default function Main({navigation}: NavigationProp): React.JSX.Element {
     <View style={styles.mainContainer}>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchBarWrapper}>
-          <TextInput style={styles.input} placeholder="검색" />
+          <TextInput
+            style={styles.input}
+            placeholder="먹고 싶은 메뉴나 가게를 검색해보세요."
+          />
           <CartIcon onPress={navigateToShopping} />
         </View>
         <ScrollView
