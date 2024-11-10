@@ -41,7 +41,8 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
       storeToken(token);
       const userToken = await getToken();
       console.log(userToken);
-      navigation.navigate('BottomNavigation'); // 성공적으로 가입한 후 메인 페이지로 이동
+      navigation.navigate('Store');
+      // navigation.navigate('BottomNavigation'); // 성공적으로 가입한 후 메인 페이지로 이동
     } catch (error) {
       console.log('hi');
       console.error('Error during signup:', error);
