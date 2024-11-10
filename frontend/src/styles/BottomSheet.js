@@ -41,11 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'stroke: rgba(183, 183, 183, 0.50)',
     borderRadius: 3,
   },
-  bottomSheetTitle: {
-    color: '#434343',
-    fontSize: 18,
-    fontWeight: '600',
-    // borderWidth: 1,
-  },
 });
 export default styles;
