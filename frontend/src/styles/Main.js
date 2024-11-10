@@ -38,17 +38,22 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 42,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#F4F4F4',
+    borderRadius: 5,
     flex: 1,
+    paddingLeft: 8,
   },
   buttonGroup: {
     gap: 6,
   },
   chip: {
-    paddingVertical: 3,
+    paddingVertical: 7,
     paddingHorizontal: 9,
     borderRadius: 44,
-    height: 28,
+    height: 32,
+    width: 64,
+    display: 'flex',
+    justifyContent: 'center',
   },
   chipContainer: {
     display: 'flex',
@@ -61,11 +66,15 @@ const styles = StyleSheet.create({
     height: 16,
     display: 'flex',
     justifyContent: 'center',
+    flex: 1,
+    // borderWidth: 1,
   },
   chipText: {
     fontSize: 14,
     color: '#FFFFFF',
     fontWeight: '600',
+    flex: 2,
+    textAlign: 'center',
   },
 });
 

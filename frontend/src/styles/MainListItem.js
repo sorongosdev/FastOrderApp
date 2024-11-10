@@ -10,6 +10,16 @@ const styles = StyleSheet.create({
   sheetDateLeftWrapper: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  date: {
+    color: '#222222',
+    fontWeight: '400',
+    fontSize: 16,
+  },
+  progress: {
+    color: '#22222280',
+    fontSize: 16,
   },
   likeIconBox: {},
   historyContainer: {
@@ -58,7 +68,7 @@ const styles = StyleSheet.create({
   },
   orderButton: {
     marginTop: 9,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#F55442',
     borderRadius: 5,
     height: 43,
     display: 'flex',
@@ -66,8 +76,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orderText: {
-    fontSize: 18,
-    color: '#484747',
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
   },
   divider: {
     marginTop: 15.44,

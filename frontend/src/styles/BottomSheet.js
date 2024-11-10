@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   sheet: {
     // height: height - SEARCHBAR_HEIGHT,
-    backgroundColor: '#BCBCBC',
+    backgroundColor: 'white',
     borderRadius: 24,
     borderBottomEndRadius: 0,
     borderBottomStartRadius: 0,
@@ -38,14 +38,8 @@ const styles = StyleSheet.create({
   handle: {
     height: 5,
     width: 40,
-    backgroundColor: '#fff',
+    backgroundColor: 'stroke: rgba(183, 183, 183, 0.50)',
     borderRadius: 3,
-  },
-  bottomSheetTitle: {
-    color: '#434343',
-    fontSize: 18,
-    fontWeight: '600',
-    // borderWidth: 1,
   },
 });
 export default styles;

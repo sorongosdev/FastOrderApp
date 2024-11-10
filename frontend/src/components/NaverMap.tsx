@@ -42,16 +42,13 @@ const KoreaMarker = require('../assets/marker_korea.png');
 const JapanMarker = require('../assets/marker_japan.png');
 const ChinaMarker = require('../assets/marker_china.png');
 const WesternMarker = require('../assets/marker_western.png');
+const EtcMarker = require('../assets/marker_etc.png');
 
 export default function NaverMap({
   navigation,
   stores,
   onMarkerPress,
 }: CombinedInterface): React.JSX.Element {
-  // const handleMapTap = (params: Coord & {x: number; y: number}) => {
-  //   console.log('맵이 클릭되었습니다:', params);
-  // };
-
   const handleStore = () => {
     navigation.navigate('Store');
   };
@@ -74,8 +71,9 @@ export default function NaverMap({
       case '양식':
         return WesternMarker;
       case '카페':
+        return CafeMarker;
       default:
-        return CafeMarker; // 기본적으로 카페 마커
+        return EtcMarker; // 기본적으로 카페 마커
     }
   };
 
@@ -93,7 +91,7 @@ export default function NaverMap({
             width={44}
             height={48}
             image={getMarkerImage(store.store_type)}
-            onTap={() => onMarkerPress(store.no)} // 클릭 시 store.no를 전달
+            onTap={() => onMarkerPress(store.no)}
           />
         ))}
       </NaverMapView>
