@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 42,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#F4F4F4',
+    borderRadius: 5,
     flex: 1,
+    paddingLeft: 8,
   },
   buttonGroup: {
     gap: 6,
@@ -73,7 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     flex: 2,
     textAlign: 'center',
-    lineHeight: 13.9,
   },
 });
 
