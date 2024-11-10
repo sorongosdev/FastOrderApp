@@ -23,10 +23,22 @@ import { getItem } from "../components/Cart";
 
 // const BASE_URL = "http://3.39.26.152:8000";
 
+interface Option {
+    Cost: number;
+    Title: string;
+}
 
-interface OrderItem {
-    price: number;
-    count: number;
+interface Menu {
+    Price: number;
+    Title: string;
+}
+
+interface CartItem {
+    Menu: Menu;
+    Count: number;
+    Price: number;
+    Option: Option[];
+    store_id?: number; // Optional field since it's only present in some items
 }
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
@@ -39,8 +51,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
     const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
     const [pickupChecked, setPickupChecked] = useState<boolean>(false); //매장 식사 체크
-
-    const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
+    const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
 
 
     useEffect(() => {
@@ -75,7 +86,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     //     }
     // };
 
-    const totalPrice = orderMenu.reduce((total, item) => total + item.price * item.count, 0);
+    const totalPrice = orderMenu.reduce((total, item) => total + item.Price, 0);
 
     function handleBack() {
         navigation.goBack();

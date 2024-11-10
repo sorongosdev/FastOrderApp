@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
 import { NavigationProp } from '../navigation/NavigationProps';
 import Plus from "../assets/icon_menu_plus.svg";
@@ -9,19 +10,39 @@ import TopTitle from "../components/TopTitle";
 import { setItem, getItem } from "../components/Cart";
 import Cancel from "../assets/icon_cancel.svg";
 
-interface OrderItem {
-    menuName: string;
-    price: number;
-    count: number;
-    menuId: number; 
-    TitleImg : any;
+interface Option {
+    Cost: number;
+    Title: string;
+}
+
+interface Menu {
+    Price: number;
+    Title: string;
+}
+
+interface CartItem {
+    Menu: Menu;
+    Count: number;
+    Price: number;
+    Option: Option[];
+    store_id?: number; // Optional field since it's only present in some items
 }
 
 
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const menuImg = require('../assets/menu_title.png');
-    const [orderMenu, setOrderMenu] = useState<OrderItem[]>([]);
+    const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
+    const [storeTitle, setStoreTitle] = useState<string>('');
 
+
+    useEffect(() => {
+        if (orderMenu.length === 0) {
+            setStoreTitle("");
+        }
+    }, [orderMenu]);
+    
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
@@ -34,17 +55,34 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                 console.error("Failed to fetch cart items:", error);
             }
         };
-
+    
         fetchCartItems();
-    }, []);
+    }, []); 
+    
+    useEffect(() => {
+        const getFetchMenu = async () => {
+            if (orderMenu.length > 0 && orderMenu[0].store_id) {
+                try {
+                    const response = await axios.get(`${BASE_URL}/stores/mini/id/${orderMenu[0].store_id}`);
+                    setStoreTitle(response.data.store_name);
+                } catch (error) {
+                    console.error("Error fetching menu info:", error);
+                }
+            }
+        };
+    
+        getFetchMenu();
+    }, [orderMenu]); 
+    
 
     const formatPrice = (price:number) => {
         return new Intl.NumberFormat("ko-KR").format(price);
     };
-    const updateCartItems = async (updatedMenu: OrderItem[]) => {
+    const updateCartItems = async (updatedMenu: CartItem[]) => {
         await setItem('cartItems', JSON.stringify(updatedMenu));
-        console.log("Updated Cart Items:", updatedMenu); // 업데이트된 장바구니 정보 확인
+        console.log("Updated Cart Items:", JSON.stringify(updatedMenu, null, 2)); // 업데이트된 장바구니 정보 확인
     };
+    
     function deleteCartItems(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = prevMenu.filter((_,i) => i !== index);
@@ -53,11 +91,18 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
         })
     }
 
+    
+    const totalPrice = orderMenu.reduce((total, item) => {
+        const itemPrice = typeof item.Price === 'number' ? item.Price : 0; // Price 유효성 체크
+        return total + itemPrice; // Count를 곱하지 않음
+    }, 0);
+
     function handleMinus(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = [...prevMenu];
-            if (newMenu[index].count > 1) {
-                newMenu[index].count--;
+            if (newMenu[index].Count > 1) {
+                newMenu[index].Count--;
+                newMenu[index].Price = (newMenu[index].Price / (newMenu[index].Count + 1)) * newMenu[index].Count; // 가격 재계산
             }
             updateCartItems(newMenu);
             return newMenu;
@@ -67,7 +112,8 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
     function handlePlus(index: number) {
         setOrderMenu(prevMenu => {
             const newMenu = [...prevMenu];
-            newMenu[index].count++;
+            newMenu[index].Count++;
+            newMenu[index].Price = (newMenu[index].Price / (newMenu[index].Count - 1)) * newMenu[index].Count; // 가격 재계산
             updateCartItems(newMenu);
             return newMenu;
         });
@@ -81,15 +127,13 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
         navigation.goBack();
     }
 
-    const totalPrice = orderMenu.reduce((total, item) => total + item.price * item.count, 0);
-
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.wrap}>
                     <TopTitle name="장바구니" onPress={handleBack} />
                     <View style={styles.padding}></View>
-                    <Text style={styles.storeName}>찌개찌개 한양대 에리카 점</Text>
+                    <Text style={styles.storeName}>{storeTitle !== '' ? storeTitle : ''}</Text>
                     <View style={styles.menuBox}>
                         {orderMenu.map((item, index) => (
                             <View 
@@ -100,20 +144,20 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                                 ]}
                             >
                                 <View>
-                                    <Text style={styles.menuName}>{item.menuName}</Text>
-                                    <Text style={styles.menuPrice}>{formatPrice(item.price)}원</Text>
+                                    <Text style={styles.menuName}>{item.Menu.Title}</Text>
+                                    <Text style={styles.menuPrice}>{formatPrice(item.Price)}원</Text>
                                     <View style={styles.count}>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handleMinus(index)}>
                                             <Minus />
                                         </TouchableOpacity>
-                                        <Text style={styles.countText}>{item.count}</Text>
+                                        <Text style={styles.countText}>{item.Count}</Text>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handlePlus(index)}>
                                             <Plus />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={styles.menuImg}>
-                                    <Image source={item.TitleImg} style={{height : '100%', width: '100%'}}/>
+                                    <Image source={menuImg} style={{height : '100%', width: '100%'}}/>
                                 </View>
                                 <TouchableOpacity style={styles.cancel} onPress={() => deleteCartItems(index)}>
                                     <Cancel />
@@ -123,7 +167,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                     </View>
                 </View>
             </ScrollView>
-            <BottomButton name={`${formatPrice(totalPrice)}원 주문하기`} onPress={handlePayPage} checked={orderMenu.length > 0} color="#EC424C"/>
+            <BottomButton name={`${formatPrice(totalPrice)}원 담기`} onPress={handlePayPage} checked={orderMenu.length > 0} color="#EC424C"/>
         </SafeAreaView>
     );
 }

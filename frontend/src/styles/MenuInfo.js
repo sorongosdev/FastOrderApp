@@ -8,15 +8,16 @@ const styles = StyleSheet.create({
       wrap : {
         width : '100%',
         height : '100%', 
+        alignItems : 'center'
       },
       storeBox: {
-        height: '15%',
+        height: '10%',
         width: '100%',
-        marginTop : '6%',
-        marginLeft: '8%',
+        justifyContent : 'center',
+        alignItems : 'center'
       },
       InfoBox : {
-        width : '83%',
+        width : '85%',
         flexDirection : 'row',
         justifyContent : 'space-between'
       },
@@ -32,12 +33,64 @@ const styles = StyleSheet.create({
         fontSize : 20,
         fontStyle : 'normal',
         fontWeight : '400',
-        marginTop : '10%',
       },
       padding: {
         width: '100%',
         height: 10,
         backgroundColor: 'rgba(218, 218, 218, 0.25)'
+      },
+      wrapper : {
+        flexDirection : 'row',
+      },
+      round : {
+        borderRadius: 15,
+        height : 20,
+        width : 39,
+        backgroundColor : 'rgba(236, 66, 76, 0.30)',
+        alignItems :'center',
+        justifyContent : 'center'
+      },
+      flavoursBox : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        alignItems : 'center',
+        width : '85%',
+        marginBottom : '1%',
+      },
+      flavoursPrice : {
+        color : '#484747',
+        fontSize : 16,
+        fontStyle : 'normal',
+        fontWeight : '400',
+        marginLeft : '5%'
+      },
+      detailRound : {
+        borderRadius: 15,
+        height : 20,
+        width : 39,
+        backgroundColor : 'rgba(42, 42, 44, 0.10)',
+        alignItems :'center',
+        justifyContent : 'center'
+      },
+      flavoursBox : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        alignItems : 'center',
+        width : '85%',
+        marginBottom : '1%',
+      },
+      flavoursPrice : {
+        color : '#484747',
+        fontSize : 16,
+        fontStyle : 'normal',
+        fontWeight : '400',
+        marginLeft : '5%'
+      },
+      countBox : {
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'space-between',
+        width : '85%',
       },
       count: {
         borderWidth: 1,

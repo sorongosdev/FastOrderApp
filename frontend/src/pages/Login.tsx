@@ -1,16 +1,11 @@
-import 'react-native-gesture-handler';
+import { storeToken, getToken } from '../components/UserToken';
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
 import CheckedBox from '../assets/icon_checked_box.svg';
 import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
+import axios from 'axios';
 
 interface LoginProps {
   navigation: {
@@ -19,6 +14,7 @@ interface LoginProps {
 }
 
 // const BASE_URL = "http://3.39.26.152:8000";
+const BASE_URL = 'http://money.ipdisk.co.kr:58200';
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
@@ -26,25 +22,32 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false); //로그인 상태 유지
 
-//   const handleLogin = async () => {
-//     if (id !== '' && password !== '') {
-//         try {
-//             const response = await axios.post(`${BASE_URL}/api/login/`, {
-//                 id : id,
-//                 pw : password
-//             });
-//            //로그인 성공 시 ID 토큰 저장
-//            if(checked) {
-//              const token = response.data.token; // 서버에서 반환하는 토큰
-//              await AsyncStorage.setItem('idToken', token);            
-//            }
-//             // 로그인 성공 시 페이지 이동
-//             navigate('/BottomNavigation'); // 성공적으로 로그인한 후 메인 페이지로 이동
-//         } catch (error) {
-//             console.error("Error during login:", error);
-//         }
-//     }
-// };
+  const getFetchLogin = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/user/login`,
+        {
+          text_id: id,
+          pw: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(response.data);
+      const token = response.data.token; // 서버에서 반환하는 토큰
+      storeToken(token);
+      const userToken = await getToken();
+      console.log(userToken);
+      navigation.navigate('BottomNavigation'); // 성공적으로 가입한 후 메인 페이지로 이동
+    } catch (error) {
+      console.log('hi');
+      console.error('Error during signup:', error);
+    }
+    console.log('finish');
+  };
 
   function InputIdHandler(Id: string) {
     setId(Id);
@@ -57,7 +60,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   const handleLogin = () => {
     console.log('아이디:', id);
     console.log('비밀번호:', password);
-    navigation.navigate('BottomNavigation');
+    getFetchLogin();
   };
 
   function handleSignup() {
@@ -75,7 +78,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.img}>
-        <TradeMark/>
+        <TradeMark />
       </View>
       <View style={styles.titleWrap}>
         <Text style={styles.title}>패패오더</Text>
@@ -97,11 +100,9 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
 
       <View style={styles.checkWrap}>
         <TouchableOpacity onPress={() => setChecked(!checked)}>
-        {
-          checked ? <CheckedBox/> : <UnCheckedBox/>
-        }
+          {checked ? <CheckedBox /> : <UnCheckedBox />}
         </TouchableOpacity>
-        <Text style={styles.checkboxText}>로그인 상태 유지</Text>
+        <Text style={styles.checkboxText}>자동 로그인</Text>
       </View>
       <TouchableOpacity style={styles.buttonBox} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
