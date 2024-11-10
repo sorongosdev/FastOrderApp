@@ -13,7 +13,7 @@ export interface RouteProp {
   route: {
     params: {
       menuId: number;
-      // 필요한 다른 파라미터가 있다면 추가
+      storeId : number;
     };
   };
 }

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { NavigationProp } from '../navigation/NavigationProps'; 
+import { NavigationProp, RouteProp } from '../navigation/NavigationProps'; 
 import EmptyLike from '../assets/icon_empty_like.svg';
 import FullLike from '../assets/icon_full_like.svg';
 import Location from '../assets/icon_location.svg';
@@ -46,9 +46,12 @@ interface StoreInfo {
   store_type: string; // 가게 타입
 }
 
+type StoreProps = NavigationProp & RouteProp;
+
 const BASE_URL = "http://money.ipdisk.co.kr:58200/";
 
-export default function Store({ navigation }: NavigationProp): React.JSX.Element {
+export default function Store({ navigation, route }: StoreProps): React.JSX.Element {
+  const { storeId } = route.params;
   const [isFastOrderOn, setIsFastOrderOn] = useState<boolean>(true);
   const [likeChecked, setLikeChecked] = useState<boolean>(false);
   const titleImg = require('../assets/jjiggajjigga_title.png'); // require로 임포트
@@ -60,7 +63,7 @@ export default function Store({ navigation }: NavigationProp): React.JSX.Element
   useEffect(() => {
         const getFetchStoreMenu = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/stores/id/1002`);
+                const response = await axios.get(`${BASE_URL}/stores/id/${storeId}`);
                 // 응답이 배열인지 확인하고 설정
                 console.log(response.data);
                 const formattedMenu = response.data.menu_data;

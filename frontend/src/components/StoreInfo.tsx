@@ -30,7 +30,7 @@ export default function OrderHistory({
   const [store, setStore] = useState<Store | null>(null);
 
   const navigateToStore = () => {
-    navigation.navigate('Store');
+    navigation.navigate('Store', {storeId});
   };
 
   const getStoresByType = async (storeId: number) => {
