@@ -15,6 +15,7 @@ interface Store {
   latitude: string;
   longitude: string;
   store_type: string;
+  store_status: string;
 }
 
 interface CombinedProp extends NavigationProp {
@@ -59,7 +60,9 @@ export default function OrderHistory({
           </TouchableOpacity>
 
           <View style={styles.statusWrapper}>
-            <Text style={styles.businessStatus}>영업중</Text>
+            <Text style={styles.businessStatus}>
+              {store.store_status == 'Open' ? '영업중' : '영업전'}
+            </Text>
             <Text style={styles.orderStatus}> • 패스트 오더 가능</Text>
           </View>
 
