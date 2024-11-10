@@ -14,6 +14,7 @@ import EmptyEclips from "../assets/icon_eclips.svg";
 import UncheckedBox from "../assets/icon_unchecked_box.svg";
 import CheckedBox from "../assets/icon_checked_box.svg";
 import { setItem, getItem } from "../components/Cart";
+import { Menu } from "react-native-paper";
 
 // 메뉴 데이터 인터페이스
 interface MenuData {
@@ -97,32 +98,48 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     }, [menuId]);
 
     async function handleOrder() {
-        if (!menu) return; // menu가 null일 경우 주문 처리 중단
+        if (!menu) return; 
         if (!options) return;
-        
+    
+        const selectedOptionsDetails = options
+            .flatMap(option => option.details) 
+            .filter(detail => selectedOptions[detail.title]) 
+            .map(detail => ({
+                Cost: detail.price,
+                Title: detail.title,
+                OptionNo: detail.no, 
+            }));
+    
         const orderedMenu = {
             Menu: {
                 Price: menu.price,
                 Title: menu.name,
+                no: menuId, 
             },
             Count: count,
-            Price: calculateTotalPrice(), // 총 가격 계산
+            Price: calculateTotalPrice(), 
             Option: [
-                { Cost: menu.price, Title: selectedFlavor || "" }, // 선택된 맛
-                ...options
-                    .filter(option => selectedOptions[option.option.title])
-                    .flatMap(option => option.details.map(detail => ({ Cost: detail.price, Title: detail.title })))
+                { Cost: menu.price, Title: selectedFlavor || "기본맛", OptionNo: selectedFlavor }, 
+                ...selectedOptionsDetails, 
             ],
-            store_id : menu.store,
+            store_id: menu.store,
         };
-
+    
         const existingOrders = await getItem('cartItems');
         const orders = existingOrders ? JSON.parse(existingOrders) : [];
-        orders.push(orderedMenu); // 주문 항목 추가
+    
+        if (orders.length > 0 && orders[0].store_id !== orderedMenu.store_id) {
+            console.warn("다른 가게의 메뉴를 추가할 수 없습니다.");
+            return; 
+        }
+    
+        orders.push(orderedMenu);
         await setItem('cartItems', JSON.stringify(orders));
         console.log("Updated Cart Items:", orders);
         navigation.navigate('Shopping');
     }
+    
+    
 
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat("ko-KR").format(price);
@@ -157,8 +174,9 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     function handleToggleOption(optionTitle: string) {
         setSelectedOptions((prev) => ({
             ...prev,
-            [optionTitle]: !prev[optionTitle],
+            [optionTitle]: !prev[optionTitle]
         }));
+        console.log(selectedOptions);
     }
 
     return (

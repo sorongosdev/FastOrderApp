@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
     SafeAreaView,
     ScrollView,
@@ -20,12 +21,14 @@ import styles from "../styles/Pay";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 import { getItem } from "../components/Cart";
+import { getToken } from "../components/UserToken";
+import { setReception } from "../components/PayPost";
 
-// const BASE_URL = "http://3.39.26.152:8000";
 
 interface Option {
     Cost: number;
     Title: string;
+    OptionNo : number;
 }
 
 interface Menu {
@@ -41,6 +44,8 @@ interface CartItem {
     store_id?: number; // Optional field since it's only present in some items
 }
 
+const BASE_URL = "http://money.ipdisk.co.kr:58200/";
+
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
     const [requestText, setRequestText] = useState<string>('');
@@ -50,7 +55,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [count, setCount] = useState<number>(0); //식사 인원 카운트 수
     const [selectedCount, setSelectedCount] = useState<number>(0); //확정된 식사 인원 카운트 수 
     const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
-    const [pickupChecked, setPickupChecked] = useState<boolean>(false); //매장 식사 체크
+    const [pickupChecked, setPickupChecked] = useState<boolean>(false); //픽업 체크
     const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
 
 
@@ -70,21 +75,40 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
         fetchCartItems();
     }, []);
 
-    // const rankingGet = async () => {
-    //     try {
-    //         const response = await axios.get(`${BASE_URL}/api/galleries/ranking?type=사진&category=반려동물`);
-    //         // 응답이 배열인지 확인하고 설정
-    //         if (Array.isArray(response.data)) {
-    //             setRanking(response.data); // 배열로 설정
-    //             console.log(response.data);
-    //         } else {
-    //             console.error("응답이 배열이 아닙니다:", response.data);
-    //         }
+    const postFetchAll = async () => {
+        const token = await getToken();
 
-    //     } catch (error) {
-    //         console.error("Error fetching gets:", error);
-    //     }
-    // };
+        const orderPayload = {
+            store_id: orderMenu[0]?.store_id,
+            token: token,
+            order_type: storeChecked ? "매장식사" : "픽업",
+            people_count: selectedCount,
+            order_items: JSON.stringify(orderMenu),
+            order_notes: requestText,
+            cost_total: totalPrice,
+            cost_coupon: 0,
+        };
+
+        try {
+            const response = await axios.post(`${BASE_URL}/orders/new-order`, {
+                store_id: orderMenu[0].store_id,
+                token: token,
+                order_type: storeChecked ? "매장식사" : "픽업",
+                people_count: selectedCount,
+                order_items: JSON.stringify(orderMenu),
+                order_notes: requestText,
+                cost_total: totalPrice,
+                cost_coupon: 0,
+            });
+
+            console.log("Order Response:", response.data);
+
+            await setReception('orderPayload', JSON.stringify(orderPayload));
+            console.log("Order payload saved to AsyncStorage.");
+        } catch (error) {
+            console.error("Error posting order:", error);
+        }
+    };
 
     const totalPrice = orderMenu.reduce((total, item) => total + item.Price, 0);
 
@@ -108,6 +132,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     }
 
     function handleMoveReception() {
+        postFetchAll();
         navigation.navigate('Reception');
     }
     function handlePlus() {

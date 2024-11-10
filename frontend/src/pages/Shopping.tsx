@@ -63,8 +63,8 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
         const getFetchMenu = async () => {
             if (orderMenu.length > 0 && orderMenu[0].store_id) {
                 try {
-                    const response = await axios.get(`${BASE_URL}/stores/mini/id/${orderMenu[0].store_id}`);
-                    setStoreTitle(response.data.store_name);
+                    const response = await axios.get(`${BASE_URL}/stores/id/${orderMenu[0].store_id}`);
+                    setStoreTitle(response.data.store_data.store_name);
                 } catch (error) {
                     console.error("Error fetching menu info:", error);
                 }
