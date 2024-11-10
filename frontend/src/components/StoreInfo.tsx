@@ -16,6 +16,7 @@ interface Store {
   longitude: string;
   store_type: string;
   store_status: string;
+  seating_available: boolean;
 }
 
 interface CombinedProp extends NavigationProp {
@@ -63,7 +64,13 @@ export default function OrderHistory({
             <Text style={styles.businessStatus}>
               {store.store_status == 'Open' ? '영업중' : '영업전'}
             </Text>
-            <Text style={styles.orderStatus}> • 패스트 오더 가능</Text>
+            <Text style={styles.orderStatus}>
+              {' '}
+              •{' '}
+              {store.seating_available
+                ? '패스트 오더 가능'
+                : '패스트 오더 불가'}
+            </Text>
           </View>
 
           <ScrollView
