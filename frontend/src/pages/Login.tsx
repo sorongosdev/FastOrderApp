@@ -1,4 +1,4 @@
-import { storeToken, getToken } from '../components/UserToken';
+import {storeToken, getToken} from '../components/UserToken';
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
@@ -14,7 +14,7 @@ interface LoginProps {
 }
 
 // const BASE_URL = "http://3.39.26.152:8000";
-const BASE_URL = 'http://money.ipdisk.co.kr:58200';
+const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
@@ -27,8 +27,10 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
       const response = await axios.post(
         `${BASE_URL}/user/login`,
         {
-          text_id: id,
-          pw: password,
+          // text_id: id,
+          // pw: password,
+          text_id: 'jongjong',
+          pw: '1234',
         },
         {
           headers: {

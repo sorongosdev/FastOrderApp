@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://money.ipdisk.co.kr:58200';
+export const BASE_URL = 'http://money.ipdisk.co.kr:8220';
