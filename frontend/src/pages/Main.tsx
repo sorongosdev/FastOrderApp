@@ -32,7 +32,7 @@ const foodIcons = {
   기타: null, // 아이콘 없음
 } as const; // as const로 타입을 고정
 
-const BASE_URL = 'http://money.ipdisk.co.kr:58200';
+const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 interface Store {
   no: number;
