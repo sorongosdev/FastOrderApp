@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { NavigationProp, RouteProp } from '../navigation/NavigationProps'; 
+import { BASE_URL } from '../consts/Url';
 import EmptyLike from '../assets/icon_empty_like.svg';
 import FullLike from '../assets/icon_full_like.svg';
 import Location from '../assets/icon_location.svg';
@@ -48,7 +49,6 @@ interface StoreInfo {
 
 type StoreProps = NavigationProp & RouteProp;
 
-const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Store({ navigation, route }: StoreProps): React.JSX.Element {
   const { storeId } = route.params;

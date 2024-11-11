@@ -29,7 +29,7 @@ interface CartItem {
 }
 
 
-const BASE_URL = 'https://fforder.shop:58210';
+const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const menuImg = require('../assets/menu_title.png');

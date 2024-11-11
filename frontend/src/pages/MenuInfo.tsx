@@ -4,6 +4,7 @@ import { NavigationProp, RouteProp } from '../navigation/NavigationProps';
 import axios from "axios";
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
+import { BASE_URL } from '../consts/Url';
 import Plus from "../assets/icon_menu_plus.svg";
 import Minus from "../assets/icon_menu_minus.svg";
 import BottomButton from "../components/BottomButton";
@@ -52,13 +53,14 @@ interface MenuOption {
 
 type MenuInfoProps = NavigationProp & RouteProp;
 
-const BASE_URL = 'https://fforder.shop:58210';
 
 export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JSX.Element {
     const { menuId } = route.params;
     const [count, setCount] = useState(1);
     const [likeChecked, setLikeChecked] = useState<boolean>(false);
     const [selectedFlavor, setSelectedFlavor] = useState<string>("");
+    const [selectedRequiredNo, setSelectedRequiredNo] = useState<number>(0);
+    const [selectedRequiredCost, setSelectedRequiredCost] = useState<number>(0);
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: boolean }>({});
     const [menu, setMenu] = useState<MenuData | null>(null); // 메뉴 정보를 저장할 상태
     const [options, setOptions] = useState<MenuOption[]>([]); // 옵션 정보를 저장할 상태
@@ -130,7 +132,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             Count: count,
             Price: calculateTotalPrice(), 
             Option: [
-                { Cost: menu.price, Title: selectedFlavor || "기본맛", OptionNo: selectedFlavor }, 
+                ...(selectedFlavor === "필수 항목이 없음" ? [] : [{ Cost: selectedRequiredCost, Title: selectedFlavor , OptionNo: selectedRequiredNo  }]), 
                 ...selectedOptionsDetails, 
             ],
             store_id: menu.store,
@@ -153,7 +155,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     useEffect(() => {
         // options[0].option.is_required가 "required"가 아니면, selectedFlavor를 "1"로 설정
         if (options.length > 0 && options[0].option.is_required === "optional") {
-            setSelectedFlavor("1");
+            setSelectedFlavor("필수 항목이 없음");
         }
     }, [options]); // options가 변경될 때마다 이 효과 실행
     
@@ -185,8 +187,10 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
         setLikeChecked(!likeChecked);
     }
 
-    function handleSelectFlavor(flavor: string) {
-        setSelectedFlavor(flavor);
+    function handleSelectFlavor(Option : MenuDetail) {
+        setSelectedFlavor(Option.title);
+        setSelectedRequiredNo(Option.no);
+        setSelectedRequiredCost(Option.price);
         
     }
 
@@ -237,8 +241,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
                                 <TouchableOpacity
                                     style={styles.wrapper}
                                     onPress={() => {
-                                        handleSelectFlavor(optionObj.title);
-                                        handleToggleOption(optionObj.title);
+                                        handleSelectFlavor(optionObj);
                                     }}
                                 >
                                     {selectedFlavor === optionObj.title ? <CheckedEclips /> : <EmptyEclips />}

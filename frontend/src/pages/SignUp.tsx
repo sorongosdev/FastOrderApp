@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from "../styles/SignUp";
+import { BASE_URL } from '../consts/Url';
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
 
-const BASE_URL = 'https://fforder.shop:58210';
 export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
     const [id, setID] = useState<string>("");
     const [pw, setPW] = useState<string>("");

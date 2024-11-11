@@ -10,6 +10,7 @@ import {
     TextInput,
 } from 'react-native';
 import { NavigationProp } from '../navigation/NavigationProps';
+import { BASE_URL } from '../consts/Url';
 import NextArrow from '../assets/icon_next_arrow.svg';
 import CheckedEclips from '../assets/icon_checked_eclips.svg';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
@@ -44,7 +45,6 @@ interface CartItem {
     store_id?: number; // Optional field since it's only present in some items
 }
 
-const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [peopleModalVisible, setPeopleModalVisible] = useState<boolean>(false);
@@ -56,7 +56,8 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [storeChecked, setStoreChecked] = useState<boolean>(false); //매장 식사 체크
     const [pickupChecked, setPickupChecked] = useState<boolean>(false); //픽업 체크
     const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
-
+    const [userPoint, setUserPoint] = useState<number>(0);
+    
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -103,11 +104,26 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
             await setItem('cartItems', JSON.stringify([])); // 빈 배열로 초기화
 
             await setReception('orderPayload', JSON.stringify(orderPayload));
-            console.log("Order payload saved to AsyncStorage.");
+            console.log("Order payload saved to AsyncStorage.", orderPayload);
         } catch (error) {
             console.error("Error posting order:", error);
         }
     };
+
+    useEffect(() => {
+        const token = getToken();
+        const postFetchUserPoint = async () => {
+            try {
+                const response = await axios.post(`${BASE_URL}/user/getpoint`, {
+                    token : token
+                });
+                setUserPoint(response.data.current_point)
+            } catch (error) {
+                console.error("Error fetching menu info:", error);
+            }
+        };
+        postFetchUserPoint()
+    }, []);
 
     const totalPrice = orderMenu.reduce((total, item) => total + item.Price, 0);
 

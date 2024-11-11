@@ -2,6 +2,7 @@ import { storeToken, getToken } from '../components/UserToken';
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
+import { BASE_URL } from '../consts/Url';
 import CheckedBox from '../assets/icon_checked_box.svg';
 import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
@@ -13,7 +14,6 @@ interface LoginProps {
   };
 }
 
-const BASE_URL = 'https://fforder.shop:58210';
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
