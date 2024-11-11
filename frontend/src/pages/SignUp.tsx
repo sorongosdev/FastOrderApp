@@ -195,4 +195,3 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
         </TouchableOpacity>
     </SafeAreaView>)
 }
-
