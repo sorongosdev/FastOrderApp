@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
   },
+  keyboardVisible: {
+    backgroundColor: '#FFFFFF', // 키보드가 올라왔을 때 배경색
+  },
   text: {
     fontSize: 30,
     marginTop: 30,
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingBottom: 12.1,
     width: '100%',
-    height: SEARCHBAR_HEIGHT,
+    // height: SEARCHBAR_HEIGHT,
     backgroundColor: '#fff',
   },
   searchBarWrapper: {
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4F4',
     borderRadius: 5,
     flex: 1,
-    paddingLeft: 8,
+    paddingLeft: 13,
   },
   buttonGroup: {
     gap: 6,
