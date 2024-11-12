@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
       fontSize : 18,
       fontStyle : 'normal',
       fontWeight : '600',
-      marginLeft : '20%',
+      marginLeft : 30,
       textAlign : 'left'
 
     },
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
       fontSize : 16,
       fontStyle : 'normal',
       fontWeight : '500',
-      marginLeft : '20%',
+      marginLeft : 30,
       marginTop: '12%',
       textAlign : 'left'
     },

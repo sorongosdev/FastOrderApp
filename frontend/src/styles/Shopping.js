@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     storeName: {
         marginTop: 23,
-        color: 'var(--pont-color, #222)',
+        color: '#222',
         fontSize: 18,
         fontWeight: '600',
         fontStyle : 'normal',
@@ -31,27 +31,44 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: '80%',
     },
+    menuDetails : {
+        color: 'rgba(34, 34, 34, 0.80)',
+        fontSize: 14,
+        fontWeight: '400',
+        fontStyle : 'normal',
+        marginLeft: 38,
+        marginTop : '5%',
+    },
     orderMenu: {
         width: '100%',
-        height: width * 0.33, // 고정 높이 설정
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems : 'center',
+        marginVertical : 10
     },
     menuName: {
-        color: 'var(--pont-color, #222)',
+        color: '#222',
         fontSize: 18,
         fontWeight: '600',
         fontStyle : 'normal',
-        marginLeft: '20%',
-        marginTop : '15%',
+        marginLeft: 38,
     },
     menuPrice: {
         color: 'rgba(34, 34, 34, 0.80)',
         fontSize: 16,
         fontWeight: '400',
         fontStyle : 'normal',
-        marginLeft: '20%',
+        marginLeft: 38,
         marginTop : '5%',
+    },
+    menuImg: {
+        borderWidth: 1,
+        width: width * 0.18,
+        height: width * 0.18,
+        borderColor: '#DFDFDF',
+        borderRadius: 5,
+        backgroundColor: '#D9D9D9',
+        marginRight : '-12%',
     },
     count: {
         marginTop : '12%',
@@ -78,26 +95,19 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontStyle : 'normal',
     },
-    menuImg: {
-        borderWidth: 1,
-        width: width * 0.18,
-        height: width * 0.18,
-        borderColor: '#DFDFDF',
-        borderRadius: 5,
-        backgroundColor: '#D9D9D9',
-        marginRight : '-12%',
-        marginTop : '10%'
-    },
+    
     withSeparator: {
         borderBottomWidth: 1,
         borderColor: '#DFDFDF',
+        marginTop : 18,
+        paddingBottom : 10,
     },
     withoutSeparator: {
         borderBottomWidth: 0, // 마지막 항목의 경우 선을 없앰
     },
     cancel : {
         marginRight : '3%',
-        marginTop : '3%'
+        marginTop : '-30%',
     }
 });
 

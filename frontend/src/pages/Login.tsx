@@ -1,7 +1,8 @@
-import {storeToken, getToken} from '../components/UserToken';
+import { storeToken, getToken } from '../components/UserToken';
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
+import { BASE_URL } from '../consts/Url';
 import CheckedBox from '../assets/icon_checked_box.svg';
 import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
@@ -13,8 +14,6 @@ interface LoginProps {
   };
 }
 
-// const BASE_URL = "http://3.39.26.152:8000";
-const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
@@ -27,10 +26,8 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
       const response = await axios.post(
         `${BASE_URL}/user/login`,
         {
-          // text_id: id,
-          // pw: password,
-          text_id: 'jongjong',
-          pw: '1234',
+          text_id: id,
+          pw: password,
         },
         {
           headers: {
@@ -45,8 +42,7 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
       console.log(userToken);
       navigation.navigate('BottomNavigation'); // 성공적으로 가입한 후 메인 페이지로 이동
     } catch (error) {
-      console.log('hi');
-      console.error('Error during signup:', error);
+      console.error('Error during login:', error);
     }
     console.log('finish');
   };

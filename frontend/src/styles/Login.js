@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
+      paddingBottom : '10%',
     },
     img : {
       height: width * 0.4,
       width: width * 0.4, 
       alignItems: 'center',
       justifyContent : 'center',
-      marginBottom : '4%'
     },  
     titleWrap : {
       gap : '10%',
@@ -22,29 +22,31 @@ const styles = StyleSheet.create({
       alignItems : 'center'
     },
     title : {
-      color: 'var(--Labels-Primary, #000)',
+      color: '#222',
       fontSize : 32,
       fontStyle : 'normal',
       fontWeight : '600',
     },
     semiTitle : {
-      color: 'var(--Labels-Primary, #000)',
+      color: '#222',
       fontSize : 15,
       fontStyle : 'normal',
       fontWeight : '500',
     },
     input: {
-      height: 60,
-      width: 325,
-      borderColor: '#B5B5B5',
+      height: '7%',
+      width: '85%',
+      borderColor: '#FFF',
+      backgroundColor : '#F4F4F4',
       borderWidth: 1,
       marginTop: 9,
       paddingLeft: 21,
-      borderRadius : 50
+      borderRadius : 50,
+      fontSize : 16
     },
     buttonBox: {
-      height: 60,
-      width: 325,
+      height: '7%',
+      width: '85%',
       backgroundColor: '#1B1B1B',
       borderRadius: 50,
       justifyContent: 'center',
@@ -62,14 +64,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       width: 320,
-      marginTop: 14,
-      marginBottom : 14,
+      marginTop: 19,
+      marginBottom : 19,
       marginRight : '47%'
     },
     
     checkboxText: {
-      color: '#AAA',
-      fontSize: 14,
+      color: '#909090',
+      fontSize: 18,
       fontStyle: 'normal',
       fontWeight: '400',
       marginLeft : '2%',
@@ -84,17 +86,16 @@ const styles = StyleSheet.create({
     bottomText: {
       color: '#7F7F7F',
       textAlign: 'right',
-      fontSize: 14,
+      fontSize: 17,
       fontStyle: 'normal',
       fontWeight: '400',
     },
     bottomTextSign: {
       color: '#7F7F7F',
       textAlign: 'right',
-      fontSize: 14,
+      fontSize: 17,
       fontStyle: 'normal',
       fontWeight: '400',
-      marginTop: 1.4,
     },
   });
   
