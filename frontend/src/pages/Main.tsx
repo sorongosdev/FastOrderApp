@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import {NavigationProp} from '../navigation/NavigationProps';
 import axios from 'axios';
+/** Consts */
+import {BASE_URL} from '../consts/Url';
 /** Style */
 import styles from '../styles/Main';
 /** Icons */
@@ -31,8 +33,6 @@ const foodIcons = {
   카페: <CafeIcon width={16} height={16} />,
   기타: null, // 아이콘 없음
 } as const; // as const로 타입을 고정
-
-const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 interface Store {
   no: number;
