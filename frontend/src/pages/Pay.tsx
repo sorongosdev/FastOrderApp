@@ -57,13 +57,13 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
     const [pickupChecked, setPickupChecked] = useState<boolean>(false); //픽업 체크
     const [orderMenu, setOrderMenu] = useState<CartItem[]>([]);
     const [userPoint, setUserPoint] = useState<number>(0);
+    const [orderId, setOrderId] = useState<number>(0);
     
 
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
                 const cartItems = await getItem('cartItems');
-                console.log("Fetched Cart Items:", cartItems); // 데이터 출력
                 if (cartItems) {
                     setOrderMenu(JSON.parse(cartItems));
                 }
@@ -77,7 +77,6 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
     const postFetchAll = async () => {
         const token = await getToken();
-
         const orderPayload = {
             store_id: orderMenu[0]?.store_id,
             token: token,
@@ -88,41 +87,31 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
             cost_total: totalPrice,
             cost_coupon: 0,
         };
-
+    
         try {
-            const response = await axios.post(`${BASE_URL}/orders/new-order`, {
-                store_id: orderMenu[0].store_id,
-                token: token,
-                order_type: storeChecked ? "매장식사" : "픽업",
-                people_count: selectedCount,
-                order_items: JSON.stringify(orderMenu),
-                order_notes: requestText,
-                cost_total: totalPrice,
-                cost_coupon: 0,
-            });
-
+            const response = await axios.post(`${BASE_URL}/orders/new-order`, orderPayload);
+            const newOrderId = response.data.order_id; // 새로운 orderId 저장
+            setOrderId(newOrderId); // 상태 업데이트
             await setItem('cartItems', JSON.stringify([])); // 빈 배열로 초기화
-
             await setReception('orderPayload', JSON.stringify(orderPayload));
-            console.log("Order payload saved to AsyncStorage.", orderPayload);
+            // navigation.navigate에서 newOrderId 사용
+            navigation.navigate('Reception', { orderId: newOrderId });
         } catch (error) {
             console.error("Error posting order:", error);
         }
     };
 
     useEffect(() => {
-        const token = getToken();
-        const postFetchUserPoint = async () => {
+        const getFetchUserPoint = async () => {
             try {
-                const response = await axios.post(`${BASE_URL}/user/getpoint`, {
-                    token : token
-                });
-                setUserPoint(response.data.current_point)
+                const token = await getToken();
+                const response = await axios.get(`${BASE_URL}/user/getpoints?token=${token}`);
+                setUserPoint(response.data.current_point);
             } catch (error) {
                 console.error("Error fetching menu info:", error);
             }
         };
-        postFetchUserPoint()
+        getFetchUserPoint();
     }, []);
 
     const totalPrice = orderMenu.reduce((total, item) => total + item.Price, 0);
@@ -148,7 +137,6 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
 
     function handleMoveReception() {
         postFetchAll();
-        navigation.navigate('Reception');
     }
     function handlePlus() {
         setCount(count+1);
@@ -238,7 +226,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                                 <Text style={styles.papaPoint}>패패오더 포인트</Text>
                                 <View style={styles.textBox}>
                                     <Text style={styles.myPoint}>총 보유 포인트</Text>
-                                    <Text style={styles.myPoint}>{`${formatPrice(50000)}P`}</Text>
+                                    <Text style={styles.myPoint}>{`${formatPrice(userPoint)}P`}</Text>
                                 </View>
                             </View>
                             <View style={styles.grayBox}>
@@ -248,7 +236,7 @@ export default function Pay({ navigation }: NavigationProp):React.JSX.Element {
                                 </View>
                                 <View style={styles.textBox}>
                                     <Text style={styles.remainPointText}>예상 포인트 잔액</Text>
-                                    <Text style={styles.remainPoint}>{`${formatPrice(50000-totalPrice)}P`}</Text>
+                                    <Text style={styles.remainPoint}>{`${formatPrice(userPoint-totalPrice)}P`}</Text>
                                 </View>
                             </View>
                     </View>

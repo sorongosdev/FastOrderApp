@@ -153,11 +153,14 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     }
 
     useEffect(() => {
-        // options[0].option.is_required가 "required"가 아니면, selectedFlavor를 "1"로 설정
-        if (options.length > 0 && options[0].option.is_required === "optional") {
+        if (options.length === 0) {
+            // If there are no menu options, set selectedFlavor to indicate no required items.
+            setSelectedFlavor("필수 항목이 없음");
+        } else if (options[0].option.is_required === "optional") {
+            // If the first option exists and is not required, set selectedFlavor accordingly.
             setSelectedFlavor("필수 항목이 없음");
         }
-    }, [options]); // options가 변경될 때마다 이 효과 실행
+    }, [options]);
     
     
 
@@ -325,7 +328,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             <BottomButton 
                 name={`${formatPrice(calculateTotalPrice())}원 담기`} 
                 onPress={handleOrder} 
-                checked={count > 0 && selectedFlavor !== ""} 
+                checked={count > 0 && (options.some(option => option.option.is_required === "required") ? selectedFlavor !== "" && selectedFlavor !== "필수 항목이 없음" : true)}
                 color="#EC424C" 
             />
         </SafeAreaView>

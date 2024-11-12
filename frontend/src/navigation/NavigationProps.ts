@@ -14,6 +14,7 @@ export interface RouteProp {
     params: {
       menuId: number;
       storeId : number;
+      orderId : number;
     };
   };
 }

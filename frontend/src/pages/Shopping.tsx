@@ -4,6 +4,7 @@ import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image } from "r
 import { NavigationProp } from '../navigation/NavigationProps';
 import Plus from "../assets/icon_menu_plus.svg";
 import Minus from "../assets/icon_menu_minus.svg";
+import { BASE_URL } from "../consts/Url";
 import styles from "../styles/Shopping";
 import BottomButton from "../components/BottomButton";
 import TopTitle from "../components/TopTitle";
@@ -29,7 +30,6 @@ interface CartItem {
 }
 
 
-const BASE_URL = 'http://money.ipdisk.co.kr:8220';
 
 export default function Shopping({ navigation }: NavigationProp): React.JSX.Element {
     const menuImg = require('../assets/menu_title.png');
@@ -145,6 +145,7 @@ export default function Shopping({ navigation }: NavigationProp): React.JSX.Elem
                             >
                                 <View>
                                     <Text style={styles.menuName}>{item.Menu.Title}</Text>
+                                    <Text style={styles.menuDetails}>{`가격 : 1인분 (${formatPrice(item.Menu.Price)}원)`}</Text>
                                     <Text style={styles.menuPrice}>{formatPrice(item.Price)}원</Text>
                                     <View style={styles.count}>
                                         <TouchableOpacity style={styles.countIcon} onPress={() => handleMinus(index)}>

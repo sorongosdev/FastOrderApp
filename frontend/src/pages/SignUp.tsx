@@ -161,21 +161,21 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
         
             <Text style={styles.lableText}>아이디</Text>
             <View style={styles.authBox}>
-                <TextInput style={styles.inputButton} placeholder="아이디" placeholderTextColor="#929292" onChangeText={handleIdInput}></TextInput>
+                <TextInput style={styles.inputButton} placeholder="아이디를 입력하세요" placeholderTextColor="#B5B5B5" onChangeText={handleIdInput}></TextInput>
                 <TouchableOpacity style={styles.buttonBox} onPress={handleDuplicate}>
                     <Text style={styles.buttonText}>중복확인</Text>
                 </TouchableOpacity>
             </View>
 
             <Text style={styles.lableText}>비밀번호</Text>
-            <TextInput style={styles.input} placeholder="비밀번호" placeholderTextColor="#929292" onChangeText={handlePwInput} secureTextEntry={true}></TextInput>
-            <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#929292" onChangeText={handleSecondPW} secureTextEntry={true}></TextInput>
+            <TextInput style={styles.input} placeholder="비밀번호" placeholderTextColor="#B5B5B5" onChangeText={handlePwInput} secureTextEntry={true}></TextInput>
+            <TextInput style={styles.input} placeholder="비밀번호 확인" placeholderTextColor="#B5B5B5" onChangeText={handleSecondPW} secureTextEntry={true}></TextInput>
 
             <Text style={styles.lableText}>이름</Text>
-            <TextInput style={styles.inputName} placeholder="성명을 입력하세요" placeholderTextColor='#929292' onChangeText={handleName}/>
+            <TextInput style={styles.inputName} placeholder="성명을 입력하세요" placeholderTextColor='#B5B5B5' onChangeText={handleName}/>
             <Text style={styles.lableText}>휴대폰 인증</Text>
             <View style={styles.authBox}>
-                <TextInput style={styles.inputButton} placeholder="휴대폰 번호 (- 제외하고 입력)" placeholderTextColor="#929292" onChangeText={handlePhone}></TextInput>
+                <TextInput style={styles.inputButton} placeholder="휴대폰 번호 (- 제외하고 입력)" placeholderTextColor="#B5B5B5" onChangeText={handlePhone}></TextInput>
                 <TouchableOpacity style={styles.buttonBox} onPress={handleGetAuthentication}>
                     <Text style={styles.buttonText}>인증번호 받기</Text>
                 </TouchableOpacity>
@@ -183,7 +183,7 @@ export default function SignUp({navigation}: NavigationProp):React.JSX.Element {
             {
             !compareViewAuth ? null :
                 <View style={styles.authBox}>
-                    <TextInput style={styles.inputButton} placeholder="인증 번호" placeholderTextColor="#929292" onChangeText={handleAuthentication}></TextInput>
+                    <TextInput style={styles.inputButton} placeholder="인증 번호" placeholderTextColor="#B5B5B5" onChangeText={handleAuthentication}></TextInput>
                     <TouchableOpacity style={styles.buttonBox} onPress={handleSetAuthentication}>
                         <Text style={styles.buttonText}>인증번호 확인</Text>
                     </TouchableOpacity>
