@@ -65,7 +65,7 @@ export default function Store({ navigation, route }: StoreProps): React.JSX.Elem
               setLikeChecked(response.data.is_wished);
               setMenu(formattedMenu);
               setStore(response.data.store_data);
-              console.log(response.data);
+              console.log(JSON.stringify(response.data, null, 2));
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
@@ -97,10 +97,12 @@ export default function Store({ navigation, route }: StoreProps): React.JSX.Elem
               type : "store",
               store_id : storeId,
             });
+            console.log(response.data);
           } catch (error) {
             console.log("Error during Store Like");
           }
     }
+    postFetchStoreLike();
   }
 
 
@@ -108,7 +110,7 @@ export default function Store({ navigation, route }: StoreProps): React.JSX.Elem
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.wrap}>
-          <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={{ uri : store?.logo}}/>
+          <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={store?.logo}/>
           <View style={styles.infoBox}>
 
             <View style={styles.infoTopText}>
