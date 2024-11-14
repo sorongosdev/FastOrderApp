@@ -29,3 +29,4 @@
 }
 
 @end
+/Users/mango/Desktop/FastOrderApp/frontend/ios/GoogleService-Info.plist

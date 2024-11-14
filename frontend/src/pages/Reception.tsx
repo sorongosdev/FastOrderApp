@@ -74,8 +74,8 @@ export default function Reception({ navigation, route }: ReceptionProps): React.
         try {
             const token = await getToken();
             const response = await axios.get(`${BASE_URL}/user/oneOrderHistory?token=${token}&order_id=${orderId}`); // orderId 사용
+            
             console.log(response.data);
-    
             const { order_status } = response.data;
     
             if (order_status === "Cancelled" || order_status === "Rejected") {
@@ -119,7 +119,7 @@ export default function Reception({ navigation, route }: ReceptionProps): React.
                             <View style={{width : '85%'}}>
                                 <Text style={styles.lableText}>{`${orderMenu?.user_name}님의 주문이 준비중이예요`}</Text>
                                 <View style={styles.inputBox}>
-                                    <Text style={styles.inputText}>00:00시 완료 예정</Text>
+                                <Text style={styles.inputText}>{`${orderMenu?.ready_time_at.toString().slice(11,16)} 완료 예정`}</Text>
                                 </View>
                             </View>
                         ) : (
@@ -151,7 +151,7 @@ export default function Reception({ navigation, route }: ReceptionProps): React.
                                             <Text style={styles.menuPrice}>{`${formatPrice(item.Price)}원`}</Text>
                                         </View>
                                         <View style={styles.menuImg}>
-                                            <Image source={menuImg} style={{height :'100%', width : '100%'}}/>
+                                            <Image source={{uri : orderMenu.images[index]}} style={{height :'100%', width : '100%'}}/>
                                         </View>
                                     </View>
                                 ))

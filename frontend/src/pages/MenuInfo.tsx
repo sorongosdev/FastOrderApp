@@ -14,13 +14,14 @@ import CheckedEclips from "../assets/icon_checked_eclips.svg";
 import EmptyEclips from "../assets/icon_eclips.svg";
 import UncheckedBox from "../assets/icon_unchecked_box.svg";
 import CheckedBox from "../assets/icon_checked_box.svg";
+import { getToken } from "../components/UserToken";
 import { setItem, getItem } from "../components/Cart";
 
 // 메뉴 데이터 인터페이스
 interface MenuData {
     no: number;
     name: string;
-    image: string | null;
+    image: string 
     price: number;
     description: string;
     min_quantity: number;
@@ -64,7 +65,6 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: boolean }>({});
     const [menu, setMenu] = useState<MenuData | null>(null); // 메뉴 정보를 저장할 상태
     const [options, setOptions] = useState<MenuOption[]>([]); // 옵션 정보를 저장할 상태
-    const TitleImg = require('../assets/jjiggajjigga_title.png');
 
     const calculateTotalPrice = () => {
         if (!menu) return 0; // menu가 null일 경우 0 반환
@@ -100,9 +100,11 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     useEffect(() => {
         const getFetchMenuInfo = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/stores/id/menu/${menuId}`);
+                const token = await getToken();
+                const response = await axios.get(`${BASE_URL}/stores/id/menu/${menuId}?token=${token}`);
                 setMenu(response.data.menu_data); // 메뉴 정보 설정
                 setOptions(response.data.menu_options); // 옵션 정보 설정
+                setLikeChecked(response.data.is_wished);
             } catch (error) {
                 console.error("Error fetching menu info:", error);
             }
@@ -188,6 +190,18 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
 
     function handleLike() {
         setLikeChecked(!likeChecked);
+        const postFetchStoreLike = async () => {  //가게 아이디 넘겨줄 겁니다.
+            try {
+              const token = await getToken();
+              const response = await axios.post(`${BASE_URL}/user/wish`, {
+                token : token,
+                type : "menu",
+                store_id : menuId,
+              });
+            } catch (error) {
+              console.log("Error during Store Like");
+            }
+      }
     }
 
     function handleSelectFlavor(Option : MenuDetail) {
@@ -207,7 +221,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.wrap}>
-                <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={TitleImg} />
+                <StoreImg onBack={handleBack} onShopping={handleMoveShopping} img={{uri :menu?.image}} />
                 {menu && (
                     <View style={styles.storeBox}>
                         <View style={styles.InfoBox}>
