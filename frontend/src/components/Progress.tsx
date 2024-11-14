@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import styles from '../styles/Progress'; 
 
 interface ProgressBarProps {
   steps: string[];
-  currentStep: number; // 현재 단계 (0부터 시작)
+  currentStep: number;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
     const stepLineColor = () => {
-        if(currentStep == 0) {
+        if(currentStep === 0) {
             return '5%';
         } else if(currentStep == 1) {
             return '42%';

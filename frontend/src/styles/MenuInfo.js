@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         justifyContent : 'space-between'
       },
       menuName : {
-        color : 'var(--pont-color, #222)',
+        color : '#222',
         fontSize : 20,
         fontStyle : 'normal',
         fontWeight : '600',
@@ -32,11 +32,16 @@ const styles = StyleSheet.create({
         color : '#484747',
         fontSize : 20,
         fontStyle : 'normal',
-        fontWeight : '400',
+        fontWeight : '600',
       },
       padding: {
         width: '100%',
         height: 10,
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
+      },
+      paddingSecond: {
+        width: '100%',
+        height: 4,
         backgroundColor: 'rgba(218, 218, 218, 0.25)'
       },
       wrapper : {
@@ -53,7 +58,6 @@ const styles = StyleSheet.create({
       flavoursBox : {
         flexDirection : 'row',
         justifyContent : 'space-between',
-        alignItems : 'center',
         width : '85%',
         marginBottom : '1%',
       },
@@ -75,9 +79,7 @@ const styles = StyleSheet.create({
       flavoursBox : {
         flexDirection : 'row',
         justifyContent : 'space-between',
-        alignItems : 'center',
         width : '85%',
-        marginBottom : '1%',
       },
       flavoursPrice : {
         color : '#484747',

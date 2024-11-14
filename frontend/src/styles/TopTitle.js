@@ -3,14 +3,14 @@ import { StyleSheet } from "react-native"
 const styles = StyleSheet.create({
     wrapper : {
         width : '100%',
-        height : 51,
+        height : 80,
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
         position : 'relative'
     },
     mainText: {
-        color : 'var(--pont-color, #222)',
+        color : '#222',
         fontSize: 18,
         fontWeight: '600',
         textAlign: 'center',
