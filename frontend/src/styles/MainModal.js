@@ -37,14 +37,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    borderWidth: 1,
     flex: 5,
   },
   okText: {
     color: '#F55442',
     fontSize: 16,
     fontWeight: '500',
-    borderWidth: 1,
   },
 });
 
