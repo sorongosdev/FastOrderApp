@@ -3,6 +3,18 @@
  * navigate는 메서드 */
 export interface NavigationProp {
   navigation: {
-    navigate: (screen: string) => void;
+    navigate: (screen: string, params?: Record<string, any>) => void; // params를 추가하여 데이터 전달 가능
+    goBack: () => void;
+  };
+}
+
+// RouteProp 정의
+export interface RouteProp {
+  route: {
+    params: {
+      menuId: number;
+      storeId : number;
+      orderId : number;
+    };
   };
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, Dimensions} from 'react-native';
 import Animated, {
   useSharedValue,
@@ -10,94 +10,81 @@ import {
   PanGestureHandlerGestureEvent,
   ScrollView,
 } from 'react-native-gesture-handler';
-import MainListItem from '../components/MainListItem';
+/** Components */
+import OrderHistory from '../components/OrderHistory';
+import StoreInfo from '../components/StoreInfo';
+
 import {NavigationProp} from '../navigation/NavigationProps';
 import styles from '../styles/BottomSheet';
+import {HOME} from '../consts/BottomSheetConsts';
 
-const {height} = Dimensions.get('window');
-const SEARCHBAR_HEIGHT = 94;
-const SHEET_HEIGHT = height - SEARCHBAR_HEIGHT;
-const LIST_ITEM_HEIGHT = 238;
-const NAVIGATIONBAR_HEIGHT = 74;
-const HANDLE_HEIGHT = 44;
-const MAX_Y = SHEET_HEIGHT; // 최상단
-// const MID_Y = MAX_Y + SHEET_HEIGHT - LIST_ITEM_HEIGHT; // 중간 상태 // 300
-const MID_Y =
-  SHEET_HEIGHT +
-  SHEET_HEIGHT -
-  SEARCHBAR_HEIGHT -
-  LIST_ITEM_HEIGHT -
-  NAVIGATIONBAR_HEIGHT;
-const MIN_Y = MID_Y + LIST_ITEM_HEIGHT - HANDLE_HEIGHT; // 최하단
+const LIST_ITEM_HEIGHT = HOME.LIST_ITEM_HEIGHT;
+const HANDLE_HEIGHT = HOME.HANDLE_HEIGHT;
+
+interface CombinedInterface extends NavigationProp {
+  storeId: number | null;
+}
 
 export default function BottomSheet({
   navigation,
-}: NavigationProp): React.JSX.Element {
-  const translateY = useSharedValue(MID_Y);
+  storeId,
+}: CombinedInterface): React.JSX.Element {
+  const MAX_HEIGHT = LIST_ITEM_HEIGHT * 2; // 최상단 높이
+  const MID_HEIGHT = LIST_ITEM_HEIGHT; // 중간 높이
+  const MIN_HEIGHT = HANDLE_HEIGHT; // 최하단 높이
+
+  const heightValue = useSharedValue(MID_HEIGHT); // 초기 높이 설정
+  const handlePosition = useSharedValue(MID_HEIGHT); // 핸들의 Y 위치
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{translateY: translateY.value}],
+      height: heightValue.value,
     };
   });
 
   const handleGesture = (event: PanGestureHandlerGestureEvent) => {
-    if (event.nativeEvent.translationY < 0) {
-      console.log(height);
-      // 위로 슬라이드
-      if (translateY.value === MIN_Y) {
-        // 바텀시트 최하단일 때
-        if (event.nativeEvent.velocityY < -900) {
-          // 빠르게 슬라이드하면
-          translateY.value = withTiming(MAX_Y, {duration: 300}); // 바텀시트 최상단으로
-        } else {
-          // 느리게 슬라이드하면
-          translateY.value = withTiming(MID_Y, {duration: 300}); // 바텀시트 중간으로
-        }
-      } else if (translateY.value === MID_Y) {
-        // 바텀시트 중간
-        translateY.value = withTiming(MAX_Y, {duration: 300}); // 바텀시트 최상단으로
-      }
-    } else {
-      // console.log(event.nativeEvent.velocityY);
-      console.log(height);
+    const translationY = event.nativeEvent.translationY;
 
-      // 아래로 슬라이드
-      if (translateY.value === MAX_Y) {
-        // 바텀시트 최상단일 때
-        if (event.nativeEvent.velocityY > 900) {
-          // 빠르게 슬라이드하면
-          translateY.value = withTiming(MIN_Y, {duration: 300}); // 바텀시트 최하단으로
-        } else {
-          // 느리게 슬라이드하면
-          translateY.value = withTiming(MID_Y, {duration: 300}); // 바텀시트 중간으로
-        }
-      } else if (translateY.value === MID_Y) {
-        // 바텀시트 중간
-        translateY.value = withTiming(MIN_Y, {duration: 300}); // 바텀시트 최하단으로
-      }
+    // 드래그 거리의 일부만 사용하여 높이를 업데이트
+    const dragFactor = 0.2; // 드래그 반응 비율 조정
+    const newHeight = heightValue.value - translationY * dragFactor;
+
+    // 새로운 높이가 MIN_HEIGHT와 MAX_HEIGHT 사이에 있는지 확인
+    if (newHeight > MAX_HEIGHT) {
+      heightValue.value = MAX_HEIGHT;
+    } else if (newHeight < MIN_HEIGHT) {
+      heightValue.value = MIN_HEIGHT;
+    } else {
+      heightValue.value = newHeight; // 높이 업데이트
     }
   };
+
+  const handleGestureEnd = () => {
+    // 드래그가 끝났을 때 높이에 따라 고정
+    if (heightValue.value > MAX_HEIGHT - 100) {
+      heightValue.value = withTiming(MAX_HEIGHT, {duration: 100});
+    } else if (heightValue.value > MID_HEIGHT - 150) {
+      heightValue.value = withTiming(MID_HEIGHT, {duration: 100});
+    } else {
+      heightValue.value = withTiming(MIN_HEIGHT, {duration: 100});
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.sheet, animatedStyle]}>
-        <PanGestureHandler onGestureEvent={handleGesture}>
+        <PanGestureHandler
+          onGestureEvent={handleGesture}
+          onEnded={handleGestureEnd}>
           <View style={styles.handleBox}>
             <View style={styles.handle} />
           </View>
         </PanGestureHandler>
-        <Text style={styles.bottomSheetTitle}>
-          ㅇㅇ님의 최근 주문내역이에요!
-        </Text>
-        <ScrollView
-          showsVerticalScrollIndicator={false} // 수직 스크롤 바 숨기기
-        >
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-          <MainListItem navigation={navigation} />
-        </ScrollView>
+        {storeId ? (
+          <StoreInfo navigation={navigation} storeId={storeId} />
+        ) : (
+          <OrderHistory navigation={navigation} />
+        )}
       </Animated.View>
     </View>
   );

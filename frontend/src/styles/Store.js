@@ -1,22 +1,26 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container : {
       flexGrow : 1,
-    },
-    wrapper : {
+      backgroundColor : '#FFF'
     },
     wrap: {
       width : '100%',
-      paddingBottom : '118%'
     },
+
     infoBox: {
-      height: '27%',
       width: '100%',
       marginTop: 23,
       marginLeft: 26.5,
-      marginBottom : '10%'
+      marginBottom : '10%',
+    },
+    infoTopText: {
+      flexDirection: 'row',
+      width : '85%',
+      justifyContent : 'space-between'
     },
     infoText: {
       flexDirection: 'row',
@@ -28,26 +32,26 @@ const styles = StyleSheet.create({
       marginBottom : '1.5%'
     },
     minTime : {
-      color: "#464646",
-      fontSize: 16,
+      color: "#222",
+      fontSize: 14,
       fontWeight: "500",
       fontStyle: "normal",
     },
     maxTime : {
-      color: "#464646",
-      fontSize: 16,
+      color: "#222",
+      fontSize: 14,
       fontWeight: "500",
       fontStyle: "normal",
       marginLeft : '21%'
     },
     storeName: {
-      color: '#484747',
+      color: '#222',
       fontSize: 20,
       fontStyle: 'normal',
       fontWeight: '600',
     },
     storeMainMenu: {
-      color: '#7C7C7C',
+      color: 'rgba(34, 34, 34, 0.50)',
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '500',
@@ -56,13 +60,12 @@ const styles = StyleSheet.create({
     },
     likeImg : {
         marginLeft : '43%',
-        marginTop : '-1%'
     },
     locationImg : {
       marginTop : '4.7%'
     },
     storeAddress: {
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       marginTop: 17,
@@ -74,13 +77,13 @@ const styles = StyleSheet.create({
     },
     storeOpen: {
       marginTop: 10,
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       marginLeft : '1.5%'
     },
     storeFastOrder: {
-      color: '#7C7C7C',
+      color: '#rgba(34, 34, 34, 0.50)',
       fontSize: 14,
       fontStyle: 'normal',
       fontWeight: '500',
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
       marginTop : '2.8%'
     },  
     storePhoneNumber: {
-      color: '#464646',
+      color: '#222',
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '500',
@@ -111,11 +114,13 @@ const styles = StyleSheet.create({
     padding: {
       width: '100%',
       height: 10,
-      backgroundColor: '#D9D9D9',
+      backgroundColor: 'rgba(218, 218, 218, 0.25)'
+    },
+    menuWrap : {
     },
     menu: {
       width: '100%',
-      height: '18%',
+      height: width * 0.3,
       borderWidth: 1,
       borderTopWidth: 0,
       borderColor: '#DFDFDF',
@@ -125,8 +130,8 @@ const styles = StyleSheet.create({
     },
     menuImg : {
       borderWidth: 1,
-      width: '15%',
-      height: '55%',
+      width: width * 0.15,
+      height: width * 0.15,
       borderColor: '#DFDFDF',
       marginLeft : '3%',
       marginRight : '6%',
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
       fontSize : 18,
       fontStyle : 'normal',
       fontWeight : '600',
-      marginLeft : '20%',
+      marginLeft : 30,
       textAlign : 'left'
 
     },
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
       fontSize : 16,
       fontStyle : 'normal',
       fontWeight : '500',
-      marginLeft : '20%',
+      marginLeft : 30,
       marginTop: '12%',
       textAlign : 'left'
     },

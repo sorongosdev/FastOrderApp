@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {Alert} from 'react-native';
 import 'react-native-gesture-handler';
+import messaging from '@react-native-firebase/messaging';
+
 import Login from './src/pages/Login';
-import Main from './src/pages/Main';
+import MyDetail from './src/pages/MyDetail';
 import Store from './src/pages/Store';
 import SignUp from './src/pages/SignUp';
 import MenuInfo from './src/pages/MenuInfo';
 import Shopping from './src/pages/Shopping';
 import Pay from './src/pages/Pay';
+import Reception from './src/pages/Reception';
+
+/** Components */
+import BottomNavigation from './src/components/BottomNavigation';
+import FCMHandler from './src/components/FCMHandler'; // FCMHandler 컴포넌트 추가
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -17,11 +26,11 @@ export default function App(): React.JSX.Element {
   return (
     <PaperProvider>
       <NavigationContainer>
+        <FCMHandler />
         <Stack.Navigator>
           <Stack.Screen
             name="Login"
             component={Login}
-            // Appbar을 기본적으로 보여주고 있어서 일단 앱바 제거함
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -30,8 +39,13 @@ export default function App(): React.JSX.Element {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Main"
-            component={Main}
+            name="BottomNavigation"
+            component={BottomNavigation}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyDetail"
+            component={MyDetail}
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -52,6 +66,11 @@ export default function App(): React.JSX.Element {
           <Stack.Screen
             name="Pay"
             component={Pay}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Reception"
+            component={Reception}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

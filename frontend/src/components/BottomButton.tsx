@@ -1,20 +1,29 @@
 import styles from "../styles/BottomButton"
 
 import {
-    View,
+    Alert,
     Text,
     TouchableOpacity
 } from 'react-native';
 
 interface BottomButtonProps {
     name: string;
-    onPress : () => void
+    onPress: () => void;
+    checked: boolean;
+    color : string;
 }
 
-export default function BottomButton({name, onPress}:BottomButtonProps):React.JSX.Element {
+export default function BottomButton({ name, onPress, checked, color }: BottomButtonProps): React.JSX.Element {
+
+    function handleAlert() {
+        Alert.alert("필수 항목을 다 채워주시기 바랍니다.");
+    }
     return (
-        <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-            <Text style={styles.buttonText}>{name}</Text>
+        <TouchableOpacity 
+            style={[styles.buttonContainer, checked ? { backgroundColor: color} : {}]} 
+            onPress={checked ? onPress : handleAlert}
+        >
+            <Text style={[styles.buttonText, checked ? { color : '#FFF'} : {color : '#FFF'}]}>{name}</Text>
         </TouchableOpacity>
     )
 }

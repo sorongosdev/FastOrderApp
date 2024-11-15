@@ -8,79 +8,73 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
+      paddingBottom : '10%',
     },
     img : {
       height: width * 0.4,
       width: width * 0.4, 
-      borderWidth : 1,
-      borderColor : '#D9D9D9',
-      backgroundColor : '#D9D9D9',
-      marginBottom : '7%'
+      alignItems: 'center',
+      justifyContent : 'center',
     },  
+    titleWrap : {
+      gap : '10%',
+      marginBottom : '10%',
+      alignItems : 'center'
+    },
+    title : {
+      color: '#222',
+      fontSize : 32,
+      fontStyle : 'normal',
+      fontWeight : '600',
+    },
+    semiTitle : {
+      color: '#222',
+      fontSize : 15,
+      fontStyle : 'normal',
+      fontWeight : '500',
+    },
     input: {
       height: '7%',
-      width: '84%',
-      borderColor: '#B5B5B5',
+      width: '85%',
+      borderColor: '#FFF',
+      backgroundColor : '#F4F4F4',
       borderWidth: 1,
       marginTop: 9,
       paddingLeft: 21,
-      borderRadius : 50
+      borderRadius : 50,
+      fontSize : 16
     },
     buttonBox: {
       height: '7%',
-      width: '84%',
-      backgroundColor: '#D9D9D9',
+      width: '85%',
+      backgroundColor: '#1B1B1B',
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
     },
     buttonText: {
-      color: '#939393',
+      color: '#FFF',
+      fontFamily: 'Pretendard',
       fontSize: 18,
-      fontWeight: 'normal',
+      fontStyle: 'normal',
+      fontWeight: '600',
     },
     checkWrap: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       width: 320,
-      marginTop: 14,
-      marginBottom : 14,
-      marginRight : '52%'
+      marginTop: 19,
+      marginBottom : 19,
+      marginRight : '47%'
     },
-    CheckBox : {
-      height: width * 0.05,
-      width: width * 0.05, 
-      borderWidth: 1,
-      borderColor: '#D9D9D9',
-      borderRadius: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin : '2%',
-    },
-    customCheckBox: {
-      height : '100%',
-      width : '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-    },
-    checkMark: {
-      position: 'absolute',
-      left: 4, 
-      top: 3,
-      borderLeftWidth: 3,
-      borderBottomWidth: 3,
-      borderColor: 'orange',
-      transform: [{ rotate: '315deg' }], 
-      height: '50%', 
-      width: '60%'
-    },
+    
     checkboxText: {
-      color: '#AAA',
-      fontSize: 14,
+      color: '#909090',
+      fontSize: 18,
       fontStyle: 'normal',
       fontWeight: '400',
+      marginLeft : '2%',
     },
     bottomTextWrap: {
       flexDirection: 'row',
@@ -92,17 +86,16 @@ const styles = StyleSheet.create({
     bottomText: {
       color: '#7F7F7F',
       textAlign: 'right',
-      fontSize: 14,
+      fontSize: 17,
       fontStyle: 'normal',
       fontWeight: '400',
     },
     bottomTextSign: {
       color: '#7F7F7F',
       textAlign: 'right',
-      fontSize: 14,
+      fontSize: 17,
       fontStyle: 'normal',
       fontWeight: '400',
-      marginTop: 1.4,
     },
   });
   

@@ -1,87 +1,126 @@
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-    wrap: {
+    container: {
         flexGrow: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: '0%',
-        paddingBottom : '49%'
+        backgroundColor : '#FFF'
       },
-      storeImg: {
-        height: 157,
+      wrap : {
+        width : '100%',
+        height : '100%', 
+        alignItems : 'center'
+      },
+      storeBox: {
+        height: '10%',
         width: '100%',
-        backgroundColor: '#D9D9D9',
+        justifyContent : 'center',
+        alignItems : 'center'
       },
-      InfoPrice : {
-        flexDirection : 'row'
+      InfoBox : {
+        width : '85%',
+        flexDirection : 'row',
+        justifyContent : 'space-between'
       },
       menuName : {
+        color : '#222',
+        fontSize : 20,
+        fontStyle : 'normal',
+        fontWeight : '600',
+        marginTop : '1%',
+      },
+      price : {
         color : '#484747',
         fontSize : 20,
         fontStyle : 'normal',
         fontWeight : '600',
-        marginTop : '1%'
-      },
-      price : {
-        width : '70%',
-        color : '#484747',
-        fontSize : 17,
-        fontStyle : 'normal',
-        fontWeight : '600',
-        marginTop : '10%',
-        justifyContent : 'flex-end'
       },
       padding: {
         width: '100%',
         height: 10,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
       },
-      storeInfo: {
-        height: '16%',
+      paddingSecond: {
         width: '100%',
-        marginTop: 23,
-        marginLeft: '13%',
+        height: 4,
+        backgroundColor: 'rgba(218, 218, 218, 0.25)'
       },
-      input: {
-        height: 49,
-        width: 325,
-        borderColor: '#D9D9D9',
-        borderWidth: 1,
-        borderRadius : 5,
-        backgroundColor : 'rgb(217,217,217, 0.00)',
-        paddingLeft : 14
+      wrapper : {
+        flexDirection : 'row',
       },
-      storeRequestText :{
+      round : {
+        borderRadius: 15,
+        height : 20,
+        width : 39,
+        backgroundColor : 'rgba(236, 66, 76, 0.30)',
+        alignItems :'center',
+        justifyContent : 'center'
+      },
+      flavoursBox : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        width : '85%',
+        marginBottom : '1%',
+      },
+      flavoursPrice : {
         color : '#484747',
-        fontSize : 14,
-        fontWeight : '500',
+        fontSize : 16,
         fontStyle : 'normal',
-        marginTop : 14,
-        marginBottom : '2%',
-        marginLeft : '1.5%'
+        fontWeight : '400',
+        marginLeft : '5%'
       },
-      OrderButtonWrap: {
-        width: '100%',
-        alignItems: 'center',
-        justifyContent : 'flex-end',
-        marginTop: '80%',
+      detailRound : {
+        borderRadius: 15,
+        height : 20,
+        width : 39,
+        backgroundColor : 'rgba(42, 42, 44, 0.10)',
+        alignItems :'center',
+        justifyContent : 'center'
       },
-      OrderButton: {
-        width: 325,
-        height: 51,
-        borderRadius: 50,
-        backgroundColor: '#D9D9D9',
+      flavoursBox : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        width : '85%',
+      },
+      flavoursPrice : {
+        color : '#484747',
+        fontSize : 16,
+        fontStyle : 'normal',
+        fontWeight : '400',
+        marginLeft : '5%'
+      },
+      countBox : {
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'space-between',
+        width : '85%',
+      },
+      count: {
+        borderWidth: 1,
+        borderColor: '#D9D9D9',
+        borderRadius: 5,
+        width: 85,
+        height: 30,
+        marginTop: 31,
+        marginLeft: 19,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        
+        gap: 12,
+        marginLeft : '9%'
       },
-      OrderButtonText: {
+      countIcon : {
+        width : '20%',
+        height : '100%',
+        alignItems : 'center',
+        justifyContent : 'center'
+      },
+      countText: {
         color: '#484747',
         fontSize: 20,
         fontStyle: 'normal',
-        fontWeight: '600',
+        fontWeight: '500',
       },
+
 });
 
 export default styles;

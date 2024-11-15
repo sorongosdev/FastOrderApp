@@ -12,10 +12,20 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.7.0")
+        classpath("com.android.tools.build:gradle:8.6.0")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("com.google.gms:google-services:4.4.2")
     }
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://repository.map.naver.com/archive/maven" }
+    }
+}
+
 
 apply plugin: "com.facebook.react.rootproject"
