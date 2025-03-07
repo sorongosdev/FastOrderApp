@@ -145,9 +145,9 @@ src/
 - 이 바텀시트의 주문내역에서 원터치 주문이 가능합니다.
 - 지도의 마커를 누르면 가게 정보를 볼 수 있습니다.
 
-| 메인 기본 화면 | 필터링한 화면 |
-| :-----: | :-----: |
-|  |  |
+| 메인 기본 화면 | 필터링한 화면 | 바텀 시트 주문 내역 |
+| :-----: | :-----: | :-----: |
+| ![image](https://github.com/user-attachments/assets/64b555e0-8b5b-48bd-b5bd-5316fd2e458f) | ![image](https://github.com/user-attachments/assets/dc7109e2-16cf-444b-bf8c-55e894855ef7) | ![image](https://github.com/user-attachments/assets/18bf3049-7f12-4512-93a8-44ca206398f3) |
 
 ### <<주문내역>>
 - 주문한 내역을 최신 순으로 볼 수 있습니다.
@@ -155,7 +155,7 @@ src/
 
 | 주문내역 화면 |
 | :-----: |
-|  |
+| <img src="https://github.com/user-attachments/assets/00de7c28-4a51-4979-911e-d7667a448eba" width="300"> |
 
 ### <<찜 목록>>
 - 가게별로 찜한 목록을 볼 수 있습니다.
@@ -163,7 +163,7 @@ src/
 
 | 찜 목록 화면 |
 | :-----: |
-|  |
+| <img src="https://github.com/user-attachments/assets/b253fed1-a70c-4fc6-861d-ed3c4eb9fdfb" width="300"> |
 
 ### <<마이페이지>>
 - 포인트를 충전할 수 있습니다.
@@ -171,7 +171,7 @@ src/
 
 | 마이페이지 화면 |
 | :-----: |
-|  |
+| <img src="https://github.com/user-attachments/assets/613321ff-0c10-4c54-b773-7e5c52a1fcdd" width="300"> |
 
 ### <<`EDIT HERE`>>
 
