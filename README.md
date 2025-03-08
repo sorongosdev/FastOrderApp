@@ -90,6 +90,10 @@ git clone https://github.com/FastOrderApp/FastOrderApp.git
 ```bash
 npm install
 ```
+- iOS 의존성 불러오기
+```bash
+pod install
+```
 
 ### 🌐 개발 서버 실행
 ```bash
