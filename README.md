@@ -28,6 +28,7 @@
 ### 🔧 2) 개발 도구
 - Android Studio: 2024.2.2
 - Xcode: 15.2
+- Mac OS
 
 ### 📱 3) 테스트 환경
 - iOS 시뮬레이터: iPhone (iOS x.x.x) `EDIT HERE`
@@ -48,7 +49,7 @@
 - 문서 관리: Notion
 
 ### ☁️ 7) 서비스 배포 환경
-- 백엔드 서버: `EDIT HERE`
+- 백엔드 서버: 자체 서버
 
 ### 🎨 8) 디자인
 - Figma
@@ -58,7 +59,7 @@
 ### ⬇️ 1) 필수 설치 사항
 
 #### 기본 환경
-- Node.js (v18.0.0 이상)
+- Node.js (23.10.0)
 - npm (v8.0.0 이상) 또는 yarn (v1.22.0 이상)
 - JDK (Java Development Kit) 17
 - Android Studio (최신 버전)
@@ -94,23 +95,100 @@
 ```bash
 git clone https://github.com/FastOrderApp/FastOrderApp.git
 ```
+
+- node.js 설치 (brew를 통한 설치)
+```bash
+brew install node
+```
+
+- react native cli 설치
+```bash
+npm install -g react-native-cli
+```
+
 - 의존성 설치
 ```bash
+cd frontend
 npm install
 ```
+
+### 🌐 3) 앱 빌드
+
+#### iOS
+
 - iOS 의존성 불러오기
 ```bash
 pod install
 ```
 
-### 🌐 3) 앱 빌드
-```bash
-# iOS
-npx react-native run-ios
+- 파이어베이스 관련 파일 GoogleService-Info.plist 루트 경로에 추가
 
-# Android
+- /usr/local/bin 디렉토리 생성
+
+
+① iOS 실제 기기
+```bash
+brew install ios-deploy # 실제 기기에 설치
+npx react-native start
+i
+```
+
+② iOS 시뮬레이터
+```bash
+npx react-native run-ios
+```
+
+### Android
+
+- 자바 설치 및 환경변수 지정
+
+```bash
+brew install openjdk@17
+```
+
+- 경로 확인
+```bash
+# 경로 확인 (Apple Silicon Mac인 경우)
+sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+
+# Intel Mac인 경우
+sudo ln -sfn /usr/local/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+```
+
+- Java 관련 환경 변수 지정
+```bash
+# 실행 파일 경로 확인 (Apple Silicon Mac)
+echo 'export JAVA_HOME=/opt/homebrew/opt/openjdk@17' >> ~/.zshrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.zshrc
+
+# 또는 Intel Mac인 경우
+echo 'export JAVA_HOME=/usr/local/opt/openjdk@17' >> ~/.zshrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.zshrc
+
+# 터미널 로드
+source ~/.zshrc
+```
+- adb 설치
+```bash
+brew install android-platform-tools
+```
+
+- 안드로이드 SDK 관련 환경변수 설정
+```zsh
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulators
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+- 안드로이드 파이어베이스 관련 파일 `frontend\android\app\google-services.json` 경로에 추가 (google-services.json)
+
+③ 안드로이드 에뮬레이터
+```bash
 npx react-native run-android
 ```
+
 
 ## 🌿 5. 브랜치 전략
 - 작업자의 이름으로 브랜치 생성(sora, jongwon, ...)
@@ -230,8 +308,3 @@ src/
 ### 1) 알림 오면 화면 깨우지 못하는 문제
 - 안드로이드에서 알림을 수신하면 소리는 나지만, 화면을 깨우지 못합니다.
 - 네이티브단의 설정이 필요합니다.
-
-## 🎯 11. 개선 목표
-### 1) 시큐어코딩
-- 자체 호스팅을 통해 서버를 열었는데, 해킹 시도 문제가 발생했습니다.
-- 그래서 보안적인 면을 충분히 고려하여, 추후 서비스를 출시할 계획입니다.
