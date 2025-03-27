@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 /** Icons */
 import CloseIcon from '@assets/icon_close.svg';
@@ -7,25 +7,27 @@ import CloseIcon from '@assets/icon_close.svg';
 import styles from '../styles/LikesListItem';
 
 interface LikesListItemProp {
+  id?: number; // id 속성 추가
   name: string;
   price: number;
   img: string;
   editButtonClicked: boolean;
-  onRemoveMenu: () => void;
+  storeId: number;
+  onRemoveMenu: (menuId: number, storeId: number) => void;
 }
 
 export default function LikesListItem({
+  id, // id 추가
   name,
   price,
   img,
   editButtonClicked,
+  storeId,
   onRemoveMenu,
 }: LikesListItemProp): React.JSX.Element {
 
   const formatPrice = (price: number) => new Intl.NumberFormat("ko-KR").format(price);
-  useEffect(() => {
-    console.log(img);
-  }, []);
+  
   return (
     <View style={styles.totalContainer}>
       <View style={[styles.divider, {height: 1}]}></View>
@@ -44,7 +46,7 @@ export default function LikesListItem({
             style={[
               styles.closeIconBox,
               {display: editButtonClicked ? 'flex' : 'none'},
-            ]} onPress={onRemoveMenu}>
+            ]} onPress={() => onRemoveMenu(id || 0, storeId)}>
               <CloseIcon />
             </TouchableOpacity>
         </View>

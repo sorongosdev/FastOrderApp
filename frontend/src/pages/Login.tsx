@@ -1,12 +1,11 @@
-import { storeToken, getToken } from '../components/UserToken';
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import UnCheckedBox from '../assets/icon_unchecked_box.svg';
-import { BASE_URL } from '../consts/Url';
 import CheckedBox from '../assets/icon_checked_box.svg';
 import TradeMark from '../assets/icon_trademark.svg';
 import styles from '../styles/Login';
-import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { loginUser } from '../redux/slices/userSlice';
 
 interface LoginProps {
   navigation: {
@@ -14,35 +13,23 @@ interface LoginProps {
   };
 }
 
-
 export default function Login({navigation}: LoginProps): React.JSX.Element {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false); //로그인 상태 유지
 
-  const getFetchLogin = async () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, error } = useAppSelector((state) => state.user);
+
+  const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        `${BASE_URL}/user/login`,
-        {
-          text_id: id,
-          pw: password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(response.data);
-      const token = response.data.token; // 서버에서 반환하는 토큰
-      storeToken(token);
-      const userToken = await getToken();
-      console.log(userToken);
-      navigation.navigate('BottomNavigation'); // 성공적으로 가입한 후 메인 페이지로 이동
+      const resultAction = await dispatch(loginUser({ textId: id, pw: password }));
+      if (loginUser.fulfilled.match(resultAction)) {
+        navigation.navigate('BottomNavigation');
+      }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Login failed:', error);
     }
   };
 
@@ -53,12 +40,6 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
   function InputPWHandler(Password: string) {
     setPassword(Password);
   }
-
-  const handleLogin = () => {
-    console.log('아이디:', id);
-    console.log('비밀번호:', password);
-    getFetchLogin();
-  };
 
   function handleSignup() {
     navigation.navigate('SignUp');
@@ -101,9 +82,19 @@ export default function Login({navigation}: LoginProps): React.JSX.Element {
         </TouchableOpacity>
         <Text style={styles.checkboxText}>자동 로그인</Text>
       </View>
-      <TouchableOpacity style={styles.buttonBox} onPress={handleLogin}>
-        <Text style={styles.buttonText}>로그인</Text>
+      
+      {error && <Text style={{ color: 'red' }}>{error}</Text>}
+      
+      <TouchableOpacity 
+        style={styles.buttonBox} 
+        onPress={handleLogin}
+        disabled={isLoading}
+      >
+        <Text style={styles.buttonText}>
+          {isLoading ? '로그인 중...' : '로그인'}
+        </Text>
       </TouchableOpacity>
+      
       <View style={styles.bottomTextWrap}>
         <Text style={styles.bottomText} onPress={handleSearchId}>
           아이디 찾기

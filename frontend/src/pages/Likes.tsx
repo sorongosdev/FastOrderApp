@@ -8,100 +8,73 @@ import LikesListItem from '../components/LikesListItem';
 /** Packages */
 import {ScrollView} from 'react-native-gesture-handler';
 import LikesStoreHeader from '../components/LikesStoreHeader';
+/** Redux */
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { fetchWishlist } from '../redux/slices/wishlistSlice';
 /** Props */
 import {NavigationProp} from '../navigation/NavigationProps';
-import axios from 'axios';
-import { BASE_URL } from '../consts/Url';
-import { getToken } from '../components/UserToken';
-
-interface Menu {
-  menu_name: string;
-  menu_price: number;
-  menu_image_url: string;
-}
-
-interface Store {
-  user_id : string;
-  store_name: string;
-  store_description: string | null;
-  menus: Menu[];
-}
 
 export default function Likes({navigation}: NavigationProp): React.JSX.Element {
-  const [likesMenu, setLikesMenu] = useState<Store []>([]);
-  const [userName, setUserName] = useState<string>("");
-  useEffect(() => {
-      const getFetchLikes = async() => {
-        try {
-          const token = await getToken();
-          const response = await axios.get(`${BASE_URL}/user/wishlist?token=${token}`);
-          setLikesMenu(response.data);
-          setUserName(response.data[0].user_id);
-        } catch(error) {
-          console.log(error);
-        }
-      };
-      getFetchLikes();
-  }, [])
-
+  const dispatch = useAppDispatch();
+  const { token, userId } = useAppSelector(state => state.user);
+  const { stores, isLoading } = useAppSelector(state => state.wishlist);
+  
   const [editButton, setEditButton] = useState(false);
+
+  // 컴포넌트 마운트 시 찜 목록 불러오기
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchWishlist(token));
+    }
+  }, [dispatch, token]);
 
   const toggleEditButton = () => {
     setEditButton(prevEditButton => !prevEditButton);
-    console.log('edit button pressed');
   };
-
-  function handleRemoveStore(storeIndex : number) {
-    setLikesMenu((prev => {
-      const updatedStores = [...prev];
-      updatedStores.splice(storeIndex, 1);
-      return updatedStores;
-    }))
-  }
-
-  function handleRemoveMenu(storeIndex : number, menuIndex : number) {
-    setLikesMenu((prev) => {
-      const updatedStores = [...prev];
-      updatedStores[storeIndex].menus.splice(menuIndex, 1);
-
-      if(updatedStores[storeIndex].menus.length === 0) {
-        updatedStores.splice(storeIndex,1);
-      }
-
-      return updatedStores;
-    })
-  }
 
   return (
     <View style={styles.container}>
-      <AppbarSmall title={`${userName}님의 찜`} navigation={navigation} />
+      <AppbarSmall title={`${userId || ''}님의 찜`} navigation={navigation} />
       <View style={[styles.divider, {height: 2}]}></View>
       <View style={styles.editWrapper}>
         <TouchableOpacity style={styles.editButton} onPress={toggleEditButton}>
           <Text style={styles.editText}>{editButton ? '완료' : '편집'}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.contentContainer}>
-        {likesMenu.map((item, storeIndex) => (
-          <View key={storeIndex}>
-            <LikesStoreHeader
-              storeName={item.store_name}
-              storeDescription={item.store_description}
-              onRemoveStore={() => handleRemoveStore(storeIndex)}
-            />
-            {item.menus.map((menu, menuIndex) => (
-              <LikesListItem
-                key={menuIndex}
-                name={menu.menu_name}
-                price={menu.menu_price}
-                img={menu.menu_image_url}
-                editButtonClicked={editButton}
-                onRemoveMenu={() => handleRemoveMenu(storeIndex, menuIndex)}
-              />
-            ))}
-          </View>
-        ))}
-      </ScrollView>
+      
+      {isLoading ? (
+        <View style={styles.contentContainer}>
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>불러오는 중...</Text>
+        </View>
+      ) : (
+        <ScrollView style={styles.contentContainer}>
+          {stores.length === 0 ? (
+            <Text style={{ textAlign: 'center', marginTop: 20 }}>찜한 가게나 메뉴가 없습니다.</Text>
+          ) : (
+            stores.map((store) => (
+              <View key={store.store_id}>
+                <LikesStoreHeader
+                  storeId={store.store_id}
+                  storeName={store.store_name}
+                  storeDescription={store.store_description}
+                />
+                {store.menus.map((menu, menuIndex) => (
+                  <LikesListItem
+                    key={menuIndex}
+                    id={menu.menu_id}
+                    name={menu.menu_name}
+                    price={menu.menu_price}
+                    img={menu.menu_image_url}
+                    editButtonClicked={editButton}
+                    storeId={store.store_id}
+                    onRemoveMenu={() => {}} // onRemoveMenu prop 추가
+                  />
+                ))}
+              </View>
+            ))
+          )}
+        </ScrollView>
+      )}
     </View>
   );
 }

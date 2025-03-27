@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, Alert } from "react-native";
-import { NavigationProp, RouteProp } from "../navigation/NavigationProps";
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, Image } from "react-native";
+import type { StackScreenProps } from '@react-navigation/stack';
+import type { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/NavigationProps';
 import axios from "axios";
 import styles from "../styles/MenuInfo";
 import StoreImg from "../components/StoreImg";
@@ -14,8 +16,10 @@ import CheckedEclips from "../assets/icon_checked_eclips.svg";
 import EmptyEclips from "../assets/icon_eclips.svg";
 import CheckedBox from "../assets/icon_checked_box.svg";
 import UnCheckedBox from "../assets/icon_unchecked_box.svg";
-import { getToken } from "../components/UserToken";
-import { setItem, getItem } from "../components/Cart";
+/** Redux */
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { addToCart } from '../redux/slices/cartSlice';
+import { addToWishlist, removeFromWishlist } from '../redux/slices/wishlistSlice';
 
 // 메뉴 데이터 인터페이스
 interface MenuData {
@@ -52,9 +56,15 @@ interface MenuOption {
     details: MenuDetail[];
 }
 
-type MenuInfoProps = NavigationProp & RouteProp;
+// 타입 정의를 명확히 수정
+type MenuInfoProps = StackScreenProps<RootStackParamList, 'MenuInfo'>;
+
 
 export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JSX.Element {
+    const dispatch = useAppDispatch();
+    const token = useAppSelector(state => state.user.token);
+    const { storeId: cartStoreId, items: cartItems } = useAppSelector(state => state.cart);
+
     const { menuId } = route.params;
     const [count, setCount] = useState(1);
     const [likeChecked, setLikeChecked] = useState<boolean>(false);
@@ -93,8 +103,11 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
     useEffect(() => {
         const getFetchMenuInfo = async () => {
             try {
-                const token = await getToken();
-                const response = await axios.get(`${BASE_URL}/stores/id/menu/${menuId}?token=${token}`);
+                const url = token
+                    ? `${BASE_URL}/stores/id/menu/${menuId}?token=${token}`
+                    : `${BASE_URL}/stores/id/menu/${menuId}`;
+
+                const response = await axios.get(url);
                 setMenu(response.data.menu_data);
                 setOptions(response.data.menu_options);
                 setLikeChecked(response.data.is_wished);
@@ -104,20 +117,25 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             }
         };
         getFetchMenuInfo();
-    }, [menuId]);
+    }, [menuId, token]);
 
-    async function handleOrder() {
+    function handleOrder() {
         if (!menu || !options) return;
 
+        // 선택된 옵션 정보 생성
         const selectedOptionsDetails = options
-            .flatMap(option => option.details)
-            .filter(detail => selectedOptions[`${detail.no}_${detail.title}`])
-            .map(detail => ({
-                Cost: detail.price,
-                Title: detail.title,
-                OptionNo: detail.no,
-            }));
+        .flatMap((currentOption) => {
+            const optionNo = currentOption.option.no;
+            return currentOption.details
+                .filter(detail => selectedOptions[`${optionNo}_${detail.title}`])
+                .map(detail => ({
+                    Cost: detail.price,
+                    Title: detail.title,
+                    OptionNo: detail.no,
+                }));
+        });
 
+        // 주문 메뉴 객체 생성
         const orderedMenu = {
             Menu: {
                 Price: menu.price,
@@ -134,18 +152,31 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             store_id: menu.store,
         };
 
-        const existingOrders = await getItem("cartItems");
-        const orders = existingOrders ? JSON.parse(existingOrders) : [];
-
-        if (orders.length > 0 && orders[0].store_id !== orderedMenu.store_id) {
-            Alert.alert("다른 가게의 메뉴를 추가할 수 없습니다.");
-            return;
+        // 다른 가게의 메뉴를 담으려고 할 때 확인
+        if (cartStoreId !== null && cartStoreId !== menu.store && cartItems.length > 0) {
+            Alert.alert(
+                "다른 가게 메뉴",
+                "장바구니에는 한 가게의 메뉴만 담을 수 있습니다. 기존 메뉴를 삭제하고 새로운 메뉴를 담으시겠습니까?",
+                [
+                    {
+                        text: "취소",
+                        style: "cancel"
+                    },
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            // 장바구니에 메뉴 추가 - Redux 액션 디스패치
+                            dispatch(addToCart(orderedMenu));
+                            navigation.navigate("Shopping");
+                        }
+                    }
+                ]
+            );
+        } else {
+            // 장바구니에 메뉴 추가 - Redux 액션 디스패치
+            dispatch(addToCart(orderedMenu));
+            navigation.navigate("Shopping");
         }
-
-        orders.push(orderedMenu);
-        await setItem("cartItems", JSON.stringify(orders));
-        console.log("Updated Cart Items:", orders);
-        navigation.navigate("Shopping");
     }
 
     function handleToggleOption(optionTitle: string, optionGroupNo: number, isDuplicateAllowed: "Yes" | "No", isRequired: "required" | "optional") {
@@ -153,28 +184,51 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
             const groupSelected = Object.entries(prev)
                 .filter(([key]) => key.startsWith(`${optionGroupNo}_`))
                 .find(([, isSelected]) => isSelected);
-    
+
             if (isDuplicateAllowed === "No" && groupSelected && !prev[`${optionGroupNo}_${optionTitle}`]) {
                 Alert.alert("이 옵션은 그룹 내에서 하나만 선택할 수 있습니다.");
                 return prev;
             }
-    
+
             const updatedOptions = {
                 ...prev,
                 [`${optionGroupNo}_${optionTitle}`]: !prev[`${optionGroupNo}_${optionTitle}`],
             };
-    
+
             // 필수 항목이면서 선택된 옵션일 때, 해당 옵션을 selectedFlavor로 설정
             if (isRequired === "required" && updatedOptions[`${optionGroupNo}_${optionTitle}`]) {
                 setSelectedFlavor(optionTitle);
             } else if (isRequired === "required") {
                 setSelectedFlavor(""); // 필수 항목이 선택 해제되면 초기화
             }
-    
+
             return updatedOptions;
         });
     }
-    
+
+    // 찜 토글 함수
+    function handleToggleLike() {
+        if (!menu || !token) return;
+
+        if (likeChecked) {
+            // 찜 제거
+            dispatch(removeFromWishlist({
+                token,
+                storeId: menu.store,
+                menuId: menu.no
+            }));
+        } else {
+            // 찜 추가
+            dispatch(addToWishlist({
+                token,
+                storeId: menu.store,
+                menuId: menu.no
+            }));
+        }
+
+        // 즉각적인 UI 업데이트를 위해 상태 변경
+        setLikeChecked(!likeChecked);
+    }
 
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat("ko-KR").format(price);
@@ -196,7 +250,7 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
                     <View style={styles.storeBox}>
                         <View style={styles.InfoBox}>
                             <Text style={styles.menuName}>{menu.name}</Text>
-                            <TouchableOpacity onPress={() => setLikeChecked(!likeChecked)}>
+                            <TouchableOpacity onPress={handleToggleLike}>
                                 {likeChecked ? <FullLike /> : <EmptyLike />}
                             </TouchableOpacity>
                         </View>
@@ -215,23 +269,23 @@ export default function MenuInfo({ navigation, route }: MenuInfoProps): React.JS
                         </View>
                         {option.details.map((detail) => (
                             <View key={detail.no} style={styles.flavoursBox}>
-                                { option.option.is_required === "required" ? 
+                                {option.option.is_required === "required" ?
                                     (
-                                <TouchableOpacity
-                                    style={styles.wrapper}
-                                    onPress={() => handleToggleOption(detail.title, option.option.no, option.option.is_duplicate_allowed, option.option.is_required)}
-                                >
-                                    {selectedOptions[`${option.option.no}_${detail.title}`] ? <CheckedBox /> : <UnCheckedBox />}
-                                    <Text style={styles.flavoursPrice}>{detail.title}</Text>
-                                </TouchableOpacity>
-                                ) : (
-                                <TouchableOpacity
-                                    style={styles.wrapper}
-                                    onPress={() => handleToggleOption(detail.title, option.option.no, option.option.is_duplicate_allowed, option.option.is_required)}
-                                >
-                                    {selectedOptions[`${option.option.no}_${detail.title}`] ? <CheckedEclips/> : <EmptyEclips />}
-                                    <Text style={styles.flavoursPrice}>{detail.title}</Text>
-                                </TouchableOpacity>)
+                                        <TouchableOpacity
+                                            style={styles.wrapper}
+                                            onPress={() => handleToggleOption(detail.title, option.option.no, option.option.is_duplicate_allowed, option.option.is_required)}
+                                        >
+                                            {selectedOptions[`${option.option.no}_${detail.title}`] ? <CheckedBox /> : <UnCheckedBox />}
+                                            <Text style={styles.flavoursPrice}>{detail.title}</Text>
+                                        </TouchableOpacity>
+                                    ) : (
+                                        <TouchableOpacity
+                                            style={styles.wrapper}
+                                            onPress={() => handleToggleOption(detail.title, option.option.no, option.option.is_duplicate_allowed, option.option.is_required)}
+                                        >
+                                            {selectedOptions[`${option.option.no}_${detail.title}`] ? <CheckedEclips /> : <EmptyEclips />}
+                                            <Text style={styles.flavoursPrice}>{detail.title}</Text>
+                                        </TouchableOpacity>)
                                 }
 
                                 <Text style={styles.flavoursPrice}>{`${formatPrice(detail.price)}원`}</Text>
