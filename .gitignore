@@ -1,3 +1,4 @@
 
 frontend/android/app/google-services.json
 frontend/ios/GoogleService-Info.plist
+.DS_Store
