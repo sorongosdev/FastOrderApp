@@ -2,10 +2,6 @@
 #
 .DS_Store
 
-# Pod
-#
-/ios/Podfile.lock
-
 # Xcode
 #
 build/
@@ -25,8 +21,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 **/.xcode.env.local
-/ios/frontend.xcodeproj/project.pbxproj
-/ios/frontend.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 
 # Android/IntelliJ
 #
@@ -39,6 +33,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+.kotlin/
 
 # node.js
 #
